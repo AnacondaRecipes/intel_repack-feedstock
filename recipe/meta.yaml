@@ -1,15 +1,16 @@
-{% set version='2018.0.0' %}
-{% set buildnum='5' %}
-{% set dstbuildnum='6' %}
-{% set mkl_include_buildnum='2' %}
-{% set openmp_buildnum='7' %}
+{% set version='2018.0.1' %}
+{% set buildnum='4' %}
+# use this if our build script changes and we need to increment beyond intel's version
+# {% set dstbuildnum='4' %}
+{% set openmp_version='2018.0.0' %}
+{% set openmp_buildnum='8' %}
 
 package:
   name: intel_repacks
   version: {{ version }}
 
 build:
-  number: {{ dstbuildnum }}
+  number: {{ buildnum }}
   binary_relocation: false
   detect_binary_files_with_prefix: false
 
@@ -18,7 +19,7 @@ source:
     folder: mkl
   - url: https://anaconda.org/intel/mkl-include/{{ version }}/download/{{ target_platform }}/mkl-include-{{ version }}-intel_{{ mkl_include_buildnum }}.tar.bz2
     folder: mkl-include
-  - url: https://anaconda.org/intel/openmp/{{ version }}/download/{{ target_platform }}/openmp-{{ version }}-intel_{{ openmp_buildnum }}.tar.bz2
+  - url: https://anaconda.org/intel/openmp/{{ openmp_version }}/download/{{ target_platform }}/openmp-{{ openmp_version }}-intel_{{ openmp_buildnum }}.tar.bz2
     folder: intel-openmp
 
 outputs:
@@ -42,7 +43,6 @@ outputs:
 
   - name: mkl-include
     script: repack.sh
-    number: {{ mkl_include_buildnum }}
     requirements:
     about:
       home: https://software.intel.com/en-us/mkl
@@ -73,6 +73,7 @@ outputs:
     provides_features:
       openmp: intel
     number: {{ openmp_buildnum }}
+    version: {{ openmp_version }}
     about:
       home: https://software.intel.com/en-us/node/522690
       license: proprietary - Intel
