@@ -65,8 +65,9 @@ necessary), such that all binaries in DST_DIR are thin binaries of ARCH.""")
         p.error('no such directory: %s' % dst_dir)
 
     for src_path in src_paths:
-        cp_arch(src_path, os.path.join(dst_dir, os.path.basename(src_path)),
-                arch=opts.arch, ignore_wrong_arch=opts.ignore_wrong_arch)
+        if os.path.isfile(src_path):
+            cp_arch(src_path, os.path.join(dst_dir, os.path.basename(src_path)),
+                    arch=opts.arch, ignore_wrong_arch=opts.ignore_wrong_arch)
 
 
 if __name__ == '__main__':

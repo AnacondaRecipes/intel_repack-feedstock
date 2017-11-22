@@ -17,7 +17,7 @@ build:
 source:
   - url: https://anaconda.org/intel/mkl/{{ version }}/download/{{ target_platform }}/mkl-{{ version }}-intel_{{ buildnum }}.tar.bz2
     folder: mkl
-  - url: https://anaconda.org/intel/mkl-include/{{ version }}/download/{{ target_platform }}/mkl-include-{{ version }}-intel_{{ mkl_include_buildnum }}.tar.bz2
+  - url: https://anaconda.org/intel/mkl-include/{{ version }}/download/{{ target_platform }}/mkl-include-{{ version }}-intel_{{ buildnum }}.tar.bz2
     folder: mkl-include
   - url: https://anaconda.org/intel/openmp/{{ openmp_version }}/download/{{ target_platform }}/openmp-{{ openmp_version }}-intel_{{ openmp_buildnum }}.tar.bz2
     folder: intel-openmp
@@ -55,19 +55,6 @@ outputs:
         This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
       doc_url: https://software.intel.com/en-us/mkl/documentation
 
-  - name: mkl-devel
-    script: install-devel.sh
-    requirements:
-      run:
-        - {{ pin_subpackage('mkl', exact=True) }}
-        - {{ pin_subpackage('mkl-include', exact=True) }}
-    # when stuff is built with MKL, ensure that constraint makes mkl runtime libs as new or
-    #     newer than build version
-    run_exports:
-      - {{ pin_subpackage('mkl', max_pin=None) }}
-    about:
-      summary: Metapacakge of MKL headers and libraries for developing software that uses MKL
-
   - name: intel-openmp
     script: repack.sh
     provides_features:
@@ -84,3 +71,16 @@ outputs:
         Intel openmp runtime implementation
         This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
       doc_url: https://software.intel.com/en-us/node/522690
+
+  - name: mkl-devel
+    script: install-devel.sh
+    requirements:
+      run:
+        - {{ pin_subpackage('mkl', exact=True) }}
+        - {{ pin_subpackage('mkl-include', exact=True) }}
+    # when stuff is built with MKL, ensure that constraint makes mkl runtime libs as new or
+    #     newer than build version
+    run_exports:
+      - {{ pin_subpackage('mkl', max_pin=None) }}
+    about:
+      summary: Metapacakge of MKL headers and libraries for developing software that uses MKL
