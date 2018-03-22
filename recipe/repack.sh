@@ -14,12 +14,14 @@ fi
 
 rm -rf $PREFIX/info
 
-if [[ $(uname) == Darwin && -d $SRC_DIR/$PKG_NAME/lib ]]; then
-  # Strip off support for PPC - saves about 100 MB
-  if [ -d "$PREFIX/lib/intel64" ]; then
-      rm -rf "$SRC_DIR/$PKG_NAME/lib/intel64"
-      rm -rf "$PREFIX/lib/intel64"
-  fi
-  python $RECIPE_DIR/deuniversalize.py --ignore-wrong-arch $SRC_DIR/$PKG_NAME/lib/* $PREFIX/lib
+# Not necessary anymore.  Intel has been stripping these out themselves since 2018.0.1
+#
+# if [[ $(uname) == Darwin && -d $SRC_DIR/$PKG_NAME/lib ]]; then
+#   # Strip off support for PPC - saves about 100 MB
+#   if [ -d "$PREFIX/lib/intel64" ]; then
+#       rm -rf "$SRC_DIR/$PKG_NAME/lib/intel64"
+#       rm -rf "$PREFIX/lib/intel64"
+#   fi
+#   python $RECIPE_DIR/deuniversalize.py --ignore-wrong-arch $SRC_DIR/$PKG_NAME/lib/* $PREFIX/lib
 
-fi
+# fi

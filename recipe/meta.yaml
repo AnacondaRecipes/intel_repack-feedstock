@@ -1,6 +1,5 @@
-{% set version='2018.0.1' %}
-{% set buildnum='4' %}
-{% set repack_buildnum='5' %}
+{% set version='2018.0.2' %}
+{% set buildnum='1' %}
 
 # use this if our build script changes and we need to increment beyond intel's version
 # {% set dstbuildnum='4' %}
@@ -12,7 +11,7 @@ package:
   version: {{ version }}
 
 build:
-  number: {{ repack_buildnum }}
+  number: {{ buildnum }}
   binary_relocation: false
   detect_binary_files_with_prefix: false
 
@@ -30,6 +29,8 @@ outputs:
     provides_features:
       blas: mkl
     requirements:
+      host:
+        - intel-openmp
       run:
         - intel-openmp
     about:
