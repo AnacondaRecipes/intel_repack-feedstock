@@ -75,8 +75,17 @@ outputs:
         This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
       doc_url: https://software.intel.com/en-us/node/522690
 
+  # mutex package to keep only one blas implementation in a given env
+  - name: blas
+    version: 1.0
+    build:
+      string: mkl
+
   - name: mkl-devel
     script: install-devel.sh
+    build:
+      # TODO: this is bumped because of the addition of blas run export.  Reset at next MKL version.
+      number: 3
     requirements:
       run:
         - {{ pin_subpackage('mkl', exact=True) }}
@@ -85,5 +94,6 @@ outputs:
     #     newer than build version
     run_exports:
       - {{ pin_subpackage('mkl', max_pin=None) }}
+      - {{ pin_subpackage('blas', exact=True) }}
     about:
       summary: Metapacakge of MKL headers and libraries for developing software that uses MKL
