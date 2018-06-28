@@ -1,10 +1,10 @@
-{% set version='2018.0.2' %}
+{% set version='2018.0.3' %}
 {% set buildnum='1' %}
 
 # use this if our build script changes and we need to increment beyond intel's version
 # {% set dstbuildnum='4' %}
-{% set openmp_version='2018.0.0' %}
-{% set openmp_buildnum='8' %}
+{% set openmp_version='2018.0.3' %}
+{% set openmp_buildnum='0' %}
 
 package:
   name: intel_repacks
@@ -101,16 +101,15 @@ outputs:
   - name: mkl-devel
     script: install-devel.sh
     build:
-      # TODO: this is bumped because of the addition of blas run export.  Reset at next MKL version.
-      number: 3
+      # when stuff is built with MKL, ensure that constraint makes mkl runtime libs as new or
+      #     newer than build version
+      run_exports:
+        - {{ pin_subpackage('mkl', max_pin=None) }}
+        - {{ pin_subpackage('blas', exact=True) }}
     requirements:
       run:
         - {{ pin_subpackage('mkl', exact=True) }}
         - {{ pin_subpackage('mkl-include', exact=True) }}
-    # when stuff is built with MKL, ensure that constraint makes mkl runtime libs as new or
-    #     newer than build version
-    run_exports:
-      - {{ pin_subpackage('mkl', max_pin=None) }}
-      - {{ pin_subpackage('blas', exact=True) }}
+
     about:
       summary: Metapacakge of MKL headers and libraries for developing software that uses MKL
