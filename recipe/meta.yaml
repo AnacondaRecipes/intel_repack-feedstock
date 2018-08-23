@@ -110,6 +110,7 @@ outputs:
       run:
         - {{ pin_subpackage('mkl', exact=True) }}
         - {{ pin_subpackage('mkl-include', exact=True) }}
+        - blas * mkl
 
     about:
       summary: Metapacakge of MKL headers and libraries for developing software that uses MKL
