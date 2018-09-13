@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 
-cp $SRC_DIR/$PKG_NAME/info/LICENSE.txt $SRC_DIR
+cp -f $SRC_DIR/$PKG_NAME/info/LICENSE.txt $SRC_DIR
 # for subpackages, we have named our extracted locations according to the subpackage name
 #    That's what this $PKG_NAME is doing - picking the right subfolder to rsync
 

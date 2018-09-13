@@ -1,10 +1,10 @@
-{% set version='2018.0.3' %}
-{% set buildnum='1' %}
+{% set version="2019.0" %}
+{% set buildnum="117" %}
 
 # use this if our build script changes and we need to increment beyond intel's version
 # {% set dstbuildnum='4' %}
-{% set openmp_version='2018.0.3' %}
-{% set openmp_buildnum='0' %}
+{% set openmp_version=version %}
+{% set openmp_buildnum=buildnum %}
 
 package:
   name: intel_repacks
@@ -37,7 +37,7 @@ source:
     folder: mkl
   - url: https://anaconda.org/intel/mkl-include/{{ version }}/download/{{ target_platform }}/mkl-include-{{ version }}-intel_{{ buildnum }}.tar.bz2
     folder: mkl-include
-  - url: https://anaconda.org/intel/openmp/{{ openmp_version }}/download/{{ target_platform }}/openmp-{{ openmp_version }}-intel_{{ openmp_buildnum }}.tar.bz2
+  - url: https://anaconda.org/intel/intel-openmp/{{ openmp_version }}/download/{{ target_platform }}/intel-openmp-{{ openmp_version }}-intel_{{ openmp_buildnum }}.tar.bz2
     folder: intel-openmp
 
 outputs:
