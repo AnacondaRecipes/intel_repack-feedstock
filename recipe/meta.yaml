@@ -4,6 +4,7 @@
 # use this if our build script changes and we need to increment beyond intel's version
 # {% set dstbuildnum='4' %}
 {% set openmp_version=version %}
+  # 117 was intel's base build number.  We're up 1 after making the license file not read-only
 {% set openmp_buildnum=buildnum %}
 
 package:
@@ -11,7 +12,8 @@ package:
   version: {{ version }}
 
 build:
-  number: {{ buildnum }}
+  # 117 was intel's base build number.  We're up 1 after making the license file not read-only
+  number: {{ buildnum | int + 1 }}
   binary_relocation: false
   detect_binary_files_with_prefix: false
   skip: True                                  # [ppc64le]
@@ -79,7 +81,7 @@ outputs:
     script: repack.sh
     provides_features:
       openmp: intel
-    number: {{ openmp_buildnum }}
+    number: {{ openmp_buildnum | int + 1 }}
     version: {{ openmp_version }}
     about:
       home: https://software.intel.com/en-us/node/522690
