@@ -36,6 +36,7 @@ build:
 
 source:
   - url: https://anaconda.org/intel/mkl/{{ version }}/download/{{ target_platform }}/mkl-{{ version }}-intel_{{ buildnum }}.tar.bz2
+    sha256: eecb1ead7f2708d858c374fb8176321b7b2ca868050e6cf1afcb5fa9c364529e  # [osx]
     folder: mkl
   - url: https://anaconda.org/intel/mkl-include/{{ version }}/download/{{ target_platform }}/mkl-include-{{ version }}-intel_{{ buildnum }}.tar.bz2
     folder: mkl-include
