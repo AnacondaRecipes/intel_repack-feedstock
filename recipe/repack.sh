@@ -1,29 +1,16 @@
 #!/bin/bash
 set -ex
 
-cp -f $SRC_DIR/$PKG_NAME/info/LICENSE.txt $SRC_DIR
-# ro by default.  Makes installations not cleanly removable.
-chmod 664 $SRC_DIR/LICENSE.txt
 # for subpackages, we have named our extracted locations according to the subpackage name
 #    That's what this $PKG_NAME is doing - picking the right subfolder to rsync
 
-if [[ `uname` == "Linux" || `uname` == "Darwin" ]]; then
-    cp -rv $SRC_DIR/$PKG_NAME/* "$PREFIX/"
-else
-    src=$(cygpath -u "$SRC_DIR/$PKG_NAME/")
-    cp -rv $src/* "$PREFIX/"
-fi
+src="$SRC_DIR/$PKG_NAME"
+# not all packages have the license file.  Copy it from mkl, where we know it exists
+cp -f "$SRC_DIR/mkl/info/LICENSE.txt" "$SRC_DIR"
+cp -rv "$src"/* "$PREFIX/"
 
-rm -rf $PREFIX/info
+# ro by default.  Makes installations not cleanly removable.
+chmod 664 "$SRC_DIR/LICENSE.txt"
 
-# Not necessary anymore.  Intel has been stripping these out themselves since 2018.0.1
-#
-# if [[ $(uname) == Darwin && -d $SRC_DIR/$PKG_NAME/lib ]]; then
-#   # Strip off support for PPC - saves about 100 MB
-#   if [ -d "$PREFIX/lib/intel64" ]; then
-#       rm -rf "$SRC_DIR/$PKG_NAME/lib/intel64"
-#       rm -rf "$PREFIX/lib/intel64"
-#   fi
-#   python $RECIPE_DIR/deuniversalize.py --ignore-wrong-arch $SRC_DIR/$PKG_NAME/lib/* $PREFIX/lib
-
-# fi
+# replace old info folder with our new regenerated one
+rm -rf "$PREFIX/info"

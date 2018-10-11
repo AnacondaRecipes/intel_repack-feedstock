@@ -36,8 +36,9 @@ build:
 
 source:
   - url: https://anaconda.org/intel/mkl/{{ version }}/download/{{ target_platform }}/mkl-{{ version }}-intel_{{ buildnum }}.tar.bz2
-    sha256: eecb1ead7f2708d858c374fb8176321b7b2ca868050e6cf1afcb5fa9c364529e  # [osx]
     folder: mkl
+  - url: https://anaconda.org/intel/mkl-devel/{{ version }}/download/{{ target_platform }}/mkl-devel-{{ version }}-intel_{{ buildnum }}.tar.bz2
+    folder: mkl-devel
   - url: https://anaconda.org/intel/mkl-include/{{ version }}/download/{{ target_platform }}/mkl-include-{{ version }}-intel_{{ buildnum }}.tar.bz2
     folder: mkl-include
   - url: https://anaconda.org/intel/intel-openmp/{{ openmp_version }}/download/{{ target_platform }}/intel-openmp-{{ openmp_version }}-intel_{{ openmp_buildnum }}.tar.bz2
@@ -45,9 +46,8 @@ source:
 
 outputs:
   - name: mkl
-    script: mkl_repack_and_patchelf.sh
-    provides_features:
-      blas: mkl
+    script: repack.sh   # [unix]
+    script: repack.bat  # [win]
     requirements:
       host:
         - intel-openmp
@@ -65,8 +65,8 @@ outputs:
       doc_url: https://software.intel.com/en-us/mkl/documentation
 
   - name: mkl-include
-    script: repack.sh
-    requirements:
+    script: repack.sh   # [unix]
+    script: repack.bat  # [win]
     about:
       home: https://software.intel.com/en-us/mkl
       license: proprietary - Intel
@@ -79,9 +79,8 @@ outputs:
       doc_url: https://software.intel.com/en-us/mkl/documentation
 
   - name: intel-openmp
-    script: repack.sh
-    provides_features:
-      openmp: intel
+    script: repack.sh   # [unix]
+    script: repack.bat  # [win]
     number: {{ openmp_buildnum | int + 1 }}
     version: {{ openmp_version }}
     about:
@@ -102,8 +101,12 @@ outputs:
       string: mkl
 
   - name: mkl-devel
-    script: install-devel.sh
+    script: install-devel.sh   # [unix]
+    script: install-devel.bat  # [win]
     build:
+      # WARNING: manually set buildnum here.  We don't want to bump mkl to force a new download,
+      #    but we need to fix https://github.com/ContinuumIO/anaconda-issues/issues/10154
+      number: 119
       # when stuff is built with MKL, ensure that constraint makes mkl runtime libs as new or
       #     newer than build version
       run_exports:
