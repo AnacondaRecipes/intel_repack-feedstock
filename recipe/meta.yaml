@@ -106,9 +106,6 @@ outputs:
     script: install-devel.sh   # [unix]
     script: install-devel.bat  # [win]
     build:
-      # WARNING: manually set buildnum here.  We don't want to bump mkl to force a new download,
-      #    but we need to fix https://github.com/ContinuumIO/anaconda-issues/issues/10154
-      number: 119
       # when stuff is built with MKL, ensure that constraint makes mkl runtime libs as new or
       #     newer than build version
       run_exports:
