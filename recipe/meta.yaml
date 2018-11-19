@@ -1,5 +1,5 @@
-{% set version="2019.0" %}
-{% set buildnum="117" %}
+{% set version="2019.1" %}
+{% set buildnum="144" %}
 
 # use this if our build script changes and we need to increment beyond intel's version
 # {% set dstbuildnum='4' %}
@@ -13,7 +13,7 @@ package:
 
 build:
   # 117 was intel's base build number.  We're up 1 after making the license file not read-only
-  number: {{ buildnum | int + 1 }}
+  number: {{ buildnum }}
   binary_relocation: false
   detect_binary_files_with_prefix: false
   skip: True                                  # [ppc64le]
@@ -81,7 +81,7 @@ outputs:
   - name: intel-openmp
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
-    number: {{ openmp_buildnum | int + 1 }}
+    number: {{ openmp_buildnum }}
     version: {{ openmp_version }}
     about:
       home: https://software.intel.com/en-us/node/522690
@@ -110,7 +110,7 @@ outputs:
       # when stuff is built with MKL, ensure that constraint makes mkl runtime libs as new or
       #     newer than build version
       run_exports:
-        - {{ pin_subpackage('mkl', max_pin=None) }}
+        - {{ pin_subpackage('mkl') }}
         - {{ pin_subpackage('blas', exact=True) }}
     requirements:
       run:
@@ -119,4 +119,4 @@ outputs:
         - blas * mkl
 
     about:
-      summary: Metapacakge of MKL headers and libraries for developing software that uses MKL
+      summary: Metapackage of MKL headers and libraries for developing software that uses MKL
