@@ -33,6 +33,8 @@ build:
     # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
     - libiomp5.so
     - libcoi_device.so.0
+    - /usr/lib/libstdc++.so.6       # [linux]
+    - /usr/lib/libc++.1.dylib       # [osx]
 
 source:
   - url: https://anaconda.org/intel/mkl/{{ version }}/download/{{ target_platform }}/mkl-{{ version }}-intel_{{ buildnum }}.tar.bz2
