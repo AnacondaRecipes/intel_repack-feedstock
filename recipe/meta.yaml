@@ -106,6 +106,8 @@ outputs:
     script: install-devel.sh   # [unix]
     script: install-devel.bat  # [win]
     build:
+      # we had to fix site.cfg in 2019.1.  We're off by one.
+      number: {{ buildnum | int + 1 }}
       # when stuff is built with MKL, ensure that constraint makes mkl runtime libs as new or
       #     newer than build version
       run_exports:
