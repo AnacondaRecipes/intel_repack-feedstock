@@ -46,6 +46,14 @@ source:
     folder: mkl-include
   - url: https://anaconda.org/intel/intel-openmp/{{ openmp_version }}/download/{{ target_platform }}/intel-openmp-{{ openmp_version }}-intel_{{ openmp_buildnum }}.tar.bz2
     folder: intel-openmp
+  - url: https://anaconda.org/intel/daal/{{ version }}/download/{{ target_platform }}/daal-{{ version }}-intel_{{ buildnum }}.tar.bz2
+    folder: daal
+  - url: https://anaconda.org/intel/daal-include/{{ version }}/download/{{ target_platform }}/daal-include-{{ version }}-intel_{{ buildnum }}.tar.bz2
+    folder: daal-include
+  - url: https://anaconda.org/intel/daal-static/{{ version }}/download/{{ target_platform }}/daal-static-{{ version }}-intel_{{ buildnum }}.tar.bz2
+    folder: daal-static
+  - url: https://anaconda.org/intel/daal-devel/{{ version }}/download/{{ target_platform }}/daal-devel-{{ version }}-intel_{{ buildnum }}.tar.bz2
+    folder: daal-devel
 
 outputs:
   - name: mkl
@@ -122,3 +130,49 @@ outputs:
 
     about:
       summary: Metapackage of MKL headers and libraries for developing software that uses MKL
+
+  - name: daal
+    script: repack.sh   # [unix]
+    script: repack.bat  # [win]
+    build:
+      number: {{ buildnum }}
+    requirements:
+      run:
+        - tbb {{ version.split('.')[0] }}.*
+    about:
+      summary: DAAL runtime libraries
+
+  - name: daal-include
+    script: repack.sh   # [unix]
+    script: repack.bat  # [win]
+    build:
+      number: {{ buildnum }}
+    about:
+      summary: Headers for building against DAAL libraries
+
+  - name: daal-static
+    script: repack.sh   # [unix]
+    script: repack.bat  # [win]
+    build:
+      number: {{ buildnum }}
+    requirements:
+      run:
+        - {{ pin_subpackage('daal-include', exact=True) }}
+        - tbb {{ version.split('.')[0] }}.*
+    about:
+      summary: Static libraries for DAAL
+
+  - name: daal-devel
+    script: repack.sh   # [unix]
+    script: repack.bat  # [win]
+    build:
+      number: {{ buildnum }}
+      run_exports:
+        - {{ pin_subpackage('daal') }}
+
+    requirements:
+      run:
+        - {{ pin_subpackage('daal-include', exact=True) }}
+        - {{ pin_subpackage('daal', exact=True) }}
+    about:
+      summary: Devel package for building things linked against DAAL shared libraries
