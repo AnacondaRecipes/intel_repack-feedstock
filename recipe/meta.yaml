@@ -136,7 +136,28 @@ outputs:
     script: repack.bat  # [win]
     build:
       number: {{ buildnum }}
+      missing_dso_whitelist:
+        # just ignore tbb on mac.  We could add it as a dep when we have it.
+        - libtbb.dylib                   # [osx]
+        # this one should be here, probably needs fixup of RUNPATH/RPATH
+        - libiomp5.dylib                   # [osx]
+        # normal linux stuff that would go away if we had libgcc-ng in the run deps
+        - /lib/ld-linux.so.2
+        - /lib64/ld-linux-x86-64.so.2
+        - /lib/libpthread.so.0
+        - /lib/libdl.so.2
+        - /lib/libgcc_s.so.1
+        - /lib/libc.so.6
+        - /lib/libm.so.6
+        - lib/libgcc_s.so.1
+        # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
+        - libiomp5.so
+        - libcoi_device.so.0
+        - /usr/lib/libstdc++.so.6       # [linux]
+        - /usr/lib/libc++.1.dylib       # [osx]
     requirements:
+      host:
+        - tbb {{ version.split('.')[0] }}.*
       run:
         - tbb {{ version.split('.')[0] }}.*
     about:
