@@ -1,6 +1,5 @@
-{% set version="2019.3" %}
-{% set buildnum="203" %}  # [win]
-{% set buildnum="199" %}  # [not win]
+{% set version="2019.5" %}
+{% set buildnum="281" %}
 
 # use this if our build script changes and we need to increment beyond intel's version
 # {% set dstbuildnum='4' %}
@@ -36,6 +35,8 @@ build:
     - libcoi_device.so.0
     - /usr/lib/libstdc++.so.6       # [linux]
     - /usr/lib/libc++.1.dylib       # [osx]
+    # hooray, windows
+    - "*WINTRUST.dll"
 
 source:
   - url: https://anaconda.org/intel/mkl/{{ version }}/download/{{ target_platform }}/mkl-{{ version }}-intel_{{ buildnum }}.tar.bz2
