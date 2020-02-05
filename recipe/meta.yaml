@@ -1,5 +1,5 @@
-{% set version="2019.5" %}
-{% set buildnum="281" %}
+{% set version="2020.0" %}
+{% set buildnum="166" %}
 
 # use this if our build script changes and we need to increment beyond intel's version
 # {% set dstbuildnum='4' %}
