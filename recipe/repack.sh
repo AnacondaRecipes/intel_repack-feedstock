@@ -6,11 +6,11 @@ set -ex
 
 src="$SRC_DIR/$PKG_NAME"
 # not all packages have the license file.  Copy it from mkl, where we know it exists
-cp -f "$SRC_DIR/mkl/info/LICENSE.txt" "$SRC_DIR"
+cp -f "$SRC_DIR/mkl/info/licenses/license.txt" "$SRC_DIR"
 cp -rv "$src"/* "$PREFIX/"
 
 # ro by default.  Makes installations not cleanly removable.
-chmod 664 "$SRC_DIR/LICENSE.txt"
+chmod 664 "$SRC_DIR/license.txt"
 
 # replace old info folder with our new regenerated one
 rm -rf "$PREFIX/info"
