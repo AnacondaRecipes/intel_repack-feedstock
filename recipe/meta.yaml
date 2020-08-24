@@ -1,5 +1,5 @@
-{% set version="2020.1" %}
-{% set buildnum = '217' if linux else '216' %}
+{% set version="2020.2" %}
+{% set buildnum = '258' if osx else '254' %}
 
 # use this if our build script changes and we need to increment beyond intel's version
 # {% set dstbuildnum='4' %}
