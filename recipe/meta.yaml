@@ -6,7 +6,8 @@
 {% set dstbuildnum = '2' %}
 {% set openmp_version = version %}
 # 117 was intel's base build number.  We're up 1 after making the license file not read-only
-{% set openmp_buildnum = buildnum|int + dstbuildnum|int %}
+# {% set openmp_buildnum = buildnum|int + dstbuildnum|int %}
+{% set openmp_buildnum=buildnum %}
 
 package:
   name: intel_repack
@@ -51,6 +52,8 @@ build:
     - /lib*/libgcc_s.so.1
     - /lib*/libc.so.6
     - /lib*/libm.so.6
+    - "$RPATH/libtbb.2.so"
+    - "$RPATH/libtbbmalloc.so.1"
     # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
     - libiomp5.so
     - libcoi_device.so.0
@@ -187,6 +190,8 @@ outputs:
         - /lib*/libc.so.6
         - /lib*/libm.so.6
         - lib/libgcc_s.so.1
+        - "$RPATH/libtbb.2.so"
+        - "$RPATH/libtbbmalloc.so.1"
         # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
         - libiomp5.so
         - libcoi_device.so.0
