@@ -193,6 +193,8 @@ outputs:
       run_exports:
         - {{ pin_subpackage('mkl') }}
         - {{ pin_subpackage('blas', exact=True) }}
+        # this was added to prior mkl-devel releases but not in the feedstock. This is used by
+        # various downstreams (mkl_fft, mkl_random) to include the mkl-service wrapper as a dependency.
         - mkl-service >=2.3.0,<3.0a0
     requirements:
       run:
