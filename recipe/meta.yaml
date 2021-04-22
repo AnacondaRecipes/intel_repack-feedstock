@@ -107,10 +107,8 @@ outputs:
     requirements:
       host:
         - intel-openmp {{ version.split('.')[0] }}.*
-        # - tbb {{ version.split('.')[0] }}.*
       run:
         - intel-openmp {{ version.split('.')[0] }}.*
-        # - tbb {{ version.split('.')[0] }}.*
       run_constrained:      # [linux or osx]
         # intel-openmp 2021.1.1 and newer is built with a newer GLIBC
         - __glibc >=2.17    # [linux]
