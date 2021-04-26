@@ -363,8 +363,10 @@ outputs:
       license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
-         - dal-devel/info/licenses/license.txt
-         - dal-devel/info/licenses/tpp.txt
+         - dal-devel/licenses/license.txt   # [not win]
+         - dal-devel/licenses/tpp.txt       # [not win]
+         - dal-devel/info/licenses/license.txt   # [win]
+         - dal-devel/info/licenses/tpp.txt       # [win]
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
@@ -447,8 +449,10 @@ outputs:
       license: LicenseRef-ProprietaryIntel
       license_family: Proprietary
       license_file:
-         - dal-devel/info/licenses/license.txt
-         - dal-devel/info/licenses/tpp.txt
+         - dal-devel/licenses/license.txt   # [not win]
+         - dal-devel/licenses/tpp.txt       # [not win]
+         - dal-devel/info/licenses/license.txt   # [win]
+         - dal-devel/info/licenses/tpp.txt       # [win]
     test:
       commands:
         - ls -A $PREFIX/lib/*  # [unix]
