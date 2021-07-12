@@ -1,20 +1,21 @@
-{% set version = "2021.2.0" %}
-{% set mkl_buildnum = "296" %}  # [not osx]
-{% set mkl_buildnum = "269" %}  # [osx]
+{% set version = "2021.3.0" %}
+{% set mkl_buildnum = "520" %}  # [linux]
+{% set mkl_buildnum = "517" %}  # [osx]
+{% set mkl_buildnum = "524" %}  # [win]
 
 # use this if our build script changes and we need to increment beyond intel's version
 {% set dstbuildnum = '0' %}
 {% set openmp_version = version %}
 # 117 was intel's base build number.  We're up 1 after making the license file not read-only
 # {% set openmp_buildnum = buildnum|int + dstbuildnum|int %}
-{% set openmp_buildnum = "610" %}  # [linux]
-{% set openmp_buildnum = "564" %}  # [osx]
-{% set openmp_buildnum = "616" %}  # [win]
+{% set openmp_buildnum = "3350" %}  # [linux]
+{% set openmp_buildnum = "3375" %}  # [osx]
+{% set openmp_buildnum = "3372" %}  # [win]
 
-{% set daal_version = "2021.2.2" %}
-{% set daal_buildnum = "389" %}  # [linux]
-{% set daal_buildnum = "389" %}  # [osx]
-{% set daal_buildnum = "389" %}  # [win]
+{% set daal_version = "2021.3.0" %}
+{% set daal_buildnum = "557" %}  # [linux]
+{% set daal_buildnum = "555" %}  # [osx]
+{% set daal_buildnum = "564" %}  # [win]
 
 package:
   name: intel_repack
