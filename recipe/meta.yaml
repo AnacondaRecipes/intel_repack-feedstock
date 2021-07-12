@@ -72,6 +72,7 @@ build:
     - /lib*/libm.so.6
     - "$RPATH/libtbb.2.so"
     - "$RPATH/libtbbmalloc.so.1"
+    - /lib64/libstdc++.so.6         # [linux]
     # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
     - libiomp5.so
     - libcoi_device.so.0
@@ -100,6 +101,8 @@ build:
     - $RPATH/pgc.dll              # [win]
     - $RPATH/pgf90.dll            # [win]
     - $RPATH/pgmath.dll           # [win]
+    # We might want to look into this a bit and see if we should update intel-openmp's dependencies?
+    - /lib64/libffi.so.6          # [linux]
 
 outputs:
   - name: mkl
@@ -240,11 +243,13 @@ outputs:
         - lib/libgcc_s.so.1
         - "$RPATH/libtbb.so.12"
         - "$RPATH/libtbbmalloc.so.2"
-        # these are contained in Intel's optional common_cmplr_lib_rt.
+        - /lib64/libstdc++.so.6         # [linux]
+        # these are contained in Intel's optional common_cmplr_lib_rt (now intel-cmplr-lib-rt).
         - "$RPATH/libsvml.so"
         - "$RPATH/libirng.so"
         - "$RPATH/libimf.so"
         - "$RPATH/libintlc.so.5"
+        - $RPATH/libmmd.dll             # [win]
         # # this comes from Intel's optional dpcpp_cpp_rt
         - "$RPATH/libsycl.so.5"
         # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
@@ -316,6 +321,13 @@ outputs:
     build:
       number: {{ daal_buildnum|int + dstbuildnum|int }}
       skip: True                                  # [win32]
+      missing_dso_whitelist:
+        - $RPATH/sycld.dll            # [win]
+        - $RPATH/libmmdd.dll          # [win]
+        - "*\\tbb12.dll"              # [win]
+        - "*\\tbbmalloc.dll"          # [win]
+        - $RPATH/tbb12_debug.dll      # [win]
+        - $RPATH/tbbmalloc_debug.dll  # [win]
     requirements:
       run:
         - {{ pin_subpackage('dal-include', exact=True) }}
