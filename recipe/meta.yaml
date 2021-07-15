@@ -1,20 +1,21 @@
-{% set version = "2021.2.0" %}
-{% set mkl_buildnum = "296" %}  # [not osx]
-{% set mkl_buildnum = "269" %}  # [osx]
+{% set version = "2021.3.0" %}
+{% set mkl_buildnum = "520" %}  # [linux]
+{% set mkl_buildnum = "517" %}  # [osx]
+{% set mkl_buildnum = "524" %}  # [win]
 
 # use this if our build script changes and we need to increment beyond intel's version
 {% set dstbuildnum = '0' %}
 {% set openmp_version = version %}
 # 117 was intel's base build number.  We're up 1 after making the license file not read-only
 # {% set openmp_buildnum = buildnum|int + dstbuildnum|int %}
-{% set openmp_buildnum = "610" %}  # [linux]
-{% set openmp_buildnum = "564" %}  # [osx]
-{% set openmp_buildnum = "616" %}  # [win]
+{% set openmp_buildnum = "3350" %}  # [linux]
+{% set openmp_buildnum = "3375" %}  # [osx]
+{% set openmp_buildnum = "3372" %}  # [win]
 
-{% set daal_version = "2021.2.2" %}
-{% set daal_buildnum = "389" %}  # [linux]
-{% set daal_buildnum = "389" %}  # [osx]
-{% set daal_buildnum = "389" %}  # [win]
+{% set daal_version = "2021.3.0" %}
+{% set daal_buildnum = "557" %}  # [linux]
+{% set daal_buildnum = "555" %}  # [osx]
+{% set daal_buildnum = "564" %}  # [win]
 
 package:
   name: intel_repack
@@ -71,6 +72,7 @@ build:
     - /lib*/libm.so.6
     - "$RPATH/libtbb.2.so"
     - "$RPATH/libtbbmalloc.so.1"
+    - /lib64/libstdc++.so.6         # [linux]
     # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
     - libiomp5.so
     - libcoi_device.so.0
@@ -99,6 +101,8 @@ build:
     - $RPATH/pgc.dll              # [win]
     - $RPATH/pgf90.dll            # [win]
     - $RPATH/pgmath.dll           # [win]
+    # We might want to look into this a bit and see if we should update intel-openmp's dependencies?
+    - /lib64/libffi.so.6          # [linux]
 
 outputs:
   - name: mkl
@@ -239,11 +243,13 @@ outputs:
         - lib/libgcc_s.so.1
         - "$RPATH/libtbb.so.12"
         - "$RPATH/libtbbmalloc.so.2"
-        # these are contained in Intel's optional common_cmplr_lib_rt.
+        - /lib64/libstdc++.so.6         # [linux]
+        # these are contained in Intel's optional common_cmplr_lib_rt (now intel-cmplr-lib-rt).
         - "$RPATH/libsvml.so"
         - "$RPATH/libirng.so"
         - "$RPATH/libimf.so"
         - "$RPATH/libintlc.so.5"
+        - $RPATH/libmmd.dll             # [win]
         # # this comes from Intel's optional dpcpp_cpp_rt
         - "$RPATH/libsycl.so.5"
         # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
@@ -315,6 +321,13 @@ outputs:
     build:
       number: {{ daal_buildnum|int + dstbuildnum|int }}
       skip: True                                  # [win32]
+      missing_dso_whitelist:
+        - $RPATH/sycld.dll            # [win]
+        - $RPATH/libmmdd.dll          # [win]
+        - "*\\tbb12.dll"              # [win]
+        - "*\\tbbmalloc.dll"          # [win]
+        - $RPATH/tbb12_debug.dll      # [win]
+        - $RPATH/tbbmalloc_debug.dll  # [win]
     requirements:
       run:
         - {{ pin_subpackage('dal-include', exact=True) }}
@@ -363,10 +376,10 @@ outputs:
       license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
-         - dal-devel/licenses/license.txt   # [not win]
-         - dal-devel/licenses/tpp.txt       # [not win]
-         - dal-devel/info/licenses/license.txt   # [win]
-         - dal-devel/info/licenses/tpp.txt       # [win]
+         - dal-devel/licenses/license.txt       # [osx]
+         - dal-devel/licenses/tpp.txt           # [osx]
+         - dal-devel/info/licenses/license.txt  # [not osx]
+         - dal-devel/info/licenses/tpp.txt      # [not osx]
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
@@ -449,10 +462,10 @@ outputs:
       license: LicenseRef-ProprietaryIntel
       license_family: Proprietary
       license_file:
-         - dal-devel/licenses/license.txt   # [not win]
-         - dal-devel/licenses/tpp.txt       # [not win]
-         - dal-devel/info/licenses/license.txt   # [win]
-         - dal-devel/info/licenses/tpp.txt       # [win]
+         - dal-devel/licenses/license.txt       # [osx]
+         - dal-devel/licenses/tpp.txt           # [osx]
+         - dal-devel/info/licenses/license.txt  # [not osx]
+         - dal-devel/info/licenses/tpp.txt      # [not osx]
     test:
       commands:
         - ls -A $PREFIX/lib/*  # [unix]
