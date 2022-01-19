@@ -57,6 +57,8 @@ build:
   binary_relocation: false
   detect_binary_files_with_prefix: false
   skip: True                                  # [ppc64le]
+  runpath_whitelist:
+    - $ORIGIN
   missing_dso_whitelist:
     # just ignore tbb on mac.  We could add it as a dep when we have it.
     - libtbb.dylib                   # [osx]
