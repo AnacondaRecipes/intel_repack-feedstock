@@ -1,21 +1,21 @@
-{% set version = "2021.3.0" %}
-{% set mkl_buildnum = "520" %}  # [linux]
-{% set mkl_buildnum = "517" %}  # [osx]
-{% set mkl_buildnum = "524" %}  # [win]
+{% set version = "2021.4.0" %}
+{% set mkl_buildnum = "640" %}  # [linux]
+{% set mkl_buildnum = "637" %}  # [osx]
+{% set mkl_buildnum = "640" %}  # [win]
 
 # use this if our build script changes and we need to increment beyond intel's version
 {% set dstbuildnum = '0' %}
 {% set openmp_version = version %}
 # 117 was intel's base build number.  We're up 1 after making the license file not read-only
 # {% set openmp_buildnum = buildnum|int + dstbuildnum|int %}
-{% set openmp_buildnum = "3350" %}  # [linux]
-{% set openmp_buildnum = "3375" %}  # [osx]
-{% set openmp_buildnum = "3372" %}  # [win]
+{% set openmp_buildnum = "3561" %}  # [linux]
+{% set openmp_buildnum = "3538" %}  # [osx]
+{% set openmp_buildnum = "3556" %}  # [win]
 
-{% set daal_version = "2021.3.0" %}
-{% set daal_buildnum = "557" %}  # [linux]
-{% set daal_buildnum = "555" %}  # [osx]
-{% set daal_buildnum = "564" %}  # [win]
+{% set daal_version = "2021.4.0" %}
+{% set daal_buildnum = "729" %}  # [linux]
+{% set daal_buildnum = "689" %}  # [osx]
+{% set daal_buildnum = "729" %}  # [win]
 
 package:
   name: intel_repack
@@ -70,6 +70,7 @@ build:
     - /lib*/libgcc_s.so.1
     - /lib*/libc.so.6
     - /lib*/libm.so.6
+    - /lib*/libz.so.1
     - "$RPATH/libtbb.2.so"
     - "$RPATH/libtbbmalloc.so.1"
     - /lib64/libstdc++.so.6         # [linux]
@@ -101,6 +102,7 @@ build:
     - $RPATH/pgc.dll              # [win]
     - $RPATH/pgf90.dll            # [win]
     - $RPATH/pgmath.dll           # [win]
+    - $RPATH/svml_dispmd.dll      # [win]
     # We might want to look into this a bit and see if we should update intel-openmp's dependencies?
     - /lib64/libffi.so.6          # [linux]
 
@@ -241,6 +243,7 @@ outputs:
         - /lib*/libc.so.6
         - /lib*/libm.so.6
         - lib/libgcc_s.so.1
+        - lib*/libz.so.1
         - "$RPATH/libtbb.so.12"
         - "$RPATH/libtbbmalloc.so.2"
         - /lib64/libstdc++.so.6         # [linux]
@@ -262,6 +265,7 @@ outputs:
         - "C:\\Windows\\System32\\WINTRUST.dll"
         # optional dpcpp runtime that we do not yet provide.
         - $RPATH/sycl.dll               # [win]
+        - $RPATH/svml_dispmd.dll        # [win]
     requirements:
       host:
         - tbb {{ daal_version.split('.')[0] }}.*
@@ -328,6 +332,7 @@ outputs:
         - "*\\tbbmalloc.dll"          # [win]
         - $RPATH/tbb12_debug.dll      # [win]
         - $RPATH/tbbmalloc_debug.dll  # [win]
+        - $RPATH/svml_dispmd.dll      # [win]
     requirements:
       run:
         - {{ pin_subpackage('dal-include', exact=True) }}
