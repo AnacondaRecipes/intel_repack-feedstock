@@ -397,6 +397,10 @@ outputs:
         - ls -A $PREFIX/lib/*  # [unix]
         - ls -A $PREFIX/include/*  # [unix]
 
+# Future note: all daal packages are now metapackages that depend on their respective dal equivalent.
+# This was done to maintain the old name (daal) for downstream users. All binaries are contained in
+# new dal* packages.
+
   - name: daal
     version: {{ daal_version }}
     build:
@@ -408,11 +412,14 @@ outputs:
     about:
       home: https://software.intel.com/en-us/daal
       summary: DAAL runtime libraries
-      license: LicenseRef-ProprietaryIntel
+      license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
          - dal/info/licenses/license.txt
          - dal/info/licenses/tpp.txt
+      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
+      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
+      dev_url: https://github.com/oneapi-src/oneDAL
     test:
       commands:
         - ls -A $PREFIX/lib/*  # [unix]
@@ -428,11 +435,14 @@ outputs:
     about:
       home: https://software.intel.com/en-us/daal
       summary: Headers for building against DAAL libraries
-      license: LicenseRef-ProprietaryIntel
+      license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
          - dal-include/info/licenses/license.txt
          - dal-include/info/licenses/tpp.txt
+      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
+      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
+      dev_url: https://github.com/oneapi-src/oneDAL
     test:
       commands:
         - ls -A $PREFIX/include/*  # [unix]
@@ -448,11 +458,14 @@ outputs:
     about:
       home: https://software.intel.com/en-us/daal
       summary: Static libraries for DAAL
-      license: LicenseRef-ProprietaryIntel
+      license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
          - dal-static/info/licenses/license.txt
          - dal-static/info/licenses/tpp.txt
+      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
+      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
+      dev_url: https://github.com/oneapi-src/oneDAL
     test:
       commands:
         - ls -A $PREFIX/lib/*  # [unix]
@@ -468,13 +481,16 @@ outputs:
     about:
       home: https://software.intel.com/en-us/daal
       summary: Devel package for building things linked against DAAL shared libraries
-      license: LicenseRef-ProprietaryIntel
+      license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
          - dal-devel/licenses/license.txt       # [osx]
          - dal-devel/licenses/tpp.txt           # [osx]
          - dal-devel/info/licenses/license.txt  # [not osx]
          - dal-devel/info/licenses/tpp.txt      # [not osx]
+      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
+      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
+      dev_url: https://github.com/oneapi-src/oneDAL
     test:
       commands:
         - ls -A $PREFIX/lib/*  # [unix]
