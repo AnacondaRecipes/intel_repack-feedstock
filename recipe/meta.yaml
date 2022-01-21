@@ -1,21 +1,23 @@
-{% set version = "2021.4.0" %}
-{% set mkl_buildnum = "640" %}  # [linux]
-{% set mkl_buildnum = "637" %}  # [osx]
-{% set mkl_buildnum = "640" %}  # [win]
+{% set version = "2022.0.1" %}  # [linux]
+{% set version = "2022.0.0" %}  # [win or osx]
+{% set mkl_buildnum = "117" %}  # [linux]
+{% set mkl_buildnum = "105" %}  # [osx]
+{% set mkl_buildnum = "115" %}  # [win]
 
 # use this if our build script changes and we need to increment beyond intel's version
 {% set dstbuildnum = '0' %}
 {% set openmp_version = version %}
 # 117 was intel's base build number.  We're up 1 after making the license file not read-only
 # {% set openmp_buildnum = buildnum|int + dstbuildnum|int %}
-{% set openmp_buildnum = "3561" %}  # [linux]
-{% set openmp_buildnum = "3538" %}  # [osx]
-{% set openmp_buildnum = "3556" %}  # [win]
+{% set openmp_buildnum = "3633" %}  # [linux]
+{% set openmp_buildnum = "3615" %}  # [osx]
+{% set openmp_buildnum = "3663" %}  # [win]
 
-{% set daal_version = "2021.4.0" %}
-{% set daal_buildnum = "729" %}  # [linux]
-{% set daal_buildnum = "689" %}  # [osx]
-{% set daal_buildnum = "729" %}  # [win]
+{% set daal_version = "2021.5.1" %}  # [linux]
+{% set daal_version = "2021.5.0" %}  # [win or osx]
+{% set daal_buildnum = "803" %}  # [linux]
+{% set daal_buildnum = "782" %}  # [osx]
+{% set daal_buildnum = "796" %}  # [win]
 
 package:
   name: intel_repack
@@ -54,7 +56,9 @@ build:
   number: {{ mkl_buildnum|int + dstbuildnum|int }}
   binary_relocation: false
   detect_binary_files_with_prefix: false
-  skip: True                                  # [ppc64le]
+  skip: True                                  # [not (x86 and (linux or win or osx))]
+  runpath_whitelist:
+    - $ORIGIN
   missing_dso_whitelist:
     # just ignore tbb on mac.  We could add it as a dep when we have it.
     - libtbb.dylib                   # [osx]
@@ -393,6 +397,10 @@ outputs:
         - ls -A $PREFIX/lib/*  # [unix]
         - ls -A $PREFIX/include/*  # [unix]
 
+# Future note: all daal packages are now metapackages that depend on their respective dal equivalent.
+# This was done to maintain the old name (daal) for downstream users. All binaries are contained in
+# new dal* packages.
+
   - name: daal
     version: {{ daal_version }}
     build:
@@ -404,11 +412,14 @@ outputs:
     about:
       home: https://software.intel.com/en-us/daal
       summary: DAAL runtime libraries
-      license: LicenseRef-ProprietaryIntel
+      license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
          - dal/info/licenses/license.txt
          - dal/info/licenses/tpp.txt
+      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
+      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
+      dev_url: https://github.com/oneapi-src/oneDAL
     test:
       commands:
         - ls -A $PREFIX/lib/*  # [unix]
@@ -424,11 +435,14 @@ outputs:
     about:
       home: https://software.intel.com/en-us/daal
       summary: Headers for building against DAAL libraries
-      license: LicenseRef-ProprietaryIntel
+      license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
          - dal-include/info/licenses/license.txt
          - dal-include/info/licenses/tpp.txt
+      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
+      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
+      dev_url: https://github.com/oneapi-src/oneDAL
     test:
       commands:
         - ls -A $PREFIX/include/*  # [unix]
@@ -444,11 +458,14 @@ outputs:
     about:
       home: https://software.intel.com/en-us/daal
       summary: Static libraries for DAAL
-      license: LicenseRef-ProprietaryIntel
+      license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
          - dal-static/info/licenses/license.txt
          - dal-static/info/licenses/tpp.txt
+      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
+      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
+      dev_url: https://github.com/oneapi-src/oneDAL
     test:
       commands:
         - ls -A $PREFIX/lib/*  # [unix]
@@ -464,13 +481,16 @@ outputs:
     about:
       home: https://software.intel.com/en-us/daal
       summary: Devel package for building things linked against DAAL shared libraries
-      license: LicenseRef-ProprietaryIntel
+      license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
          - dal-devel/licenses/license.txt       # [osx]
          - dal-devel/licenses/tpp.txt           # [osx]
          - dal-devel/info/licenses/license.txt  # [not osx]
          - dal-devel/info/licenses/tpp.txt      # [not osx]
+      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
+      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
+      dev_url: https://github.com/oneapi-src/oneDAL
     test:
       commands:
         - ls -A $PREFIX/lib/*  # [unix]
