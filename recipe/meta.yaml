@@ -6,7 +6,7 @@
 {% set openmp_version = mkl_version %}  # [linux]
 {% set openmp_buildnum = "3768" %}      # [linux]
 {% set daal_version = "2021.6.0" %}     # [linux]
-{% set daal_buildnum = "915" %}         # [linux]
+{% set daal_buildnum = "928" %}         # [linux]
 
 # OSX
 {% set mkl_version = "2022.1.0" %}      # [osx]
@@ -14,7 +14,7 @@
 {% set openmp_version = mkl_version %}  # [osx]
 {% set openmp_buildnum = "3718" %}      # [osx]
 {% set daal_version = "2021.6.0" %}     # [osx]
-{% set daal_buildnum = "928" %}         # [osx]
+{% set daal_buildnum = "915" %}         # [osx]
 
 # Windows
 {% set mkl_version = "2022.1.0" %}      # [win]
