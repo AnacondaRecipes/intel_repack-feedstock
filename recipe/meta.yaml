@@ -8,7 +8,7 @@
 {% set dal_version = "2021.6.0" %}      # [linux]
 {% set dal_buildnum = "915" %}          # [linux]
 {% set daal_version = "2021.5.3" %}     # [linux]
-{% set daal_buildnum = "815" %}         # [linux]
+{% set daal_buildnum = "832" %}         # [linux]
 
 # OSX
 {% set mkl_version = "2022.1.0" %}      # [osx]
