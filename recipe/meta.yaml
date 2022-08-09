@@ -4,7 +4,7 @@
 {% set mkl_version = "2022.1.0" %}      # [linux]
 {% set mkl_buildnum = "223" %}          # [linux]
 {% set openmp_version = mkl_version %}  # [linux]
-{% set openmp_buildnum = "3633" %}      # [linux]
+{% set openmp_buildnum = "3768" %}      # [linux]
 {% set daal_version = "2021.6.0" %}     # [linux]
 {% set daal_buildnum = "915" %}         # [linux]
 
@@ -12,7 +12,7 @@
 {% set mkl_version = "2022.1.0" %}      # [osx]
 {% set mkl_buildnum = "208" %}          # [osx]
 {% set openmp_version = mkl_version %}  # [osx]
-{% set openmp_buildnum = "3615" %}      # [osx]
+{% set openmp_buildnum = "3718" %}      # [osx]
 {% set daal_version = "2021.6.0" %}     # [osx]
 {% set daal_buildnum = "928" %}         # [osx]
 
@@ -20,7 +20,7 @@
 {% set mkl_version = "2022.1.0" %}      # [win]
 {% set mkl_buildnum = "192" %}          # [win]
 {% set openmp_version = mkl_version %}  # [win]
-{% set openmp_buildnum = "3663" %}      # [win]
+{% set openmp_buildnum = "3787" %}      # [win]
 {% set daal_version = "2021.6.0" %}     # [win]
 {% set daal_buildnum = "874" %}         # [win]
 
@@ -35,42 +35,31 @@ package:
   version: {{ mkl_version }}
 
 source:
+  # Conscider adding sha256 fields here.
   - url: https://anaconda.org/intel/mkl/{{ mkl_version }}/download/{{ target_platform }}/mkl-{{ mkl_version }}-intel_{{ mkl_buildnum }}.tar.bz2
     folder: mkl
-    sha256: 1
   - url: https://anaconda.org/intel/mkl-devel/{{ mkl_version }}/download/{{ target_platform }}/mkl-devel-{{ mkl_version }}-intel_{{ mkl_buildnum }}.tar.bz2
     folder: mkl-devel
-    sha256: 1
   - url: https://anaconda.org/intel/mkl-include/{{ mkl_version }}/download/{{ target_platform }}/mkl-include-{{ mkl_version }}-intel_{{ mkl_buildnum }}.tar.bz2
     folder: mkl-include
-    sha256: 1
   - url: https://anaconda.org/intel/intel-openmp/{{ openmp_version }}/download/{{ target_platform }}/intel-openmp-{{ openmp_version }}-intel_{{ openmp_buildnum }}.tar.bz2
     folder: intel-openmp
-    sha256: 1
   - url: https://anaconda.org/intel/dal/{{ daal_version }}/download/{{ target_platform }}/dal-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: dal
-    sha256: 1
   - url: https://anaconda.org/intel/dal-include/{{ daal_version }}/download/{{ target_platform }}/dal-include-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: dal-include
-    sha256: 1
   - url: https://anaconda.org/intel/dal-static/{{ daal_version }}/download/{{ target_platform }}/dal-static-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: dal-static
-    sha256: 1
   - url: https://anaconda.org/intel/dal-devel/{{ daal_version }}/download/{{ target_platform }}/dal-devel-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: dal-devel
-    sha256: 1
   - url: https://anaconda.org/intel/daal/{{ daal_version }}/download/{{ target_platform }}/daal-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: daal
-    sha256: 1
   - url: https://anaconda.org/intel/daal-include/{{ daal_version }}/download/{{ target_platform }}/daal-include-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: daal-include
-    sha256: 1
   - url: https://anaconda.org/intel/daal-static/{{ daal_version }}/download/{{ target_platform }}/daal-static-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: daal-static
-    sha256: 1
   - url: https://anaconda.org/intel/daal-devel/{{ daal_version }}/download/{{ target_platform }}/daal-devel-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: daal-devel
-    sha256: 1
 
 build:
   number: {{ mkl_buildnum|int + build_number_bump|int }}
