@@ -5,24 +5,30 @@
 {% set mkl_buildnum = "223" %}          # [linux]
 {% set openmp_version = mkl_version %}  # [linux]
 {% set openmp_buildnum = "3768" %}      # [linux]
-{% set daal_version = "2021.6.0" %}     # [linux]
-{% set daal_buildnum = "915" %}         # [linux]
+{% set dal_version = "2021.6.0" %}      # [linux]
+{% set dal_buildnum = "915" %}          # [linux]
+{% set daal_version = "2021.5.3" %}     # [linux]
+{% set daal_buildnum = "815" %}         # [linux]
 
 # OSX
 {% set mkl_version = "2022.1.0" %}      # [osx]
 {% set mkl_buildnum = "208" %}          # [osx]
 {% set openmp_version = mkl_version %}  # [osx]
 {% set openmp_buildnum = "3718" %}      # [osx]
-{% set daal_version = "2021.6.0" %}     # [osx]
-{% set daal_buildnum = "928" %}         # [osx]
+{% set dal_version = "2021.6.0" %}      # [osx]
+{% set dal_buildnum = "928" %}          # [osx]
+{% set daal_version = "2021.5.0" %}     # [osx]
+{% set daal_buildnum = "782" %}         # [osx]
 
 # Windows
 {% set mkl_version = "2022.1.0" %}      # [win]
 {% set mkl_buildnum = "192" %}          # [win]
 {% set openmp_version = mkl_version %}  # [win]
 {% set openmp_buildnum = "3787" %}      # [win]
-{% set daal_version = "2021.6.0" %}     # [win]
-{% set daal_buildnum = "874" %}         # [win]
+{% set dal_version = "2021.6.0" %}      # [win]
+{% set dal_buildnum = "874" %}          # [win]
+{% set daal_version = "2021.5.4" %}     # [win]
+{% set daal_buildnum = "854" %}         # [win]
 
 
 # We will use the <X>_buildnumber for the package buildnumber; however, when it's necessary to bump
@@ -44,13 +50,13 @@ source:
     folder: mkl-include
   - url: https://anaconda.org/intel/intel-openmp/{{ openmp_version }}/download/{{ target_platform }}/intel-openmp-{{ openmp_version }}-intel_{{ openmp_buildnum }}.tar.bz2
     folder: intel-openmp
-  - url: https://anaconda.org/intel/dal/{{ daal_version }}/download/{{ target_platform }}/dal-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
+  - url: https://anaconda.org/intel/dal/{{ dal_version }}/download/{{ target_platform }}/dal-{{ dal_version }}-intel_{{ dal_buildnum }}.tar.bz2
     folder: dal
-  - url: https://anaconda.org/intel/dal-include/{{ daal_version }}/download/{{ target_platform }}/dal-include-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
+  - url: https://anaconda.org/intel/dal-include/{{ dal_version }}/download/{{ target_platform }}/dal-include-{{ dal_version }}-intel_{{ dal_buildnum }}.tar.bz2
     folder: dal-include
-  - url: https://anaconda.org/intel/dal-static/{{ daal_version }}/download/{{ target_platform }}/dal-static-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
+  - url: https://anaconda.org/intel/dal-static/{{ dal_version }}/download/{{ target_platform }}/dal-static-{{ dal_version }}-intel_{{ dal_buildnum }}.tar.bz2
     folder: dal-static
-  - url: https://anaconda.org/intel/dal-devel/{{ daal_version }}/download/{{ target_platform }}/dal-devel-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
+  - url: https://anaconda.org/intel/dal-devel/{{ dal_version }}/download/{{ target_platform }}/dal-devel-{{ dal_version }}-intel_{{ dal_buildnum }}.tar.bz2
     folder: dal-devel
   - url: https://anaconda.org/intel/daal/{{ daal_version }}/download/{{ target_platform }}/daal-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: daal
@@ -230,11 +236,11 @@ outputs:
         - ls -A $PREFIX/include/*  # [unix]
 
   - name: dal
-    version: {{ daal_version }}
+    version: {{ dal_version }}
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
     build:
-      number: {{ daal_buildnum|int + build_number_bump|int }}
+      number: {{ dal_buildnum|int + build_number_bump|int }}
       binary_relocation: false
       detect_binary_files_with_prefix: false
       skip: True                                  # [win32]
@@ -281,9 +287,9 @@ outputs:
         - $RPATH/svml_dispmd.dll        # [win]
     requirements:
       host:
-        - tbb {{ daal_version.split('.')[0] }}.*
+        - tbb {{ dal_version.split('.')[0] }}.*
       run:
-        - tbb {{ daal_version.split('.')[0] }}.*
+        - tbb {{ dal_version.split('.')[0] }}.*
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
       summary: Intel® oneDAL runtime libraries
@@ -305,11 +311,11 @@ outputs:
         - ls -A $PREFIX/lib/*  # [unix]
 
   - name: dal-include
-    version: {{ daal_version }}
+    version: {{ dal_version }}
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
     build:
-      number: {{ daal_buildnum|int + build_number_bump|int }}
+      number: {{ dal_buildnum|int + build_number_bump|int }}
       skip: True                                  # [win32]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
@@ -332,11 +338,11 @@ outputs:
         - ls -A $PREFIX/include/*  # [unix]
 
   - name: dal-static
-    version: {{ daal_version }}
+    version: {{ dal_version }}
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
     build:
-      number: {{ daal_buildnum|int + build_number_bump|int }}
+      number: {{ dal_buildnum|int + build_number_bump|int }}
       skip: True                                  # [win32]
       missing_dso_whitelist:
         - $RPATH/sycld.dll            # [win]
@@ -349,7 +355,7 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage('dal-include', exact=True) }}
-        - tbb {{ daal_version.split('.')[0] }}.*
+        - tbb {{ dal_version.split('.')[0] }}.*
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
       summary: Static libraries for Intel® oneDAL
@@ -371,11 +377,11 @@ outputs:
         - ls -A $PREFIX/lib/*  # [unix]
 
   - name: dal-devel
-    version: {{ daal_version }}
+    version: {{ dal_version }}
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
     build:
-      number: {{ daal_buildnum|int + build_number_bump|int }}
+      number: {{ dal_buildnum|int + build_number_bump|int }}
       skip: True                                  # [win32]
       run_exports:
         - {{ pin_subpackage('dal') }}
