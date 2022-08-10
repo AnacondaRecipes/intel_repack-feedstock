@@ -72,58 +72,8 @@ build:
   binary_relocation: false
   detect_binary_files_with_prefix: false
   skip: True             # [win32 or (not x86) or (not (linux or win or osx))]
-  runpath_whitelist:
+  runpath_whitelist:     # <---------------------------------------------------------------------------------------------------------------------------------   Do a trial remove
     - $ORIGIN
-  missing_dso_whitelist:
-    # just ignore tbb on mac.  We could add it as a dep when we have it.
-    - libtbb.dylib                   # [osx]
-    - "$RPATH/libtbb.dylib"          # [osx]
-    # this one should be here, probably needs fixup of RUNPATH/RPATH
-    - libiomp5.dylib                   # [osx]
-    - "$RPATH/libiomp5.dylib"          # [osx]
-    # normal linux stuff that would go away if we had libgcc-ng in the run deps
-    - /lib*/ld-linux.so.2
-    - /lib64/ld-linux-x86-64.so.2
-    - /lib*/libpthread.so.0
-    - /lib*/libdl.so.2
-    - /lib*/libgcc_s.so.1
-    - /lib*/libc.so.6
-    - /lib*/libm.so.6
-    - /lib*/libz.so.1
-    - "$RPATH/libtbb.2.so"
-    - "$RPATH/libtbbmalloc.so.1"
-    - /lib64/libstdc++.so.6         # [linux]
-    # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
-    - libiomp5.so
-    - libcoi_device.so.0
-    - /usr/lib/libstdc++.so.6       # [linux]
-    - /usr/lib64/libstdc++.so.6     # [linux]
-    - /usr/lib/libc++.1.dylib       # [osx]
-    # hooray, windows
-    - "C:\\Windows\\System32\\WINTRUST.dll"
-    # mostly things for optional runtime targets..
-    - $RPATH/libOpenCL.so.1       # [linux]
-    - $RPATH/libffi.so.6          # [linux]
-    - $RPATH/libimf.so            # [linux]
-    - $RPATH/libintlc.so.5        # [linux]
-    - $RPATH/libiomp5.so          # [linux]
-    - $RPATH/libirng.so           # [linux]
-    - $RPATH/libsvml.so           # [linux]
-    - $RPATH/libze_loader.so.1    # [linux]
-    - $RPATH/libtbb.so.12         # [linux]
-    - '**/librt.so.1'             # [linux]
-    - '**/libelf.so.1'            # [linux]
-    - $RPATH/libtbb.12.dylib      # [osx]
-    - $RPATH/ze_loader.dll        # [win]
-    - $RPATH/impi.dll             # [win]
-    - $RPATH/msmpi.dll            # [win]
-    - $RPATH/mpich2mpi.dll        # [win]
-    - $RPATH/pgc.dll              # [win]
-    - $RPATH/pgf90.dll            # [win]
-    - $RPATH/pgmath.dll           # [win]
-    - $RPATH/svml_dispmd.dll      # [win]
-    # We might want to look into this a bit and see if we should update intel-openmp's dependencies?
-    - /lib64/libffi.so.6          # [linux]
 
 outputs:
   - name: mkl
@@ -131,9 +81,9 @@ outputs:
     script: repack.bat  # [win]
     requirements:
       host:
-        - intel-openmp {{ mkl_version.split('.')[0] }}.*
+        - intel-openmp {{ openmp_version.split('.')[0] }}.*
       run:
-        - intel-openmp {{ mkl_version.split('.')[0] }}.*
+        - intel-openmp {{ openmp_version.split('.')[0] }}.*
       run_constrained:      # [linux or osx]
         # intel-openmp 2021.1.1 and newer is built with a newer GLIBC
         - __glibc >=2.17    # [linux]
@@ -170,14 +120,25 @@ outputs:
         - ls -A $PREFIX/include/*  # [unix]
 
   - name: intel-openmp
+    version: {{ openmp_version }}
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
-    number: {{ openmp_buildnum }}
-    version: {{ openmp_version }}
+    build:
+      number: {{ openmp_buildnum|int + build_number_bump|int }}
+      missing_dso_whitelist:
+        # - "$RPATH/libintlc.so.5"
     requirements:           # [linux]
+      build:
+        - {{ compiler('cxx') }}           # [linux] - Compiler added for automatic inclusion of `missing_dso_whitespace` values.
       run_constrained:      # [linux]
-        # intel-openmp 2021.1.1 and newer is built with a newer GLIBC
-        - __glibc >=2.17    # [linux]
+        - __glibc >=2.17    # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
+      host:
+        - intel-cmplr-lib-rt
+        - zlib
+      run:
+        - intel-cmplr-lib-rt
+        - intel-opencl-rt
+        - zlib
     about:
       home: https://software.intel.com/en-us/node/522690
       license: LicenseRef-ProprietaryIntel
@@ -243,48 +204,45 @@ outputs:
       number: {{ dal_buildnum|int + build_number_bump|int }}
       binary_relocation: false
       detect_binary_files_with_prefix: false
-      skip: True                                  # [win32]
       ignore_run_exports:   # [linux or win]
         - tbb               # [linux or win]
       missing_dso_whitelist:
-        # just ignore tbb on mac.  We could add it as a dep when we have it.
-        - libtbb.dylib                   # [osx]
-        - "$RPATH/libtbb.dylib"          # [osx]
+        - libtbb.dylib                    # [osx]  just ignore tbb on mac.  We could add
+        # it as a dep when we have it.
+        - "$RPATH/libtbb.dylib"           # [osx]
         # this one should be here, probably needs fixup of RUNPATH/RPATH
-        - libiomp5.dylib                   # [osx]
-        - "$RPATH/libiomp5.dylib"          # [osx]
+        - libiomp5.dylib                  # [osx]
+        - "$RPATH/libiomp5.dylib"         # [osx]
+        - "$RPATH/libc++.1.dylib"         # [osx]
         # normal linux stuff that would go away if we had libgcc-ng in the run deps
-        - /lib*/ld-linux.so.2
-        - /lib64/ld-linux-x86-64.so.2
-        - /lib*/libpthread.so.0
-        - /lib*/libdl.so.2
-        - /lib*/libgcc_s.so.1
-        - /lib*/libc.so.6
-        - /lib*/libm.so.6
-        - lib/libgcc_s.so.1
-        - lib*/libz.so.1
-        - "$RPATH/libtbb.so.12"
-        - "$RPATH/libtbbmalloc.so.2"
-        - /lib64/libstdc++.so.6         # [linux]
+        - "$RPATH/ld-linux-x86-64.so.2"   # [linux]
+        - "$RPATH/ld-linux.so.2"          # [linux]
+        - "$RPATH/libc.so.6"              # [linux]
+        - "$RPATH/libdl.so.2"             # [linux]
+        - "$RPATH/libgcc_s.so.1"          # [linux]
+        - "$RPATH/libm.so.6"              # [linux]
+        - "$RPATH/libpthread.so.0"        # [linux]
+        - "$RPATH/libstdc++.so.6"         # [linux]
+        - "$RPATH/libtbb.so.12"           # [linux]
+        - "$RPATH/libtbbmalloc.so.2"      # [linux]
+        - "$RPATHibgcc_s.so.1"            # [linux]
+        - "$RPATHlibz.so.1"               # [linux]
         # these are contained in Intel's optional common_cmplr_lib_rt (now intel-cmplr-lib-rt).
         - "$RPATH/libsvml.so"
         - "$RPATH/libirng.so"
         - "$RPATH/libimf.so"
         - "$RPATH/libintlc.so.5"
-        - $RPATH/libmmd.dll             # [win]
+        - "$RPATH/libmmd.dll"             # [win]
         # # this comes from Intel's optional dpcpp_cpp_rt
         - "$RPATH/libsycl.so.5"
         # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
         - libiomp5.so
         - libcoi_device.so.0
-        - /usr/lib/libstdc++.so.6       # [linux]
-        - /usr/lib64/libstdc++.so.6     # [linux]
-        - /usr/lib/libc++.1.dylib       # [osx]
         # hooray, windows
         - "C:\\Windows\\System32\\WINTRUST.dll"
         # optional dpcpp runtime that we do not yet provide.
-        - $RPATH/sycl.dll               # [win]
-        - $RPATH/svml_dispmd.dll        # [win]
+        - "$RPATH/sycl.dll"               # [win]
+        - "$RPATH/svml_dispmd.dll"        # [win]
     requirements:
       host:
         - tbb {{ dal_version.split('.')[0] }}.*
@@ -316,7 +274,6 @@ outputs:
     script: repack.bat  # [win]
     build:
       number: {{ dal_buildnum|int + build_number_bump|int }}
-      skip: True                                  # [win32]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
       summary: Headers for building against Intel® oneDAL libraries
@@ -343,7 +300,6 @@ outputs:
     script: repack.bat  # [win]
     build:
       number: {{ dal_buildnum|int + build_number_bump|int }}
-      skip: True                                  # [win32]
       missing_dso_whitelist:
         - $RPATH/sycld.dll            # [win]
         - $RPATH/libmmdd.dll          # [win]
@@ -382,7 +338,6 @@ outputs:
     script: repack.bat  # [win]
     build:
       number: {{ dal_buildnum|int + build_number_bump|int }}
-      skip: True                                  # [win32]
       run_exports:
         - {{ pin_subpackage('dal') }}
     requirements:
@@ -420,7 +375,6 @@ outputs:
     version: {{ daal_version }}
     build:
       number: {{ daal_buildnum|int + build_number_bump|int }}
-      skip: True                                  # [win32]
     requirements:
       run:
         - {{ pin_subpackage('dal', max_pin='x') }}
@@ -443,7 +397,6 @@ outputs:
     version: {{ daal_version }}
     build:
       number: {{ daal_buildnum|int + build_number_bump|int }}
-      skip: True                                  # [win32]
     requirements:
       run:
         - {{ pin_subpackage('dal-include', max_pin='x') }}
@@ -466,7 +419,6 @@ outputs:
     version: {{ daal_version }}
     build:
       number: {{ daal_buildnum|int + build_number_bump|int }}
-      skip: True                                  # [win32]
     requirements:
       run:
         - {{ pin_subpackage('dal-static', max_pin='x') }}
@@ -489,7 +441,6 @@ outputs:
     version: {{ daal_version }}
     build:
       number: {{ daal_buildnum|int + build_number_bump|int }}
-      skip: True                                  # [win32]
     requirements:
       run:
         - {{ pin_subpackage('dal-devel', max_pin='x') }}
