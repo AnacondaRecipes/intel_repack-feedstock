@@ -126,19 +126,25 @@ outputs:
     build:
       number: {{ openmp_buildnum|int + build_number_bump|int }}
       missing_dso_whitelist:
-        # - "$RPATH/libintlc.so.5"
-    requirements:           # [linux]
+        # OS specific:
+        - "$RPATH/libelf.so.1"            # [linux] - OS file.
+        # Optional `intel-opencl-rt`:
+        - "$RPATH/libOpenCL.so.1"         # [linux] - optional `intel-opencl-rt`
+        # Optional oneAPI Level Zero Loader:
+        - "$RPATH/libze_loader.so.1"      # [linux] - optional oneAPI Level Zero loader.
+        # Others...
+
+    requirements:
       build:
         - {{ compiler('cxx') }}           # [linux] - Compiler added for automatic inclusion of `missing_dso_whitespace` values.
-      run_constrained:      # [linux]
-        - __glibc >=2.17    # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
+      run_constrained:                    # [linux]
+        - __glibc >=2.17                  # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
       host:
-        - intel-cmplr-lib-rt
         - zlib
+        - libffi
       run:
-        - intel-cmplr-lib-rt
-        - intel-opencl-rt
         - zlib
+        - libffi
     about:
       home: https://software.intel.com/en-us/node/522690
       license: LicenseRef-ProprietaryIntel
@@ -204,29 +210,7 @@ outputs:
       number: {{ dal_buildnum|int + build_number_bump|int }}
       binary_relocation: false
       detect_binary_files_with_prefix: false
-      ignore_run_exports:   # [linux or win]
-        - tbb               # [linux or win]
       missing_dso_whitelist:
-        - libtbb.dylib                    # [osx]  just ignore tbb on mac.  We could add
-        # it as a dep when we have it.
-        - "$RPATH/libtbb.dylib"           # [osx]
-        # this one should be here, probably needs fixup of RUNPATH/RPATH
-        - libiomp5.dylib                  # [osx]
-        - "$RPATH/libiomp5.dylib"         # [osx]
-        - "$RPATH/libc++.1.dylib"         # [osx]
-        # normal linux stuff that would go away if we had libgcc-ng in the run deps
-        - "$RPATH/ld-linux-x86-64.so.2"   # [linux]
-        - "$RPATH/ld-linux.so.2"          # [linux]
-        - "$RPATH/libc.so.6"              # [linux]
-        - "$RPATH/libdl.so.2"             # [linux]
-        - "$RPATH/libgcc_s.so.1"          # [linux]
-        - "$RPATH/libm.so.6"              # [linux]
-        - "$RPATH/libpthread.so.0"        # [linux]
-        - "$RPATH/libstdc++.so.6"         # [linux]
-        - "$RPATH/libtbb.so.12"           # [linux]
-        - "$RPATH/libtbbmalloc.so.2"      # [linux]
-        - "$RPATHibgcc_s.so.1"            # [linux]
-        - "$RPATHlibz.so.1"               # [linux]
         # these are contained in Intel's optional common_cmplr_lib_rt (now intel-cmplr-lib-rt).
         - "$RPATH/libsvml.so"
         - "$RPATH/libirng.so"
