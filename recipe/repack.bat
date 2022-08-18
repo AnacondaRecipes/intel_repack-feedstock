@@ -1,3 +1,4 @@
+echo "Building %PKG_NAME%."
 set "src=%SRC_DIR%\%PKG_NAME%"
 
 @REM @REM The license files are no longer manually packed but are included via the meta.yaml
