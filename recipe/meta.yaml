@@ -156,9 +156,9 @@ outputs:
       run_constrained:                    # [linux]
         - __glibc >=2.17                  # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
       host:
-        - zlib
+        - zlib                            # [linux]
       run:
-        - zlib
+        - zlib                            # [linux]
     about:
       home: https://software.intel.com/en-us/node/522690
       license: LicenseRef-ProprietaryIntel
