@@ -79,7 +79,15 @@ outputs:
   - name: mkl
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
+    build:
+      number: {{ mkl_buildnum|int + build_number_bump|int }}
+      missing_dso_whitelist:
+        # tbb
+        - "$RPATH/libtbb.so.12"
+        - "$RPATH/libtbbmalloc.so.2"
     requirements:
+      build:
+        - {{ compiler('cxx') }}           # [linux] - Compiler added for automatic inclusion of `missing_dso_whitespace` values.
       host:
         - intel-openmp {{ openmp_version.split('.')[0] }}.*
       run:
@@ -128,10 +136,18 @@ outputs:
       missing_dso_whitelist:
         # OS specific:
         - "$RPATH/libelf.so.1"            # [linux] - OS file.
+        # Optional intel-cmplr-lib-rt
+        - "$RPATH/libimf.so"              # linux - intel-cmplr-lib-rt
+        - "$RPATH/libintlc.so.5"          # linux - intel-cmplr-lib-rt
+        - "$RPATH/libirng.so"             # linux - intel-cmplr-lib-rt
+        - "$RPATH/libirng.so"             # linux - intel-cmplr-lib-rt
+        - "$RPATH/libsvml.so"             # linux - intel-cmplr-lib-rt
         # Optional `intel-opencl-rt`:
         - "$RPATH/libOpenCL.so.1"         # [linux] - optional `intel-opencl-rt`
         # Optional oneAPI Level Zero Loader:
         - "$RPATH/libze_loader.so.1"      # [linux] - optional oneAPI Level Zero loader.
+        # Optional FFI
+        - "$RPATH/libffi.so.6"            # [linux]
         # Others...
 
     requirements:
@@ -141,10 +157,8 @@ outputs:
         - __glibc >=2.17                  # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
       host:
         - zlib
-        - libffi
       run:
         - zlib
-        - libffi
     about:
       home: https://software.intel.com/en-us/node/522690
       license: LicenseRef-ProprietaryIntel
@@ -211,6 +225,9 @@ outputs:
       binary_relocation: false
       detect_binary_files_with_prefix: false
       missing_dso_whitelist:
+        # tbb: Since tbb version is wildcarded in run, so we need to call it out here:
+        - "$RPATH/libtbb.so.12"
+        - "$RPATH/libtbbmalloc.so.2"
         # these are contained in Intel's optional common_cmplr_lib_rt (now intel-cmplr-lib-rt).
         - "$RPATH/libsvml.so"
         - "$RPATH/libirng.so"
@@ -228,6 +245,8 @@ outputs:
         - "$RPATH/sycl.dll"               # [win]
         - "$RPATH/svml_dispmd.dll"        # [win]
     requirements:
+      build:
+        - {{ compiler('cxx') }}           # [linux] - Compiler added for automatic inclusion of `missing_dso_whitespace` values.
       host:
         - tbb {{ dal_version.split('.')[0] }}.*
       run:
@@ -293,6 +312,8 @@ outputs:
         - $RPATH/tbbmalloc_debug.dll  # [win]
         - $RPATH/svml_dispmd.dll      # [win]
     requirements:
+      build:
+        - {{ compiler('cxx') }}           # [linux] - Compiler added for automatic inclusion of `missing_dso_whitespace` values.
       run:
         - {{ pin_subpackage('dal-include', exact=True) }}
         - tbb {{ dal_version.split('.')[0] }}.*
@@ -325,6 +346,8 @@ outputs:
       run_exports:
         - {{ pin_subpackage('dal') }}
     requirements:
+      build:
+        - {{ compiler('cxx') }}           # [linux] - Compiler added for automatic inclusion of `missing_dso_whitespace` values.
       run:
         - {{ pin_subpackage('dal-include', exact=True) }}
         - {{ pin_subpackage('dal', exact=True) }}
