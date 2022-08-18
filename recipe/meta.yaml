@@ -226,21 +226,21 @@ outputs:
       detect_binary_files_with_prefix: false
       missing_dso_whitelist:
         # tbb: Since tbb version is wildcarded in run, so we need to call it out here:
-        - "$RPATH/libtbb.so.12"
-        - "$RPATH/libtbbmalloc.so.2"
-        # these are contained in Intel's optional common_cmplr_lib_rt (now intel-cmplr-lib-rt).
-        - "$RPATH/libsvml.so"
-        - "$RPATH/libirng.so"
-        - "$RPATH/libimf.so"
-        - "$RPATH/libintlc.so.5"
+        - "$RPATH/libtbb.so.12"           # [linux]
+        - "$RPATH/libtbbmalloc.so.2"      # [linux]
+        # Optional intel-cmplr-lib-rt.
+        - "$RPATH/libimf.so"              # [linux]
+        - "$RPATH/libintlc.so.5"          # [linux]
+        - "$RPATH/libirng.so"             # [linux]
+        - "$RPATH/libsvml.so"             # [linux]
         - "$RPATH/libmmd.dll"             # [win]
         # # this comes from Intel's optional dpcpp_cpp_rt
-        - "$RPATH/libsycl.so.5"
+        - "$RPATH/libsycl.so.5"           # [linux]
         # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
         - libiomp5.so
         - libcoi_device.so.0
         # hooray, windows
-        - "C:\\Windows\\System32\\WINTRUST.dll"
+        - "C:\\Windows\\System32\\WINTRUST.dll" # [win]
         # optional dpcpp runtime that we do not yet provide.
         - "$RPATH/sycl.dll"               # [win]
         - "$RPATH/svml_dispmd.dll"        # [win]
