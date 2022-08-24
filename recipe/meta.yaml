@@ -137,15 +137,16 @@ outputs:
         # OS specific:
         - "$RPATH/libelf.so.1"            # [linux] - OS file.
         # Optional intel-cmplr-lib-rt
-        - "$RPATH/libimf.so"              # linux - intel-cmplr-lib-rt
-        - "$RPATH/libintlc.so.5"          # linux - intel-cmplr-lib-rt
-        - "$RPATH/libirng.so"             # linux - intel-cmplr-lib-rt
-        - "$RPATH/libirng.so"             # linux - intel-cmplr-lib-rt
-        - "$RPATH/libsvml.so"             # linux - intel-cmplr-lib-rt
+        - "$RPATH/libimf.so"              # [linux] - intel-cmplr-lib-rt.
+        - "$RPATH/libintlc.so.5"          # [linux] - intel-cmplr-lib-rt.
+        - "$RPATH/libirng.so"             # [linux] - intel-cmplr-lib-rt.
+        - "$RPATH/libirng.so"             # [linux] - intel-cmplr-lib-rt.
+        - "$RPATH/libsvml.so"             # [linux] - intel-cmplr-lib-rt.
         # Optional `intel-opencl-rt`:
-        - "$RPATH/libOpenCL.so.1"         # [linux] - optional `intel-opencl-rt`
+        - "$RPATH/libOpenCL.so.1"         # [linux] - optional `intel-opencl-rt`.
         # Optional oneAPI Level Zero Loader:
         - "$RPATH/libze_loader.so.1"      # [linux] - optional oneAPI Level Zero loader.
+        - "$RPATH/ze_loader.dll"          # [win]   - optional oneAPI Level Zero loader.
         # Optional FFI
         - "$RPATH/libffi.so.6"            # [linux]
         # Others...
