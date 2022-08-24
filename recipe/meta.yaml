@@ -83,8 +83,16 @@ outputs:
       number: {{ mkl_buildnum|int + build_number_bump|int }}
       missing_dso_whitelist:
         # tbb
-        - "$RPATH/libtbb.so.12"
-        - "$RPATH/libtbbmalloc.so.2"
+        - "$RPATH/libtbb.so.12"           # [unix]
+        - "$RPATH/libtbbmalloc.so.2"      # [unix]
+        # oneAPI ?
+        - "$RPATH/impi.dll"               # [win]
+        - "$RPATH/msmpi.dll"              # [win]
+        # PGI tools?
+        - "$RPATH/pgc.dll"                # [win]
+        - "$RPATH/pgf90.dll"              # [win]
+        - "$RPATH/pgmath.dll"             # [win]
+
     requirements:
       build:
         - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitespace` values.
@@ -149,7 +157,6 @@ outputs:
         - "$RPATH/ze_loader.dll"          # [win]   - optional oneAPI Level Zero loader.
         # Optional FFI
         - "$RPATH/libffi.so.6"            # [linux]
-        # Others...
 
     requirements:
       build:
