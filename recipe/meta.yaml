@@ -457,16 +457,14 @@ outputs:
       license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
-         - dal-devel/licenses/license.txt       # [osx]
-         - dal-devel/licenses/tpp.txt           # [osx]
-         - dal-devel/info/licenses/license.txt  # [not osx]
-         - dal-devel/info/licenses/tpp.txt      # [not osx]
+         - dal-devel/info/licenses/license.txt
+         - dal-devel/info/licenses/tpp.txt
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
     test:
       commands:
-        - ls -A $PREFIX/lib/*  # [unix]
+        - ls -A $PREFIX/lib/*      # [unix]
         - ls -A $PREFIX/include/*  # [unix]
 
 # please the linter
