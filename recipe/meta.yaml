@@ -83,8 +83,9 @@ outputs:
       number: {{ mkl_buildnum|int + build_number_bump|int }}
       missing_dso_whitelist:
         # tbb
-        - "$RPATH/libtbb.so.12"           # [unix]
-        - "$RPATH/libtbbmalloc.so.2"      # [unix]
+        - "$RPATH/libtbb.so.12"           # [linux]
+        - "$RPATH/libtbbmalloc.so.2"      # [linux]
+        - "$RPATH/libtbb.12.dylib"        # [osx]
         # oneAPI ?
         - "$RPATH/impi.dll"               # [win]
         - "$RPATH/msmpi.dll"              # [win]
