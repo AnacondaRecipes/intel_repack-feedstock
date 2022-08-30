@@ -153,6 +153,7 @@ outputs:
         - "$RPATH/libsvml.so"             # [linux] - intel-cmplr-lib-rt.
         # Optional `intel-opencl-rt`:
         - "$RPATH/libOpenCL.so.1"         # [linux] - optional `intel-opencl-rt`.
+        - "$RPATH/OpenCL.dll"             # [win]   - optional `intel-opencl-rt`.
         # Optional oneAPI Level Zero Loader:
         - "$RPATH/libze_loader.so.1"      # [linux] - optional oneAPI Level Zero loader.
         - "$RPATH/ze_loader.dll"          # [win]   - optional oneAPI Level Zero loader.
@@ -243,6 +244,9 @@ outputs:
         - "$RPATH/libirng.so"             # [linux]
         - "$RPATH/libsvml.so"             # [linux]
         - "$RPATH/libmmd.dll"             # [win]
+        # Optional `intel-opencl-rt`:
+        - "$RPATH/libOpenCL.so.1"         # [linux]
+        - "$RPATH/OpenCL.dll"             # [win]
         # # this comes from Intel's optional dpcpp_cpp_rt
         - "$RPATH/libsycl.so.5"           # [linux]
         # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
