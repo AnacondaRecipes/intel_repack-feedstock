@@ -147,7 +147,7 @@ outputs:
 
     requirements:
       build:
-        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitespace` values.
+        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
       host:
         - intel-openmp {{ openmp_version.split('.')[0] }}.*
       run:
@@ -213,7 +213,7 @@ outputs:
 
     requirements:
       build:
-        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitespace` values.
+        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
       run_constrained:                    # [linux]
         - __glibc >=2.17                  # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
       host:
@@ -310,7 +310,7 @@ outputs:
         - "$RPATH/svml_dispmd.dll"        # [win]
     requirements:
       build:
-        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitespace` values.
+        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
       host:
         - tbb {{ dal_version.split('.')[0] }}.*
       run:
@@ -377,7 +377,7 @@ outputs:
         - $RPATH/svml_dispmd.dll      # [win]
     requirements:
       build:
-        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitespace` values.
+        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
       run:
         - {{ pin_subpackage('dal-include', exact=True) }}
         - tbb {{ dal_version.split('.')[0] }}.*
@@ -411,7 +411,7 @@ outputs:
         - {{ pin_subpackage('dal') }}
     requirements:
       build:
-        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitespace` values.
+        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
       run:
         - {{ pin_subpackage('dal-include', exact=True) }}
         - {{ pin_subpackage('dal', exact=True) }}
