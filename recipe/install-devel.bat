@@ -1,5 +1,5 @@
 set "src=%SRC_DIR%\%PKG_NAME%"
-COPY "%src%\info\LICENSE.txt" "%SRC_DIR%"
+COPY "%src%\info\licenses\LICENSE.txt" "%SRC_DIR%"
 
 COPY %RECIPE_DIR%\site.cfg %PREFIX%\site.cfg
 unix2dos %PREFIX%\site.cfg

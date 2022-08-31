@@ -1,124 +1,157 @@
-{% set version = "2022.0.1" %}  # [linux]
-{% set version = "2022.0.0" %}  # [win or osx]
-{% set mkl_buildnum = "117" %}  # [linux]
-{% set mkl_buildnum = "105" %}  # [osx]
-{% set mkl_buildnum = "115" %}  # [win]
 
-# use this if our build script changes and we need to increment beyond intel's version
-{% set dstbuildnum = '0' %}
-{% set openmp_version = version %}
-# 117 was intel's base build number.  We're up 1 after making the license file not read-only
-# {% set openmp_buildnum = buildnum|int + dstbuildnum|int %}
-{% set openmp_buildnum = "3633" %}  # [linux]
-{% set openmp_buildnum = "3615" %}  # [osx]
-{% set openmp_buildnum = "3663" %}  # [win]
 
-{% set daal_version = "2021.5.1" %}  # [linux]
-{% set daal_version = "2021.5.0" %}  # [win or osx]
-{% set daal_buildnum = "803" %}  # [linux]
-{% set daal_buildnum = "782" %}  # [osx]
-{% set daal_buildnum = "796" %}  # [win]
+# Linux
+{% set mkl_version = "2022.1.0" %}      # [linux]
+{% set mkl_buildnum = "223" %}          # [linux]
+{% set openmp_version = mkl_version %}  # [linux]
+{% set openmp_buildnum = "3768" %}      # [linux]
+{% set dal_version = "2021.6.0" %}      # [linux]
+{% set dal_buildnum = "915" %}          # [linux]
+{% set daal_version = "2021.5.3" %}     # [linux]
+{% set daal_buildnum = "832" %}         # [linux]
+
+{% set mkl_hash = "31c225ce08d3dc129f0881e5d36a1ef0ba8dc9fdc0e168397c2ac144d5f0bf54" %}           # [linux]
+{% set mkl_devel_hash = "4e014e6ac31e8961f09c937b66f53d2c0d75f074f39abfa9f378f4659ed2ecbb" %}     # [linux]
+{% set mkl_include_hash = "704e658a9b25a200f8035f3d0a8f2e094736496a2169f87609f1cfed2e2eb0a9" %}   # [linux]
+{% set intel_openmp_hash = "498dc37ce1bd513f591b633565151c4de8f11a12914814f2bf85afebbd35ee23" %}  # [linux]
+{% set dal_hash = "e456f92ed30d77c00583a1b0fe6fc41358415c60a62709ece57503f7a9215fc1" %}           # [linux]
+{% set dal_include_hash = "e3bba390db7e36b4cfcf781a503b4cff79d49bcdc8b45f059f4b1a0459a7e3ef" %}   # [linux]
+{% set dal_static_hash = "df1cff3ef35951b49b874ee6ccdff2a266e552c8114ac7abe853d4b41856bff9" %}    # [linux]
+{% set dal_devel_hash = "75dbf1b002cc8d40f45d8172d58e3a2143c61d340bb81ae86588a2869a7f71e3" %}     # [linux]
+{% set daal_hash = "092be0168b46861ed1eda1467ce1d13f9c6eaa7ee936a232db6638a37b0c3678" %}          # [linux]
+{% set daal_include_hash = "83cfc95049a91b32895644fff532512359e33d9a26e079c4f74c2c72556ffbd8" %}  # [linux]
+{% set daal_static_hash = "eaf8a0aa2ef5fb73bc96dbb64c3fbde502a9c4fd2c0044331009cf92916b995c" %}   # [linux]
+{% set daal_devel_hash = "a982199ffd3d096712a6650fe02a4df4068e0093bf9f0106d9348f9cddce1fa4" %}    # [linux]
+
+
+# OSX
+{% set mkl_version = "2022.1.0" %}      # [osx]
+{% set mkl_buildnum = "208" %}          # [osx]
+{% set openmp_version = mkl_version %}  # [osx]
+{% set openmp_buildnum = "3718" %}      # [osx]
+{% set dal_version = "2021.6.0" %}      # [osx]
+{% set dal_buildnum = "928" %}          # [osx]
+{% set daal_version = "2021.5.0" %}     # [osx]
+{% set daal_buildnum = "782" %}         # [osx]
+
+{% set mkl_hash = "98ceaefa60718bbcda84211f56396ed2e7e88484223708643d6ef6aa6b58f7d5" %}           # [osx]
+{% set mkl_devel_hash = "bcf59ca046690f5727b7263588408d613e448b44fd7afa65e22755788f68c6af" %}     # [osx]
+{% set mkl_include_hash = "569ea516148726b2698f17982aba2d9ec1bfb321f0180be938eddbc696addbc5" %}   # [osx]
+{% set intel_openmp_hash = "ae42df1b6129bbd7708feb6dbd5be6c72da3947b38407a5aca468765cdfef271" %}  # [osx]
+{% set dal_hash = "f651e775de1508aa81fb01b8bd5c0ca7ffbdeadb7970411e31968e4bd759340d" %}           # [osx]
+{% set dal_include_hash = "d2526ce9ba92eb9f2062df091c58c0b55069bcfe0e729a3892df8f601e194ba2" %}   # [osx]
+{% set dal_static_hash = "325924c0c38a49985cfa21d2a95369c90037ba9c3563b15cfc7f935dfde1d130" %}    # [osx]
+{% set dal_devel_hash = "6910088e7135b316b5e7d7de35c4093f4598b93ff726f8e11d6bf5ddaba9dd2c" %}     # [osx]
+{% set daal_hash = "8d36f8d11e1af1bcc5affefc6e61c1bc60a1b1070ee780e968a91327e352b14a" %}          # [osx]
+{% set daal_include_hash = "cd32960bf52d7dbaa831a4df8761352e61cf022ced409daf79be5672871a5787" %}  # [osx]
+{% set daal_static_hash = "6c73100f2eb68d1feb8ea0edd188ee2d0a0cf29f5be01f6b180e895a1d5b5b18" %}   # [osx]
+{% set daal_devel_hash = "fce48865aad6f67a6ee35efb17aaadc0da6fdd6e0e578420e60e7480c55bf3e0" %}    # [osx]
+
+# Windows
+{% set mkl_version = "2022.1.0" %}      # [win]
+{% set mkl_buildnum = "192" %}          # [win]
+{% set openmp_version = mkl_version %}  # [win]
+{% set openmp_buildnum = "3787" %}      # [win]
+{% set dal_version = "2021.6.0" %}      # [win]
+{% set dal_buildnum = "874" %}          # [win]
+{% set daal_version = "2021.5.4" %}     # [win]
+{% set daal_buildnum = "854" %}         # [win]
+
+{% set mkl_hash = "090e0a6121ecc09c3036b96a487cc975386b9c934fe1e3ece5457db7f39baae8" %}           # [win]
+{% set mkl_devel_hash = "d5080027cb5a1450cb9ed6aa633be34d6c97a9a8cbd5ca90aa226b0e13b71166" %}     # [win]
+{% set mkl_include_hash = "b6452e8c4891fcfab452bc23c6adc9c61ab6635fa494bb2b29725473c1013abc" %}   # [win]
+{% set intel_openmp_hash = "5ad78e140b656632361f8b49456f1768727fe7a17ca1dde3d6a2bd9ce3433e8a" %}  # [win]
+{% set dal_hash = "51a388d5cb9212a87e0ab5f02a978105cc28f0dfe0366610d723f9dfab8f9511" %}           # [win]
+{% set dal_include_hash = "15867d2f83d26e21468c178b8760de12534b267eae8a46f439d8427cd7b469ef" %}   # [win]
+{% set dal_static_hash = "e7045f200522fcd5fd471072aeed1ca4df9ad06617feadb9040e5b2c55bfbced" %}    # [win]
+{% set dal_devel_hash = "7da9f5964534256e44eb1e8d1bdcad9950763d524b4cf66aa85847f422700714" %}     # [win]
+{% set daal_hash = "8799109a566c4a3d2f5e3800b5365e639da7f5d6032052020ceed1e801e228f5" %}          # [win]
+{% set daal_include_hash = "ea3ad17eca1ecea588e641706c40fa6895ca3e0f3d10cd9c92e8a6f6ff9865aa" %}  # [win]
+{% set daal_static_hash = "d3db345f3acd4d951e218301f480001b4994a639cb552d326215c8f1594d5c5a" %}   # [win]
+{% set daal_devel_hash = "545b249720c20877a9691fcdb79a1489f0654ae34026308d3b1b5c4ff064b1cd" %}    # [win]
+
+
+# We will use the <X>_buildnumber for the package buildnumber (where x is mkl, dal, etc); however, when it's necessary to bump
+# the build number, this variable is used to increment it.
+{% set build_number_bump = '0' %}
+
 
 package:
   name: intel_repack
-  version: {{ version }}
+  version: {{ mkl_version }}
 
 source:
-  - url: https://anaconda.org/intel/mkl/{{ version }}/download/{{ target_platform }}/mkl-{{ version }}-intel_{{ mkl_buildnum }}.tar.bz2
+  - url: https://anaconda.org/intel/mkl/{{ mkl_version }}/download/{{ target_platform }}/mkl-{{ mkl_version }}-intel_{{ mkl_buildnum }}.tar.bz2
     folder: mkl
-  - url: https://anaconda.org/intel/mkl-devel/{{ version }}/download/{{ target_platform }}/mkl-devel-{{ version }}-intel_{{ mkl_buildnum }}.tar.bz2
+    sha256: {{ mkl_hash }}
+  - url: https://anaconda.org/intel/mkl-devel/{{ mkl_version }}/download/{{ target_platform }}/mkl-devel-{{ mkl_version }}-intel_{{ mkl_buildnum }}.tar.bz2
     folder: mkl-devel
-  - url: https://anaconda.org/intel/mkl-include/{{ version }}/download/{{ target_platform }}/mkl-include-{{ version }}-intel_{{ mkl_buildnum }}.tar.bz2
+    sha256: {{ mkl_devel_hash }}
+  - url: https://anaconda.org/intel/mkl-include/{{ mkl_version }}/download/{{ target_platform }}/mkl-include-{{ mkl_version }}-intel_{{ mkl_buildnum }}.tar.bz2
     folder: mkl-include
+    sha256: {{ mkl_include_hash }}
   - url: https://anaconda.org/intel/intel-openmp/{{ openmp_version }}/download/{{ target_platform }}/intel-openmp-{{ openmp_version }}-intel_{{ openmp_buildnum }}.tar.bz2
     folder: intel-openmp
-  {% if not win32 %}
-  - url: https://anaconda.org/intel/dal/{{ daal_version }}/download/{{ target_platform }}/dal-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
+    sha256: {{ intel_openmp_hash }}
+  - url: https://anaconda.org/intel/dal/{{ dal_version }}/download/{{ target_platform }}/dal-{{ dal_version }}-intel_{{ dal_buildnum }}.tar.bz2
     folder: dal
-  - url: https://anaconda.org/intel/dal-include/{{ daal_version }}/download/{{ target_platform }}/dal-include-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
+    sha256: {{ dal_hash }}
+  - url: https://anaconda.org/intel/dal-include/{{ dal_version }}/download/{{ target_platform }}/dal-include-{{ dal_version }}-intel_{{ dal_buildnum }}.tar.bz2
     folder: dal-include
-  - url: https://anaconda.org/intel/dal-static/{{ daal_version }}/download/{{ target_platform }}/dal-static-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
+    sha256: {{ dal_include_hash }}
+  - url: https://anaconda.org/intel/dal-static/{{ dal_version }}/download/{{ target_platform }}/dal-static-{{ dal_version }}-intel_{{ dal_buildnum }}.tar.bz2
     folder: dal-static
-  - url: https://anaconda.org/intel/dal-devel/{{ daal_version }}/download/{{ target_platform }}/dal-devel-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
+    sha256: {{ dal_static_hash }}
+  - url: https://anaconda.org/intel/dal-devel/{{ dal_version }}/download/{{ target_platform }}/dal-devel-{{ dal_version }}-intel_{{ dal_buildnum }}.tar.bz2
     folder: dal-devel
+    sha256: {{ dal_devel_hash }}
   - url: https://anaconda.org/intel/daal/{{ daal_version }}/download/{{ target_platform }}/daal-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: daal
+    sha256: {{ daal_hash }}
   - url: https://anaconda.org/intel/daal-include/{{ daal_version }}/download/{{ target_platform }}/daal-include-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: daal-include
+    sha256: {{ daal_include_hash }}
   - url: https://anaconda.org/intel/daal-static/{{ daal_version }}/download/{{ target_platform }}/daal-static-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: daal-static
+    sha256: {{ daal_static_hash }}
   - url: https://anaconda.org/intel/daal-devel/{{ daal_version }}/download/{{ target_platform }}/daal-devel-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: daal-devel
-  {% endif %}
+    sha256: {{ daal_devel_hash }}
 
 build:
-  # 117 was intel's base build number.  We're up 1 after making the license file not read-only
-  number: {{ mkl_buildnum|int + dstbuildnum|int }}
+  number: {{ mkl_buildnum|int + build_number_bump|int }}
   binary_relocation: false
   detect_binary_files_with_prefix: false
-  skip: True                                  # [not (x86 and (linux or win or osx))]
-  runpath_whitelist:
+  skip: True             # [not (x86 and (linux or win or osx))]
+  runpath_whitelist:     # <---------------------------------------------------------------------------------------------------------------------------------   Do a trial remove
     - $ORIGIN
-  missing_dso_whitelist:
-    # just ignore tbb on mac.  We could add it as a dep when we have it.
-    - libtbb.dylib                   # [osx]
-    - "$RPATH/libtbb.dylib"          # [osx]
-    # this one should be here, probably needs fixup of RUNPATH/RPATH
-    - libiomp5.dylib                   # [osx]
-    - "$RPATH/libiomp5.dylib"          # [osx]
-    # normal linux stuff that would go away if we had libgcc-ng in the run deps
-    - /lib*/ld-linux.so.2
-    - /lib64/ld-linux-x86-64.so.2
-    - /lib*/libpthread.so.0
-    - /lib*/libdl.so.2
-    - /lib*/libgcc_s.so.1
-    - /lib*/libc.so.6
-    - /lib*/libm.so.6
-    - /lib*/libz.so.1
-    - "$RPATH/libtbb.2.so"
-    - "$RPATH/libtbbmalloc.so.1"
-    - /lib64/libstdc++.so.6         # [linux]
-    # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
-    - libiomp5.so
-    - libcoi_device.so.0
-    - /usr/lib/libstdc++.so.6       # [linux]
-    - /usr/lib64/libstdc++.so.6     # [linux]
-    - /usr/lib/libc++.1.dylib       # [osx]
-    # hooray, windows
-    - "C:\\Windows\\System32\\WINTRUST.dll"
-    # mostly things for optional runtime targets..
-    - $RPATH/libOpenCL.so.1       # [linux]
-    - $RPATH/libffi.so.6          # [linux]
-    - $RPATH/libimf.so            # [linux]
-    - $RPATH/libintlc.so.5        # [linux]
-    - $RPATH/libiomp5.so          # [linux]
-    - $RPATH/libirng.so           # [linux]
-    - $RPATH/libsvml.so           # [linux]
-    - $RPATH/libze_loader.so.1    # [linux]
-    - $RPATH/libtbb.so.12         # [linux]
-    - '**/librt.so.1'             # [linux]
-    - '**/libelf.so.1'            # [linux]
-    - $RPATH/libtbb.12.dylib      # [osx]
-    - $RPATH/ze_loader.dll        # [win]
-    - $RPATH/impi.dll             # [win]
-    - $RPATH/msmpi.dll            # [win]
-    - $RPATH/mpich2mpi.dll        # [win]
-    - $RPATH/pgc.dll              # [win]
-    - $RPATH/pgf90.dll            # [win]
-    - $RPATH/pgmath.dll           # [win]
-    - $RPATH/svml_dispmd.dll      # [win]
-    # We might want to look into this a bit and see if we should update intel-openmp's dependencies?
-    - /lib64/libffi.so.6          # [linux]
 
 outputs:
   - name: mkl
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
+    build:
+      number: {{ mkl_buildnum|int + build_number_bump|int }}
+      missing_dso_whitelist:
+        # tbb
+        - "$RPATH/libtbb.so.12"           # [linux]
+        - "$RPATH/libtbbmalloc.so.2"      # [linux]
+        - "$RPATH/libtbb.12.dylib"        # [osx]
+        # oneAPI ?
+        - "$RPATH/impi.dll"               # [win]
+        - "$RPATH/msmpi.dll"              # [win]
+        # PGI tools?
+        - "$RPATH/pgc.dll"                # [win]
+        - "$RPATH/pgf90.dll"              # [win]
+        - "$RPATH/pgmath.dll"             # [win]
+
     requirements:
+      build:
+        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
       host:
-        - intel-openmp {{ version.split('.')[0] }}.*
+        - intel-openmp {{ openmp_version.split('.')[0] }}.*
       run:
-        - intel-openmp {{ version.split('.')[0] }}.*
+        - intel-openmp {{ openmp_version.split('.')[0] }}.*
       run_constrained:      # [linux or osx]
         # intel-openmp 2021.1.1 and newer is built with a newer GLIBC
         - __glibc >=2.17    # [linux]
@@ -155,14 +188,38 @@ outputs:
         - ls -A $PREFIX/include/*  # [unix]
 
   - name: intel-openmp
+    version: {{ openmp_version }}
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
-    number: {{ openmp_buildnum }}
-    version: {{ openmp_version }}
-    requirements:           # [linux]
-      run_constrained:      # [linux]
-        # intel-openmp 2021.1.1 and newer is built with a newer GLIBC
-        - __glibc >=2.17    # [linux]
+    build:
+      number: {{ openmp_buildnum|int + build_number_bump|int }}
+      missing_dso_whitelist:
+        # OS specific:
+        - "$RPATH/libelf.so.1"            # [linux] - OS file.
+        # Optional intel-cmplr-lib-rt
+        - "$RPATH/libimf.so"              # [linux] - intel-cmplr-lib-rt.
+        - "$RPATH/libintlc.so.5"          # [linux] - intel-cmplr-lib-rt.
+        - "$RPATH/libirng.so"             # [linux] - intel-cmplr-lib-rt.
+        - "$RPATH/libirng.so"             # [linux] - intel-cmplr-lib-rt.
+        - "$RPATH/libsvml.so"             # [linux] - intel-cmplr-lib-rt.
+        # Optional `intel-opencl-rt`:
+        - "$RPATH/libOpenCL.so.1"         # [linux] - optional `intel-opencl-rt`.
+        - "$RPATH/OpenCL.dll"             # [win]   - optional `intel-opencl-rt`.
+        # Optional oneAPI Level Zero Loader:
+        - "$RPATH/libze_loader.so.1"      # [linux] - optional oneAPI Level Zero loader.
+        - "$RPATH/ze_loader.dll"          # [win]   - optional oneAPI Level Zero loader.
+        # Optional FFI
+        - "$RPATH/libffi.so.6"            # [linux]
+
+    requirements:
+      build:
+        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
+      run_constrained:                    # [linux]
+        - __glibc >=2.17                  # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
+      host:
+        - zlib                            # [linux]
+      run:
+        - zlib                            # [linux]
     about:
       home: https://software.intel.com/en-us/node/522690
       license: LicenseRef-ProprietaryIntel
@@ -195,7 +252,7 @@ outputs:
     script: install-devel.sh   # [unix]
     script: install-devel.bat  # [win]
     build:
-      number: {{ mkl_buildnum|int + dstbuildnum|int }}
+      number: {{ mkl_buildnum|int + build_number_bump|int }}
       # when stuff is built with MKL, ensure that constraint makes mkl runtime libs as new or
       #     newer than build version
       run_exports:
@@ -221,60 +278,43 @@ outputs:
         - ls -A $PREFIX/include/*  # [unix]
 
   - name: dal
-    version: {{ daal_version }}
+    version: {{ dal_version }}
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
     build:
-      number: {{ daal_buildnum|int + dstbuildnum|int }}
+      number: {{ dal_buildnum|int + build_number_bump|int }}
       binary_relocation: false
       detect_binary_files_with_prefix: false
-      skip: True                                  # [win32]
-      ignore_run_exports:   # [linux or win]
-        - tbb               # [linux or win]
       missing_dso_whitelist:
-        # just ignore tbb on mac.  We could add it as a dep when we have it.
-        - libtbb.dylib                   # [osx]
-        - "$RPATH/libtbb.dylib"          # [osx]
-        # this one should be here, probably needs fixup of RUNPATH/RPATH
-        - libiomp5.dylib                   # [osx]
-        - "$RPATH/libiomp5.dylib"          # [osx]
-        # normal linux stuff that would go away if we had libgcc-ng in the run deps
-        - /lib*/ld-linux.so.2
-        - /lib64/ld-linux-x86-64.so.2
-        - /lib*/libpthread.so.0
-        - /lib*/libdl.so.2
-        - /lib*/libgcc_s.so.1
-        - /lib*/libc.so.6
-        - /lib*/libm.so.6
-        - lib/libgcc_s.so.1
-        - lib*/libz.so.1
-        - "$RPATH/libtbb.so.12"
-        - "$RPATH/libtbbmalloc.so.2"
-        - /lib64/libstdc++.so.6         # [linux]
-        # these are contained in Intel's optional common_cmplr_lib_rt (now intel-cmplr-lib-rt).
-        - "$RPATH/libsvml.so"
-        - "$RPATH/libirng.so"
-        - "$RPATH/libimf.so"
-        - "$RPATH/libintlc.so.5"
-        - $RPATH/libmmd.dll             # [win]
+        # tbb: Since tbb version is wildcarded in run, so we need to call it out here:
+        - "$RPATH/libtbb.so.12"           # [linux]
+        - "$RPATH/libtbbmalloc.so.2"      # [linux]
+        # Optional intel-cmplr-lib-rt.
+        - "$RPATH/libimf.so"              # [linux]
+        - "$RPATH/libintlc.so.5"          # [linux]
+        - "$RPATH/libirng.so"             # [linux]
+        - "$RPATH/libsvml.so"             # [linux]
+        - "$RPATH/libmmd.dll"             # [win]
+        # Optional `intel-opencl-rt`:
+        - "$RPATH/libOpenCL.so.1"         # [linux]
+        - "$RPATH/OpenCL.dll"             # [win]
         # # this comes from Intel's optional dpcpp_cpp_rt
-        - "$RPATH/libsycl.so.5"
+        - "$RPATH/libsycl.so.5"           # [linux]
         # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
         - libiomp5.so
         - libcoi_device.so.0
-        - /usr/lib/libstdc++.so.6       # [linux]
-        - /usr/lib64/libstdc++.so.6     # [linux]
-        - /usr/lib/libc++.1.dylib       # [osx]
         # hooray, windows
-        - "C:\\Windows\\System32\\WINTRUST.dll"
+        - "C:\\Windows\\System32\\WINTRUST.dll" # [win]
         # optional dpcpp runtime that we do not yet provide.
-        - $RPATH/sycl.dll               # [win]
-        - $RPATH/svml_dispmd.dll        # [win]
+        - "$RPATH/sycl.dll"               # [win]
+        - "$RPATH/svml_dispmd.dll"        # [win]
     requirements:
+      build:
+        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
       host:
-        - tbb {{ daal_version.split('.')[0] }}.*
+        - tbb {{ dal_version.split('.')[0] }}.*
       run:
-        - tbb {{ daal_version.split('.')[0] }}.*
+        - tbb {{ dal_version.split('.')[0] }}.*
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
       summary: Intel® oneDAL runtime libraries
@@ -296,12 +336,11 @@ outputs:
         - ls -A $PREFIX/lib/*  # [unix]
 
   - name: dal-include
-    version: {{ daal_version }}
+    version: {{ dal_version }}
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
     build:
-      number: {{ daal_buildnum|int + dstbuildnum|int }}
-      skip: True                                  # [win32]
+      number: {{ dal_buildnum|int + build_number_bump|int }}
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
       summary: Headers for building against Intel® oneDAL libraries
@@ -323,12 +362,11 @@ outputs:
         - ls -A $PREFIX/include/*  # [unix]
 
   - name: dal-static
-    version: {{ daal_version }}
+    version: {{ dal_version }}
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
     build:
-      number: {{ daal_buildnum|int + dstbuildnum|int }}
-      skip: True                                  # [win32]
+      number: {{ dal_buildnum|int + build_number_bump|int }}
       missing_dso_whitelist:
         - $RPATH/sycld.dll            # [win]
         - $RPATH/libmmdd.dll          # [win]
@@ -338,9 +376,11 @@ outputs:
         - $RPATH/tbbmalloc_debug.dll  # [win]
         - $RPATH/svml_dispmd.dll      # [win]
     requirements:
+      build:
+        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
       run:
         - {{ pin_subpackage('dal-include', exact=True) }}
-        - tbb {{ daal_version.split('.')[0] }}.*
+        - tbb {{ dal_version.split('.')[0] }}.*
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
       summary: Static libraries for Intel® oneDAL
@@ -362,15 +402,16 @@ outputs:
         - ls -A $PREFIX/lib/*  # [unix]
 
   - name: dal-devel
-    version: {{ daal_version }}
+    version: {{ dal_version }}
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
     build:
-      number: {{ daal_buildnum|int + dstbuildnum|int }}
-      skip: True                                  # [win32]
+      number: {{ dal_buildnum|int + build_number_bump|int }}
       run_exports:
         - {{ pin_subpackage('dal') }}
     requirements:
+      build:
+        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
       run:
         - {{ pin_subpackage('dal-include', exact=True) }}
         - {{ pin_subpackage('dal', exact=True) }}
@@ -385,16 +426,14 @@ outputs:
       license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
-         - dal-devel/licenses/license.txt       # [osx]
-         - dal-devel/licenses/tpp.txt           # [osx]
-         - dal-devel/info/licenses/license.txt  # [not osx]
-         - dal-devel/info/licenses/tpp.txt      # [not osx]
+         - dal-devel/info/licenses/license.txt
+         - dal-devel/info/licenses/tpp.txt
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
     test:
       commands:
-        - ls -A $PREFIX/lib/*  # [unix]
+        - ls -A $PREFIX/lib/*      # [unix]
         - ls -A $PREFIX/include/*  # [unix]
 
 # Future note: all daal packages are now metapackages that depend on their respective dal equivalent.
@@ -404,8 +443,7 @@ outputs:
   - name: daal
     version: {{ daal_version }}
     build:
-      number: {{ daal_buildnum|int + dstbuildnum|int }}
-      skip: True                                  # [win32]
+      number: {{ daal_buildnum|int + build_number_bump|int }}
     requirements:
       run:
         - {{ pin_subpackage('dal', max_pin='x') }}
@@ -427,8 +465,7 @@ outputs:
   - name: daal-include
     version: {{ daal_version }}
     build:
-      number: {{ daal_buildnum|int + dstbuildnum|int }}
-      skip: True                                  # [win32]
+      number: {{ daal_buildnum|int + build_number_bump|int }}
     requirements:
       run:
         - {{ pin_subpackage('dal-include', max_pin='x') }}
@@ -450,8 +487,7 @@ outputs:
   - name: daal-static
     version: {{ daal_version }}
     build:
-      number: {{ daal_buildnum|int + dstbuildnum|int }}
-      skip: True                                  # [win32]
+      number: {{ daal_buildnum|int + build_number_bump|int }}
     requirements:
       run:
         - {{ pin_subpackage('dal-static', max_pin='x') }}
@@ -473,8 +509,7 @@ outputs:
   - name: daal-devel
     version: {{ daal_version }}
     build:
-      number: {{ daal_buildnum|int + dstbuildnum|int }}
-      skip: True                                  # [win32]
+      number: {{ daal_buildnum|int + build_number_bump|int }}
     requirements:
       run:
         - {{ pin_subpackage('dal-devel', max_pin='x') }}
@@ -484,16 +519,14 @@ outputs:
       license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
-         - dal-devel/licenses/license.txt       # [osx]
-         - dal-devel/licenses/tpp.txt           # [osx]
-         - dal-devel/info/licenses/license.txt  # [not osx]
-         - dal-devel/info/licenses/tpp.txt      # [not osx]
+         - dal-devel/info/licenses/license.txt
+         - dal-devel/info/licenses/tpp.txt
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
     test:
       commands:
-        - ls -A $PREFIX/lib/*  # [unix]
+        - ls -A $PREFIX/lib/*      # [unix]
         - ls -A $PREFIX/include/*  # [unix]
 
 # please the linter

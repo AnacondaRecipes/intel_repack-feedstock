@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Building ${PKG_NAME}."
 set -ex
 
 # for subpackages, we have named our extracted locations according to the subpackage name
