@@ -68,7 +68,7 @@
 {% set daal_hash = "8799109a566c4a3d2f5e3800b5365e639da7f5d6032052020ceed1e801e228f5" %}          # [win]
 {% set daal_include_hash = "ea3ad17eca1ecea588e641706c40fa6895ca3e0f3d10cd9c92e8a6f6ff9865aa" %}  # [win]
 {% set daal_static_hash = "d3db345f3acd4d951e218301f480001b4994a639cb552d326215c8f1594d5c5a" %}   # [win]
-{% set daal_devel_hash = "8799109a566c4a3d2f5e3800b5365e639da7f5d6032052020ceed1e801e228f5" %}    # [win]
+{% set daal_devel_hash = "545b249720c20877a9691fcdb79a1489f0654ae34026308d3b1b5c4ff064b1cd" %}    # [win]
 
 
 # We will use the <X>_buildnumber for the package buildnumber (where x is mkl, dal, etc); however, when it's necessary to bump
