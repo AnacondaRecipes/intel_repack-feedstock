@@ -10,6 +10,20 @@
 {% set daal_version = "2021.5.3" %}     # [linux]
 {% set daal_buildnum = "832" %}         # [linux]
 
+{% set mkl_hash = "31c225ce08d3dc129f0881e5d36a1ef0ba8dc9fdc0e168397c2ac144d5f0bf54" %}           # [linux]
+{% set mkl_devel_hash = "4e014e6ac31e8961f09c937b66f53d2c0d75f074f39abfa9f378f4659ed2ecbb" %}     # [linux]
+{% set mkl_include_hash = "704e658a9b25a200f8035f3d0a8f2e094736496a2169f87609f1cfed2e2eb0a9" %}   # [linux]
+{% set intel_openmp_hash = "498dc37ce1bd513f591b633565151c4de8f11a12914814f2bf85afebbd35ee23" %}  # [linux]
+{% set dal_hash = "e456f92ed30d77c00583a1b0fe6fc41358415c60a62709ece57503f7a9215fc1" %}           # [linux]
+{% set dal_include_hash = "e3bba390db7e36b4cfcf781a503b4cff79d49bcdc8b45f059f4b1a0459a7e3ef" %}   # [linux]
+{% set dal_static_hash = "df1cff3ef35951b49b874ee6ccdff2a266e552c8114ac7abe853d4b41856bff9" %}    # [linux]
+{% set dal_devel_hash = "75dbf1b002cc8d40f45d8172d58e3a2143c61d340bb81ae86588a2869a7f71e3" %}     # [linux]
+{% set daal_hash = "092be0168b46861ed1eda1467ce1d13f9c6eaa7ee936a232db6638a37b0c3678" %}          # [linux]
+{% set daal_include_hash = "83cfc95049a91b32895644fff532512359e33d9a26e079c4f74c2c72556ffbd8" %}  # [linux]
+{% set daal_static_hash = "eaf8a0aa2ef5fb73bc96dbb64c3fbde502a9c4fd2c0044331009cf92916b995c" %}   # [linux]
+{% set daal_devel_hash = "a982199ffd3d096712a6650fe02a4df4068e0093bf9f0106d9348f9cddce1fa4" %}    # [linux]
+
+
 # OSX
 {% set mkl_version = "2022.1.0" %}      # [osx]
 {% set mkl_buildnum = "208" %}          # [osx]
@@ -19,6 +33,19 @@
 {% set dal_buildnum = "928" %}          # [osx]
 {% set daal_version = "2021.5.0" %}     # [osx]
 {% set daal_buildnum = "782" %}         # [osx]
+
+{% set mkl_hash = "98ceaefa60718bbcda84211f56396ed2e7e88484223708643d6ef6aa6b58f7d5" %}           # [osx]
+{% set mkl_devel_hash = "bcf59ca046690f5727b7263588408d613e448b44fd7afa65e22755788f68c6af" %}     # [osx]
+{% set mkl_include_hash = "569ea516148726b2698f17982aba2d9ec1bfb321f0180be938eddbc696addbc5" %}   # [osx]
+{% set intel_openmp_hash = "ae42df1b6129bbd7708feb6dbd5be6c72da3947b38407a5aca468765cdfef271" %}  # [osx]
+{% set dal_hash = "f651e775de1508aa81fb01b8bd5c0ca7ffbdeadb7970411e31968e4bd759340d" %}           # [osx]
+{% set dal_include_hash = "d2526ce9ba92eb9f2062df091c58c0b55069bcfe0e729a3892df8f601e194ba2" %}   # [osx]
+{% set dal_static_hash = "325924c0c38a49985cfa21d2a95369c90037ba9c3563b15cfc7f935dfde1d130" %}    # [osx]
+{% set dal_devel_hash = "6910088e7135b316b5e7d7de35c4093f4598b93ff726f8e11d6bf5ddaba9dd2c" %}     # [osx]
+{% set daal_hash = "8d36f8d11e1af1bcc5affefc6e61c1bc60a1b1070ee780e968a91327e352b14a" %}          # [osx]
+{% set daal_include_hash = "cd32960bf52d7dbaa831a4df8761352e61cf022ced409daf79be5672871a5787" %}  # [osx]
+{% set daal_static_hash = "6c73100f2eb68d1feb8ea0edd188ee2d0a0cf29f5be01f6b180e895a1d5b5b18" %}   # [osx]
+{% set daal_devel_hash = "fce48865aad6f67a6ee35efb17aaadc0da6fdd6e0e578420e60e7480c55bf3e0" %}    # [osx]
 
 # Windows
 {% set mkl_version = "2022.1.0" %}      # [win]
@@ -30,8 +57,21 @@
 {% set daal_version = "2021.5.4" %}     # [win]
 {% set daal_buildnum = "854" %}         # [win]
 
+{% set mkl_hash = "090e0a6121ecc09c3036b96a487cc975386b9c934fe1e3ece5457db7f39baae8" %}           # [win]
+{% set mkl_devel_hash = "d5080027cb5a1450cb9ed6aa633be34d6c97a9a8cbd5ca90aa226b0e13b71166" %}     # [win]
+{% set mkl_include_hash = "b6452e8c4891fcfab452bc23c6adc9c61ab6635fa494bb2b29725473c1013abc" %}   # [win]
+{% set intel_openmp_hash = "5ad78e140b656632361f8b49456f1768727fe7a17ca1dde3d6a2bd9ce3433e8a" %}  # [win]
+{% set dal_hash = "51a388d5cb9212a87e0ab5f02a978105cc28f0dfe0366610d723f9dfab8f9511" %}           # [win]
+{% set dal_include_hash = "15867d2f83d26e21468c178b8760de12534b267eae8a46f439d8427cd7b469ef" %}   # [win]
+{% set dal_static_hash = "e7045f200522fcd5fd471072aeed1ca4df9ad06617feadb9040e5b2c55bfbced" %}    # [win]
+{% set dal_devel_hash = "7da9f5964534256e44eb1e8d1bdcad9950763d524b4cf66aa85847f422700714" %}     # [win]
+{% set daal_hash = "d3db345f3acd4d951e218301f480001b4994a639cb552d326215c8f1594d5c5a" %}          # [win]
+{% set daal_include_hash = "ea3ad17eca1ecea588e641706c40fa6895ca3e0f3d10cd9c92e8a6f6ff9865aa" %}  # [win]
+{% set daal_static_hash = "d3db345f3acd4d951e218301f480001b4994a639cb552d326215c8f1594d5c5a" %}   # [win]
+{% set daal_devel_hash = "8799109a566c4a3d2f5e3800b5365e639da7f5d6032052020ceed1e801e228f5" %}    # [win]
 
-# We will use the <X>_buildnumber for the package buildnumber; however, when it's necessary to bump
+
+# We will use the <X>_buildnumber for the package buildnumber (where x is mkl, dal, etc); however, when it's necessary to bump
 # the build number, this variable is used to increment it.
 {% set build_number_bump = '0' %}
 
@@ -41,31 +81,42 @@ package:
   version: {{ mkl_version }}
 
 source:
-  # Conscider adding sha256 fields here.
   - url: https://anaconda.org/intel/mkl/{{ mkl_version }}/download/{{ target_platform }}/mkl-{{ mkl_version }}-intel_{{ mkl_buildnum }}.tar.bz2
     folder: mkl
+    sha256: {{ mkl_hash }}
   - url: https://anaconda.org/intel/mkl-devel/{{ mkl_version }}/download/{{ target_platform }}/mkl-devel-{{ mkl_version }}-intel_{{ mkl_buildnum }}.tar.bz2
     folder: mkl-devel
+    sha256: {{ mkl_devel_hash }}
   - url: https://anaconda.org/intel/mkl-include/{{ mkl_version }}/download/{{ target_platform }}/mkl-include-{{ mkl_version }}-intel_{{ mkl_buildnum }}.tar.bz2
     folder: mkl-include
+    sha256: {{ mkl_include_hash }}
   - url: https://anaconda.org/intel/intel-openmp/{{ openmp_version }}/download/{{ target_platform }}/intel-openmp-{{ openmp_version }}-intel_{{ openmp_buildnum }}.tar.bz2
     folder: intel-openmp
+    sha256: {{ intel_openmp_hash }}
   - url: https://anaconda.org/intel/dal/{{ dal_version }}/download/{{ target_platform }}/dal-{{ dal_version }}-intel_{{ dal_buildnum }}.tar.bz2
     folder: dal
+    sha256: {{ dal_hash }}
   - url: https://anaconda.org/intel/dal-include/{{ dal_version }}/download/{{ target_platform }}/dal-include-{{ dal_version }}-intel_{{ dal_buildnum }}.tar.bz2
     folder: dal-include
+    sha256: {{ dal_include_hash }}
   - url: https://anaconda.org/intel/dal-static/{{ dal_version }}/download/{{ target_platform }}/dal-static-{{ dal_version }}-intel_{{ dal_buildnum }}.tar.bz2
     folder: dal-static
+    sha256: {{ dal_static_hash }}
   - url: https://anaconda.org/intel/dal-devel/{{ dal_version }}/download/{{ target_platform }}/dal-devel-{{ dal_version }}-intel_{{ dal_buildnum }}.tar.bz2
     folder: dal-devel
+    sha256: {{ dal_devel_hash }}
   - url: https://anaconda.org/intel/daal/{{ daal_version }}/download/{{ target_platform }}/daal-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: daal
+    sha256: {{ daal_hash }}
   - url: https://anaconda.org/intel/daal-include/{{ daal_version }}/download/{{ target_platform }}/daal-include-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: daal-include
+    sha256: {{ daal_include_hash }}
   - url: https://anaconda.org/intel/daal-static/{{ daal_version }}/download/{{ target_platform }}/daal-static-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: daal-static
+    sha256: {{ daal_static_hash }}
   - url: https://anaconda.org/intel/daal-devel/{{ daal_version }}/download/{{ target_platform }}/daal-devel-{{ daal_version }}-intel_{{ daal_buildnum }}.tar.bz2
     folder: daal-devel
+    sha256: {{ daal_devel_hash }}
 
 build:
   number: {{ mkl_buildnum|int + build_number_bump|int }}
