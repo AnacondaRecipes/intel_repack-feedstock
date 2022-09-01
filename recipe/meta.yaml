@@ -55,7 +55,7 @@
 
 {% set daal_version = "2021.5.0" %}                            # [osx]
 {% set daal_fetch_buildnum = "782" %}                          # [osx]
-{% set dadl_buildnum = dadl_fetch_buildnum|int + 1|int %}      # [osx]
+{% set daal_buildnum = daal_fetch_buildnum|int + 1|int %}      # [osx]
 
 {% set mkl_hash = "98ceaefa60718bbcda84211f56396ed2e7e88484223708643d6ef6aa6b58f7d5" %}           # [osx]
 {% set mkl_devel_hash = "bcf59ca046690f5727b7263588408d613e448b44fd7afa65e22755788f68c6af" %}     # [osx]
