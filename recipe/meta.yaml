@@ -7,24 +7,31 @@
 #  because Intel did not update a package), we will update the integer value used to calculate <X>_buildnum from 0 to 1
 #  (or as needed). This value should be reset to zero for every version roll build.
 
-# Remember to reset buildnum when you update version or fetch_buildnum.
+# Remember to reset buildnum when you update <X>_version or <X>_fetch_buildnum.
+
+
+# Bump all build numbers here. (Note: it may be appropriate to use selectors here.)
+{% set bump_all_buildnum = "1" %}
+# Bump specific package build numbers here. (Note: it may be appropriate to use selectors here.)
+{% set bump_mkl_buildnum = "0" %}
+{% set bump_openmp_buildnum = "0" %}
+{% set bump_dal_buildnum = "0" %}
+{% set bump_daal_buildnum = "0" %}  # [not osx]
+{% set bump_daal_buildnum = "1" %}  # [osx]
+
 
 # Linux
-{% set mkl_version = "2022.1.0" %}                             # [linux]
-{% set mkl_fetch_buildnum = "223" %}                           # [linux]
-{% set mkl_buildnum = mkl_fetch_buildnum|int + 0|int %}        # [linux]
+{% set mkl_version = "2022.1.0" %}          # [linux]
+{% set mkl_fetch_buildnum = "223" %}        # [linux]
 
-{% set openmp_version = mkl_version %}                         # [linux]
-{% set openmp_fetch_buildnum = "3768" %}                       # [linux]
-{% set openmp_buildnum = openmp_fetch_buildnum|int + 0|int %}  # [linux]
+{% set openmp_version = mkl_version %}      # [linux]
+{% set openmp_fetch_buildnum = "3768" %}    # [linux]
 
-{% set dal_version = "2021.6.0" %}                             # [linux]
-{% set dal_fetch_buildnum = "915" %}                           # [linux]
-{% set dal_buildnum = dal_fetch_buildnum|int + 0|int %}        # [linux]
+{% set dal_version = "2021.6.0" %}          # [linux]
+{% set dal_fetch_buildnum = "915" %}        # [linux]
 
-{% set daal_version = "2021.5.3" %}                            # [linux]
-{% set daal_fetch_buildnum = "832" %}                          # [linux]
-{% set daal_buildnum = daal_fetch_buildnum|int + 0|int %}      # [linux]
+{% set daal_version = "2021.5.3" %}         # [linux]
+{% set daal_fetch_buildnum = "832" %}       # [linux]
 
 {% set mkl_hash = "31c225ce08d3dc129f0881e5d36a1ef0ba8dc9fdc0e168397c2ac144d5f0bf54" %}           # [linux]
 {% set mkl_devel_hash = "4e014e6ac31e8961f09c937b66f53d2c0d75f074f39abfa9f378f4659ed2ecbb" %}     # [linux]
@@ -41,21 +48,17 @@
 
 
 # OSX
-{% set mkl_version = "2022.1.0" %}                             # [osx]
-{% set mkl_fetch_buildnum = "208" %}                           # [osx]
-{% set mkl_buildnum = mkl_fetch_buildnum|int + 0|int %}        # [osx]
+{% set mkl_version = "2022.1.0" %}          # [osx]
+{% set mkl_fetch_buildnum = "208" %}        # [osx]
 
-{% set openmp_version = mkl_version %}                         # [osx]
-{% set openmp_fetch_buildnum = "3718" %}                       # [osx]
-{% set openmp_buildnum = openmp_fetch_buildnum|int + 0|int %}  # [osx]
+{% set openmp_version = mkl_version %}      # [osx]
+{% set openmp_fetch_buildnum = "3718" %}    # [osx]
 
-{% set dal_version = "2021.6.0" %}                             # [osx]
-{% set dal_fetch_buildnum = "928" %}                           # [osx]
-{% set dal_buildnum = dal_fetch_buildnum|int + 0|int %}        # [osx]
+{% set dal_version = "2021.6.0" %}          # [osx]
+{% set dal_fetch_buildnum = "928" %}        # [osx]
 
-{% set daal_version = "2021.5.0" %}                            # [osx]
-{% set daal_fetch_buildnum = "782" %}                          # [osx]
-{% set daal_buildnum = daal_fetch_buildnum|int + 1|int %}      # [osx]
+{% set daal_version = "2021.5.0" %}         # [osx]
+{% set daal_fetch_buildnum = "782" %}       # [osx]
 
 {% set mkl_hash = "98ceaefa60718bbcda84211f56396ed2e7e88484223708643d6ef6aa6b58f7d5" %}           # [osx]
 {% set mkl_devel_hash = "bcf59ca046690f5727b7263588408d613e448b44fd7afa65e22755788f68c6af" %}     # [osx]
@@ -70,23 +73,19 @@
 {% set daal_static_hash = "6c73100f2eb68d1feb8ea0edd188ee2d0a0cf29f5be01f6b180e895a1d5b5b18" %}   # [osx]
 {% set daal_devel_hash = "fce48865aad6f67a6ee35efb17aaadc0da6fdd6e0e578420e60e7480c55bf3e0" %}    # [osx]
 
+
 # Windows
-{% set mkl_version = "2022.1.0" %}                             # [win]
-{% set mkl_fetch_buildnum = "192" %}                           # [win]
-{% set mkl_buildnum = mkl_fetch_buildnum|int + 0|int %}        # [win]
+{% set mkl_version = "2022.1.0" %}          # [win]
+{% set mkl_fetch_buildnum = "192" %}        # [win]
 
-{% set openmp_version = mkl_version %}                         # [win]
-{% set openmp_fetch_buildnum = "3787" %}                       # [win]
-{% set openmp_buildnum = openmp_fetch_buildnum|int + 0|int %}  # [win]
+{% set openmp_version = mkl_version %}      # [win]
+{% set openmp_fetch_buildnum = "3787" %}    # [win]
 
-{% set dal_version = "2021.6.0" %}                             # [win]
-{% set dal_fetch_buildnum = "874" %}                           # [win]
-{% set dal_buildnum = dal_fetch_buildnum|int + 0|int %}        # [win]
+{% set dal_version = "2021.6.0" %}          # [win]
+{% set dal_fetch_buildnum = "874" %}        # [win]
 
-{% set daal_version = "2021.5.4" %}                            # [win]
-{% set daal_fetch_buildnum = "854" %}                          # [win]
-{% set daal_buildnum = daal_fetch_buildnum|int + 0|int %}      # [win]
-
+{% set daal_version = "2021.5.4" %}         # [win]
+{% set daal_fetch_buildnum = "854" %}       # [win]
 
 {% set mkl_hash = "090e0a6121ecc09c3036b96a487cc975386b9c934fe1e3ece5457db7f39baae8" %}           # [win]
 {% set mkl_devel_hash = "d5080027cb5a1450cb9ed6aa633be34d6c97a9a8cbd5ca90aa226b0e13b71166" %}     # [win]
@@ -100,6 +99,13 @@
 {% set daal_include_hash = "ea3ad17eca1ecea588e641706c40fa6895ca3e0f3d10cd9c92e8a6f6ff9865aa" %}  # [win]
 {% set daal_static_hash = "d3db345f3acd4d951e218301f480001b4994a639cb552d326215c8f1594d5c5a" %}   # [win]
 {% set daal_devel_hash = "545b249720c20877a9691fcdb79a1489f0654ae34026308d3b1b5c4ff064b1cd" %}    # [win]
+
+
+# Set the actual build numbers here. These should not be changed nor should selectors be used.
+{% set mkl_buildnum = mkl_fetch_buildnum|int + bump_all_buildnum|int + bump_mkl_buildnum|int %}
+{% set openmp_buildnum = openmp_fetch_buildnum|int + bump_all_buildnum|int + bump_openmp_buildnum|int %}
+{% set dal_buildnum = dal_fetch_buildnum|int + bump_all_buildnum|int + bump_dal_buildnum|int %}
+{% set daal_buildnum = daal_fetch_buildnum|int + bump_all_buildnum|int + bump_daal_buildnum|int %}
 
 
 package:
