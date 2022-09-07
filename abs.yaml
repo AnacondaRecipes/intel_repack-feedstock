@@ -1,0 +1,5 @@
+# Overide the default config.yaml's build_parameters to remove "--skip-existing" since `blas-1.0-mkl.*` will already exist.
+build_parameters:
+  - "--suppress-variables"
+  - "--error-overlinking"
+  - "--error-overdepending"
