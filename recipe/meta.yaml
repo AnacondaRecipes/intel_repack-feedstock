@@ -19,6 +19,7 @@
 {% set bump_daal_buildnum = "0" %}  # [not osx]
 {% set bump_daal_buildnum = "1" %}  # [osx]
 
+{% set tbb_version = "2021.6.0" %}
 
 # Linux
 {% set mkl_version = "2023.0.0" %}          # [linux]
@@ -344,9 +345,9 @@ outputs:
       build:
         - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
       host:
-        - tbb {{ dal_version.split('.')[0] }}.*
+        - tbb {{ tbb_version.split('.')[0] }}.*
       run:
-        - tbb {{ dal_version.split('.')[0] }}.*
+        - tbb {{ tbb_version.split('.')[0] }}.*
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
       summary: Intel® oneDAL runtime libraries
@@ -412,7 +413,7 @@ outputs:
         - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
       run:
         - {{ pin_subpackage('dal-include', exact=True) }}
-        - tbb {{ dal_version.split('.')[0] }}.*
+        - tbb {{ tbb_version.split('.')[0] }}.*
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
       summary: Static libraries for Intel® oneDAL
