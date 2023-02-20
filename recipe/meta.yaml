@@ -19,7 +19,7 @@
 {% set bump_daal_buildnum = "0" %}  # [not osx]
 {% set bump_daal_buildnum = "1" %}  # [osx]
 
-{% set tbb_version = "2021.6.0" %}
+{% set tbb_version = "2021.7.0" %}
 
 # Linux
 {% set mkl_version = "2023.0.0" %}          # [linux]
