@@ -332,14 +332,14 @@ outputs:
         - "$RPATH/libOpenCL.so.1"         # [linux]
         - "$RPATH/OpenCL.dll"             # [win]
         # # this comes from Intel's optional dpcpp_cpp_rt
-        - "$RPATH/libsycl.so.5"           # [linux]
+        - "$RPATH/libsycl.so.6"           # [linux]
         # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
         - libiomp5.so
         - libcoi_device.so.0
         # hooray, windows
         - "C:\\Windows\\System32\\WINTRUST.dll" # [win]
         # optional dpcpp runtime that we do not yet provide.
-        - "$RPATH/sycl.dll"               # [win]
+        - "$RPATH/sycl6.dll"              # [win]
         - "$RPATH/svml_dispmd.dll"        # [win]
     requirements:
       build:
