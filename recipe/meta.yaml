@@ -242,7 +242,9 @@ outputs:
         - "$RPATH/libze_loader.so.1"      # [linux] - optional oneAPI Level Zero loader.
         - "$RPATH/ze_loader.dll"          # [win]   - optional oneAPI Level Zero loader.
         # Optional FFI
-        - "$RPATH/libffi.so.6"            # [linux]
+        - "$RPATH/libffi.so"              # [linux]
+        # Optional dpcpp_cpp_rt
+        - "$RPATH/libsycl.so.6"           # [linux]
 
     requirements:
       build:
@@ -448,6 +450,10 @@ outputs:
       run:
         - {{ pin_subpackage('dal-include', exact=True) }}
         - {{ pin_subpackage('dal', exact=True) }}
+    test:
+      commands:
+        - ls -A $PREFIX/lib/*      # [unix]
+        - ls -A $PREFIX/include/*  # [unix]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
       summary: Devel package for building things linked against Intel® oneDAL shared libraries
@@ -464,10 +470,6 @@ outputs:
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
-    test:
-      commands:
-        - ls -A $PREFIX/lib/*      # [unix]
-        - ls -A $PREFIX/include/*  # [unix]
 
 # Future note: all daal packages are now metapackages that depend on their respective dal equivalent.
 # This was done to maintain the old name (daal) for downstream users. All binaries are contained in
