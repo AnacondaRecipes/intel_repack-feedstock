@@ -466,10 +466,10 @@ outputs:
       license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
-         - dal-devel/info/licenses/license.txt  # [x86_64 and not osx]
-         - dal-devel/info/licenses/tpp.txt      # [x86_64 and not osx]
-         - dal-devel/licenses/license.txt       # [x86_64 and osx]
-         - dal-devel/licenses/tpp.txt           # [x86_64 and osx]
+         - dal-devel/info/licenses/license.txt  # [x86 and (linux or win)]
+         - dal-devel/info/licenses/tpp.txt      # [x86 and (linux or win)]
+         - dal-devel/licenses/license.txt       # [x86 and osx]
+         - dal-devel/licenses/tpp.txt           # [x86 and osx]
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
