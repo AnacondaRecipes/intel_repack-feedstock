@@ -444,7 +444,7 @@ outputs:
     build:
       # 2/22/2023: Skip building this output for osx-64 for v2023.0.1 because the binary provided by Intel for 
       # osx-64 does not contain any actual binaries.
-      # See https://anaconda.org/intel/dal-devel/2021.7.1/download/osx-64/dal-devel-2021.7.1-intel_16951.tar.bz2
+      # See https://anaconda.org/intel/dal-devel/2023.0.1/download/osx-64/dal-devel-2023.0.1-intel_31029.tar.bz2
       # Notice it's only 9.8kB (the packages for the other supported platforms are at least 8MB).
       skip: True        # [osx]  
       number: {{ dal_buildnum }}
