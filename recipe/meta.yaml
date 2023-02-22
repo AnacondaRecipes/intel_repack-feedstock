@@ -170,6 +170,7 @@ outputs:
         - "$RPATH/libtbb.so.12"           # [linux]
         - "$RPATH/libtbbmalloc.so.2"      # [linux]
         - "$RPATH/libtbb.12.dylib"        # [osx]
+        - "$RPATH/tbb12.dll"              # [win]
         # oneAPI ?
         - "$RPATH/impi.dll"               # [win]
         - "$RPATH/msmpi.dll"              # [win]
