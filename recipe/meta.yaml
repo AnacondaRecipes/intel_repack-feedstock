@@ -465,9 +465,11 @@ outputs:
         This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
       license: Intel Simplified Software License
       license_family: Proprietary
-      license_file:                               # [not osx]
-         - dal-devel/info/licenses/license.txt    # [not osx]
-         - dal-devel/info/licenses/tpp.txt        # [not osx]
+      license_file:
+         - dal-devel/info/licenses/license.txt  # [x86_64 and not osx]
+         - dal-devel/info/licenses/tpp.txt      # [x86_64 and not osx]
+         - dal-devel/licenses/license.txt       # [x86_64 and osx]
+         - dal-devel/licenses/tpp.txt           # [x86_64 and osx]
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
