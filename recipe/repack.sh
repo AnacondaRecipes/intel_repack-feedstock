@@ -17,3 +17,6 @@ cp -rv "$src"/* "$PREFIX/"
 
 # replace old info folder with our new regenerated one
 rm -rf "$PREFIX/info"
+
+echo "PREFIX contents"
+ls -la "${PREFIX}"
