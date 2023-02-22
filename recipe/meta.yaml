@@ -442,11 +442,6 @@ outputs:
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
     build:
-      # 2/22/2023: Skip building this output for osx-64 for v2023.0.1 because the binary provided by Intel for 
-      # osx-64 does not contain any actual binaries.
-      # See https://anaconda.org/intel/dal-devel/2023.0.1/download/osx-64/dal-devel-2023.0.1-intel_31029.tar.bz2
-      # Notice it's only 9.8kB (the packages for the other supported platforms are at least 8MB).
-      skip: True        # [osx]  
       number: {{ dal_buildnum }}
       run_exports:
         - {{ pin_subpackage('dal') }}
@@ -470,9 +465,9 @@ outputs:
         This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
       license: Intel Simplified Software License
       license_family: Proprietary
-      license_file:
-         - dal-devel/info/licenses/license.txt
-         - dal-devel/info/licenses/tpp.txt
+      license_file:                               # [not osx]
+         - dal-devel/info/licenses/license.txt    # [not osx]
+         - dal-devel/info/licenses/tpp.txt        # [not osx]
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
