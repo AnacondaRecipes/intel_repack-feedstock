@@ -242,8 +242,6 @@ outputs:
         # Optional oneAPI Level Zero Loader:
         - "$RPATH/libze_loader.so.1"      # [linux] - optional oneAPI Level Zero loader.
         - "$RPATH/ze_loader.dll"          # [win]   - optional oneAPI Level Zero loader.
-        # Optional FFI
-        - "$RPATH/libffi.so"              # [linux]
         # Optional dpcpp_cpp_rt
         - "$RPATH/libsycl.so.6"           # [linux]
 
@@ -253,8 +251,10 @@ outputs:
       run_constrained:                    # [linux]
         - __glibc >=2.17                  # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
       host:
+        - libffi >=3.4,<3.5               # [linux]
         - zlib                            # [linux]
       run:
+        - libffi >=3.4,<3.5               # [linux]
         - zlib                            # [linux]
     about:
       home: https://software.intel.com/en-us/node/522690
