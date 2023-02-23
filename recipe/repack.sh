@@ -18,4 +18,7 @@ cp -rv "$src"/* "$PREFIX/"
 # replace old info folder with our new regenerated one
 if [[ "${PKG_NAME}" != dal-devel ]] && [[ ${target_platform} != osx-64 ]]; then
     rm -rf "$PREFIX/info"
+else
+    ls -la "$SRC_DIR"
+    ls -la "$PREFIX"
 fi
