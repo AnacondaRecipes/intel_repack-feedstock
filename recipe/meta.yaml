@@ -155,7 +155,7 @@ build:
   number: {{ mkl_buildnum }}
   binary_relocation: false
   detect_binary_files_with_prefix: false
-  skip: True             # [not (x86 and (linux or win or osx))]
+  skip: True             # [not (x86 and (linux or win))]
   runpath_whitelist:     # <---------------------------------------------------------------------------------------------------------------------------------   Do a trial remove
     - $ORIGIN
 
