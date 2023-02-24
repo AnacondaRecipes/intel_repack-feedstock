@@ -202,7 +202,8 @@ outputs:
     test:
       commands:
         - ls -A $PREFIX/lib/*                                   # [unix]
-        - test -f $PREFIX/lib/libmkl*.so*                       # [linux]
+        - test -f $PREFIX/lib/libmkl_core.so                    # [linux]
+        - test -f $PREFIX/lib/libmkl_rt.so                      # [linux]
         - IF NOT EXIST %PREFIX%\Library\bin\mkl*.dll EXIT /B 1  # [win]
 
   - name: mkl-include
@@ -211,7 +212,16 @@ outputs:
     test:
       commands:
         - ls -A $PREFIX/include/*                                 # [unix]
-        - test -f $PREFIX/include/mkl*.h*                         # [linux]
+        - test -f $PREFIX/include/mkl.h                           # [linux]
+        - test -f $PREFIX/include/mkl_blas.h                      # [linux]
+        - test -f $PREFIX/include/mkl_cblas.h                     # [linux]
+        - test -f $PREFIX/include/mkl_df.h                        # [linux]
+        - test -f $PREFIX/include/mkl_lapack.h                    # [linux]
+        - test -f $PREFIX/include/mkl_service.h                   # [linux]
+        - test -f $PREFIX/include/mkl_solvers_ee.h                # [linux]
+        - test -f $PREFIX/include/mkl_trans.h                     # [linux]
+        - test -f $PREFIX/include/mkl_types.h                     # [linux]
+        - test -f $PREFIX/include/mkl_version.h                   # [linux]
         - IF NOT EXIST %PREFIX%\Library\include\mkl*.h EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/en-us/mkl
@@ -250,9 +260,10 @@ outputs:
       license_file: mkl/info/licenses/license.txt
     test:
       commands:
-        - ls -A $PREFIX/lib/*                                          # [unix]
-        - test -f $PREFIX/lib/pkgconfig/mkl*.pc                        # [linux]
-        - IF NOT EXIST %PREFIX%\Library\lib\mkl*dll.lib EXIT /B 1      # [win]
+        - ls -A $PREFIX/lib/*                                      # [unix]
+        - IF NOT EXIST %PREFIX%\Library\lib\mkl*dll.lib EXIT /B 1  # [win]
+        # Version 2023.0.0-intel_25398 for linux-64 does not have a lib folder,
+        # so nothing to test/check for. If next version does, we should add tests.
 
   - name: intel-openmp
     version: {{ openmp_version }}
@@ -291,8 +302,8 @@ outputs:
     test:
       commands:
         - ls -A $PREFIX/lib/*  # [unix]
-        - test -f $PREFIX/lib/libiomp*.so*                          # [linux]
-        - test -f $PREFIX/lib/libomp*.so*                           # [linux]
+        - test -f $PREFIX/lib/libiomp5.so                           # [linux]
+        - test -f $PREFIX/lib/libomptarget.so                       # [linux]
         - IF NOT EXIST %PREFIX%\Library\bin\libiomp*.dll EXIT /B 1  # [win]
         - IF NOT EXIST %PREFIX%\Library\bin\omp*.dll EXIT /B 1      # [win]
     about:
@@ -361,7 +372,10 @@ outputs:
     test:
       commands:
         - ls -A $PREFIX/lib/*                                      # [unix]
-        - test -f $PREFIX/lib/libonedal*.so*                       # [linux]
+        - test -f $PREFIX/lib/libonedal.so.1                       # [linux]
+        - test -f $PREFIX/lib/libonedal_core.so.1                  # [linux]
+        - test -f $PREFIX/lib/libonedal_dpc.so.1                   # [linux]
+        - test -f $PREFIX/lib/libonedal_thread.so.1                # [linux]
         - IF NOT EXIST %PREFIX%\Library\bin\onedal*.dll EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
@@ -389,7 +403,8 @@ outputs:
     test:
       commands:
         - ls -A $PREFIX/include/*                          # [unix]
-        - test -f $PREFIX/include/daal*.h                  # [linux]
+        - test -f $PREFIX/include/daal.h                   # [linux]
+        - test -f $PREFIX/include/daal_sycl.h              # [linux]
         - IF NOT EXIST %PREFIX%\include\daal*.h EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
@@ -431,8 +446,10 @@ outputs:
     test:
       commands:
         - ls -A $PREFIX/lib/*                                      # [unix]
-        - test -f $PREFIX/lib/libdaal*.a                           # [linux]
-        - test -f $PREFIX/lib/libonedal*.a                         # [linux]
+        - test -f $PREFIX/lib/libonedal.a                          # [linux]
+        - test -f $PREFIX/lib/libonedal_core.a                     # [linux]
+        - test -f $PREFIX/lib/libonedal_dpc.a                      # [linux]
+        - test -f $PREFIX/lib/libonedal_thread.a                   # [linux]
         - IF NOT EXIST %PREFIX%\Library\lib\onedal*.lib EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
@@ -469,7 +486,7 @@ outputs:
       commands:
         - ls -A $PREFIX/lib/*                                      # [unix]
         - ls -A $PREFIX/include/*                                  # [unix]
-        - test -f $PREFIX/lib/libonedal*.a                         # [linux]
+        - test -f $PREFIX/lib/libonedal_sycl.a                     # [linux]
         - IF NOT EXIST %PREFIX%\Library\lib\onedal*.lib EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
