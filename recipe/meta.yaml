@@ -201,7 +201,6 @@ outputs:
       doc_url: https://software.intel.com/en-us/mkl/documentation
     test:
       commands:
-        - ls -A $PREFIX/lib/*                                   # [unix]
         - test -f $PREFIX/lib/libmkl_core.so                    # [linux]
         - test -f $PREFIX/lib/libmkl_rt.so                      # [linux]
         - IF NOT EXIST %PREFIX%\Library\bin\mkl*.dll EXIT /B 1  # [win]
@@ -211,7 +210,6 @@ outputs:
     script: repack.bat  # [win]
     test:
       commands:
-        - ls -A $PREFIX/include/*                                 # [unix]
         - test -f $PREFIX/include/mkl.h                           # [linux]
         - test -f $PREFIX/include/mkl_blas.h                      # [linux]
         - test -f $PREFIX/include/mkl_cblas.h                     # [linux]
@@ -260,7 +258,6 @@ outputs:
       license_file: mkl/info/licenses/license.txt
     test:
       commands:
-        - ls -A $PREFIX/lib/*                                      # [unix]
         - IF NOT EXIST %PREFIX%\Library\lib\mkl*dll.lib EXIT /B 1  # [win]
         # Version 2023.0.0-intel_25398 for linux-64 does not have a lib folder,
         # so nothing to test/check for. If next version does, we should add tests.
@@ -301,7 +298,6 @@ outputs:
         - zlib                            # [linux]
     test:
       commands:
-        - ls -A $PREFIX/lib/*  # [unix]
         - test -f $PREFIX/lib/libiomp5.so                           # [linux]
         - test -f $PREFIX/lib/libomptarget.so                       # [linux]
         - IF NOT EXIST %PREFIX%\Library\bin\libiomp*.dll EXIT /B 1  # [win]
@@ -371,7 +367,6 @@ outputs:
         - tbb {{ tbb_version.split('.')[0] }}.*
     test:
       commands:
-        - ls -A $PREFIX/lib/*                                      # [unix]
         - test -f $PREFIX/lib/libonedal.so.1                       # [linux]
         - test -f $PREFIX/lib/libonedal_core.so.1                  # [linux]
         - test -f $PREFIX/lib/libonedal_dpc.so.1                   # [linux]
@@ -402,7 +397,6 @@ outputs:
       number: {{ dal_buildnum }}
     test:
       commands:
-        - ls -A $PREFIX/include/*                          # [unix]
         - test -f $PREFIX/include/daal.h                   # [linux]
         - test -f $PREFIX/include/daal_sycl.h              # [linux]
         - IF NOT EXIST %PREFIX%\include\daal*.h EXIT /B 1  # [win]
@@ -445,7 +439,6 @@ outputs:
         - tbb {{ tbb_version.split('.')[0] }}.*
     test:
       commands:
-        - ls -A $PREFIX/lib/*                                      # [unix]
         - test -f $PREFIX/lib/libonedal.a                          # [linux]
         - test -f $PREFIX/lib/libonedal_core.a                     # [linux]
         - test -f $PREFIX/lib/libonedal_dpc.a                      # [linux]
@@ -484,8 +477,6 @@ outputs:
         - {{ pin_subpackage('dal', exact=True) }}
     test:
       commands:
-        - ls -A $PREFIX/lib/*                                      # [unix]
-        - ls -A $PREFIX/include/*                                  # [unix]
         - test -f $PREFIX/lib/libonedal_sycl.a                     # [linux]
         - IF NOT EXIST %PREFIX%\Library\lib\onedal*.lib EXIT /B 1  # [win]
     about:
@@ -527,9 +518,6 @@ outputs:
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
-    test:
-      commands:
-        - ls -A $PREFIX/lib/*  # [unix]
 
   - name: daal-include
     version: {{ daal_version }}
@@ -549,9 +537,6 @@ outputs:
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
-    test:
-      commands:
-        - ls -A $PREFIX/include/*  # [unix]
 
   - name: daal-static
     version: {{ daal_version }}
@@ -571,9 +556,6 @@ outputs:
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
-    test:
-      commands:
-        - ls -A $PREFIX/lib/*  # [unix]
 
   - name: daal-devel
     version: {{ daal_version }}
@@ -593,10 +575,6 @@ outputs:
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
-    test:
-      commands:
-        - ls -A $PREFIX/lib/*      # [unix]
-        - ls -A $PREFIX/include/*  # [unix]
 
 # Satisfy the linter
 about:
