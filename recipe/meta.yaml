@@ -167,10 +167,7 @@ outputs:
       number: {{ mkl_buildnum }}
       missing_dso_whitelist:
         # tbb
-        - "$RPATH/libtbb.so.12"           # [linux]
-        - "$RPATH/libtbbmalloc.so.2"      # [linux]
         - "$RPATH/libtbb.12.dylib"        # [osx]
-        - "$RPATH/tbb12.dll"              # [win]
         # oneAPI ?
         - "$RPATH/impi.dll"               # [win]
         - "$RPATH/msmpi.dll"              # [win]
@@ -183,8 +180,10 @@ outputs:
         - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
       host:
         - intel-openmp {{ openmp_version.split('.')[0] }}.*
+        - tbb {{ tbb_version.split('.')[0] }}.*
       run:
         - intel-openmp {{ openmp_version.split('.')[0] }}.*
+        - tbb {{ tbb_version.split('.')[0] }}.*
       run_constrained:      # [linux or osx]
         # intel-openmp 2021.1.1 and newer is built with a newer GLIBC
         - __glibc >=2.17    # [linux]
