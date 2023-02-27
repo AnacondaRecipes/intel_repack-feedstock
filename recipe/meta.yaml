@@ -16,8 +16,6 @@
 {% set bump_mkl_buildnum = "0" %}
 {% set bump_openmp_buildnum = "0" %}
 {% set bump_dal_buildnum = "0" %}
-{% set bump_daal_buildnum = "0" %}  # [not osx]
-{% set bump_daal_buildnum = "1" %}  # [osx]
 
 {% set tbb_version = "2021.7.0" %}
 
@@ -31,9 +29,6 @@
 {% set dal_version = "2023.0.1" %}          # [linux]
 {% set dal_fetch_buildnum = "26646" %}      # [linux]
 
-{% set daal_version = "2021.5.3" %}         # [linux]
-{% set daal_fetch_buildnum = "832" %}       # [linux]
-
 {% set mkl_hash = "b7ccc9f8a5d1c6c41a1a13fce3a7af4226f1382920765284d5d64ba6f86db53d" %}           # [linux]
 {% set mkl_devel_hash = "d9c314768a67966c9cb6258653557daaa4bc42037a18f39ab7dd04cb3961f857" %}     # [linux]
 {% set mkl_include_hash = "ac06e55127ab6389d516fb07665862a315ae6dfc1331ee6e8248ce19a26cd7fd" %}   # [linux]
@@ -42,10 +37,6 @@
 {% set dal_include_hash = "b223ded5f99d10fcbc5196e92cd70682320fc728cbe39385d1263f028598ddae" %}   # [linux]
 {% set dal_static_hash = "8c4b6f3fe9e5f934051342b9ff1b1ae6cf90d1288aa01d7eb038f8cf95f44fac" %}    # [linux]
 {% set dal_devel_hash = "5fb581c151fe3fc943a6e020dc37025b0b48b6b394b51d6c36d2d1651e27320d" %}     # [linux]
-{% set daal_hash = "092be0168b46861ed1eda1467ce1d13f9c6eaa7ee936a232db6638a37b0c3678" %}          # [linux]
-{% set daal_include_hash = "83cfc95049a91b32895644fff532512359e33d9a26e079c4f74c2c72556ffbd8" %}  # [linux]
-{% set daal_static_hash = "eaf8a0aa2ef5fb73bc96dbb64c3fbde502a9c4fd2c0044331009cf92916b995c" %}   # [linux]
-{% set daal_devel_hash = "a982199ffd3d096712a6650fe02a4df4068e0093bf9f0106d9348f9cddce1fa4" %}    # [linux]
 
 
 # OSX
@@ -58,9 +49,6 @@
 {% set dal_version = "2023.0.1" %}          # [osx]
 {% set dal_fetch_buildnum = "31029" %}      # [osx]
 
-{% set daal_version = "2021.5.0" %}         # [osx]
-{% set daal_fetch_buildnum = "782" %}       # [osx]
-
 {% set mkl_hash = "d6b7bcce92e607173537164ca4929c53b0d3ef46e605c6244770376d49d3e158" %}           # [osx]
 {% set mkl_devel_hash = "25f4db156bba2c41ad4c25ef737d2e5add1bc9a457e20a856cb085ee984fbe79" %}     # [osx]
 {% set mkl_include_hash = "319c75ed4a1b28b56007f72f29ad833ce3e7df8ee574ac152d3093517ce32f7e" %}   # [osx]
@@ -69,10 +57,6 @@
 {% set dal_include_hash = "8d8ded7b12a133fd0d6a5790d1a97e7fbae32bfae10c3b88b61e249d412ef1b2" %}   # [osx]
 {% set dal_static_hash = "cd9a3f5faa75d3f5698bea09e3f271f2bdd42cb4ceba6276c0cfd32bd339bf83" %}    # [osx]
 {% set dal_devel_hash = "a45eca4ae92995dbdd1c869b528b6d545e83a7600017cd72beb71dc643f66de7" %}     # [osx]
-{% set daal_hash = "8d36f8d11e1af1bcc5affefc6e61c1bc60a1b1070ee780e968a91327e352b14a" %}          # [osx]
-{% set daal_include_hash = "cd32960bf52d7dbaa831a4df8761352e61cf022ced409daf79be5672871a5787" %}  # [osx]
-{% set daal_static_hash = "6c73100f2eb68d1feb8ea0edd188ee2d0a0cf29f5be01f6b180e895a1d5b5b18" %}   # [osx]
-{% set daal_devel_hash = "fce48865aad6f67a6ee35efb17aaadc0da6fdd6e0e578420e60e7480c55bf3e0" %}    # [osx]
 
 
 # Windows
@@ -85,9 +69,6 @@
 {% set dal_version = "2023.0.1" %}          # [win]
 {% set dal_fetch_buildnum = "26645" %}      # [win]
 
-{% set daal_version = "2021.5.4" %}         # [win]
-{% set daal_fetch_buildnum = "854" %}       # [win]
-
 {% set mkl_hash = "0c89f1809acf17643b1bd4a0c4e91f25ef3107d2526d4ec0827058c771f96034" %}           # [win]
 {% set mkl_devel_hash = "b9724f079836f08fe6a481a696f9258570f310052404cb73b673015d2e9d7d6b" %}     # [win]
 {% set mkl_include_hash = "0a227354489cc3b5003ae58d984ad10d37ff6dd3f6dbcdda0875251f874cf591" %}   # [win]
@@ -96,17 +77,12 @@
 {% set dal_include_hash = "c337cf078bbc86269e9a21cc3659a4d479d55331a2a522bed0357698bb14720e" %}   # [win]
 {% set dal_static_hash = "218e71e4321f0343525f1c438f1d5b42e6bb7e6258719dab11c69707aa1b5613" %}    # [win]
 {% set dal_devel_hash = "48bdc3f42b12ce16b31e66af2bbe141f2b19bff61e162decd5841d26ba4e04b0" %}     # [win]
-{% set daal_hash = "8799109a566c4a3d2f5e3800b5365e639da7f5d6032052020ceed1e801e228f5" %}          # [win]
-{% set daal_include_hash = "ea3ad17eca1ecea588e641706c40fa6895ca3e0f3d10cd9c92e8a6f6ff9865aa" %}  # [win]
-{% set daal_static_hash = "d3db345f3acd4d951e218301f480001b4994a639cb552d326215c8f1594d5c5a" %}   # [win]
-{% set daal_devel_hash = "545b249720c20877a9691fcdb79a1489f0654ae34026308d3b1b5c4ff064b1cd" %}    # [win]
 
 
 # Set the actual build numbers here. These should not be changed nor should selectors be used.
 {% set mkl_buildnum = mkl_fetch_buildnum|int + bump_all_buildnum|int + bump_mkl_buildnum|int %}
 {% set openmp_buildnum = openmp_fetch_buildnum|int + bump_all_buildnum|int + bump_openmp_buildnum|int %}
 {% set dal_buildnum = dal_fetch_buildnum|int + bump_all_buildnum|int + bump_dal_buildnum|int %}
-{% set daal_buildnum = daal_fetch_buildnum|int + bump_all_buildnum|int + bump_daal_buildnum|int %}
 
 
 package:
@@ -138,18 +114,6 @@ source:
   - url: https://anaconda.org/intel/dal-devel/{{ dal_version }}/download/{{ target_platform }}/dal-devel-{{ dal_version }}-intel_{{ dal_fetch_buildnum }}.tar.bz2
     folder: dal-devel
     sha256: {{ dal_devel_hash }}
-  - url: https://anaconda.org/intel/daal/{{ daal_version }}/download/{{ target_platform }}/daal-{{ daal_version }}-intel_{{ daal_fetch_buildnum }}.tar.bz2
-    folder: daal
-    sha256: {{ daal_hash }}
-  - url: https://anaconda.org/intel/daal-include/{{ daal_version }}/download/{{ target_platform }}/daal-include-{{ daal_version }}-intel_{{ daal_fetch_buildnum }}.tar.bz2
-    folder: daal-include
-    sha256: {{ daal_include_hash }}
-  - url: https://anaconda.org/intel/daal-static/{{ daal_version }}/download/{{ target_platform }}/daal-static-{{ daal_version }}-intel_{{ daal_fetch_buildnum }}.tar.bz2
-    folder: daal-static
-    sha256: {{ daal_static_hash }}
-  - url: https://anaconda.org/intel/daal-devel/{{ daal_version }}/download/{{ target_platform }}/daal-devel-{{ daal_version }}-intel_{{ daal_fetch_buildnum }}.tar.bz2
-    folder: daal-devel
-    sha256: {{ daal_devel_hash }}
 
 build:
   number: {{ mkl_buildnum }}
@@ -495,85 +459,6 @@ outputs:
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
 
-# Future note: all daal packages are now metapackages that depend on their respective dal equivalent.
-# This was done to maintain the old name (daal) for downstream users. All binaries are contained in
-# new dal* packages.
-
-  - name: daal
-    version: {{ daal_version }}
-    build:
-      number: {{ daal_buildnum }}
-    requirements:
-      run:
-        - {{ pin_subpackage('dal', max_pin='x') }}
-    about:
-      home: https://software.intel.com/en-us/daal
-      summary: DAAL runtime libraries
-      license: Intel Simplified Software License
-      license_family: Proprietary
-      license_file:
-         - dal/info/licenses/license.txt
-         - dal/info/licenses/tpp.txt
-      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
-      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
-      dev_url: https://github.com/oneapi-src/oneDAL
-
-  - name: daal-include
-    version: {{ daal_version }}
-    build:
-      number: {{ daal_buildnum }}
-    requirements:
-      run:
-        - {{ pin_subpackage('dal-include', max_pin='x') }}
-    about:
-      home: https://software.intel.com/en-us/daal
-      summary: Headers for building against DAAL libraries
-      license: Intel Simplified Software License
-      license_family: Proprietary
-      license_file:
-         - dal-include/info/licenses/license.txt
-         - dal-include/info/licenses/tpp.txt
-      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
-      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
-      dev_url: https://github.com/oneapi-src/oneDAL
-
-  - name: daal-static
-    version: {{ daal_version }}
-    build:
-      number: {{ daal_buildnum }}
-    requirements:
-      run:
-        - {{ pin_subpackage('dal-static', max_pin='x') }}
-    about:
-      home: https://software.intel.com/en-us/daal
-      summary: Static libraries for DAAL
-      license: Intel Simplified Software License
-      license_family: Proprietary
-      license_file:
-         - dal-static/info/licenses/license.txt
-         - dal-static/info/licenses/tpp.txt
-      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
-      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
-      dev_url: https://github.com/oneapi-src/oneDAL
-
-  - name: daal-devel
-    version: {{ daal_version }}
-    build:
-      number: {{ daal_buildnum }}
-    requirements:
-      run:
-        - {{ pin_subpackage('dal-devel', max_pin='x') }}
-    about:
-      home: https://software.intel.com/en-us/daal
-      summary: Devel package for building things linked against DAAL shared libraries
-      license: Intel Simplified Software License
-      license_family: Proprietary
-      license_file:
-         - dal-devel/info/licenses/license.txt
-         - dal-devel/info/licenses/tpp.txt
-      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
-      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
-      dev_url: https://github.com/oneapi-src/oneDAL
 
 # Satisfy the linter
 about:
