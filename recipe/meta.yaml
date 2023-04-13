@@ -1,5 +1,3 @@
-
-
 # NOTES:
 
 #  This is a binary repack from Intel's packages. We wil reuse Intel's version and build number where possible. In the
@@ -11,72 +9,72 @@
 
 
 # Bump all build numbers here. (Note: it may be appropriate to use selectors here.)
-{% set bump_all_buildnum = "1" %}
+{% set bump_all_buildnum = "0" %}
 # Bump specific package build numbers here. (Note: it may be appropriate to use selectors here.)
 {% set bump_mkl_buildnum = "0" %}
 {% set bump_openmp_buildnum = "0" %}
 {% set bump_dal_buildnum = "0" %}
 
-{% set tbb_version = "2021.7.0" %}
+{% set tbb_version = "2021.8.0" %}
 
 # Linux
-{% set mkl_version = "2023.0.0" %}          # [linux]
-{% set mkl_fetch_buildnum = "25398" %}      # [linux]
+{% set mkl_version = "2023.1.0" %}          # [linux]
+{% set mkl_fetch_buildnum = "46342" %}      # [linux]
 
 {% set openmp_version = mkl_version %}      # [linux]
-{% set openmp_fetch_buildnum = "25370" %}   # [linux]
+{% set openmp_fetch_buildnum = "46305" %}   # [linux]
 
-{% set dal_version = "2023.0.1" %}          # [linux]
-{% set dal_fetch_buildnum = "26646" %}      # [linux]
+{% set dal_version = "2023.1.1" %}          # [linux]
+{% set dal_fetch_buildnum = "48679" %}      # [linux]
 
-{% set mkl_hash = "b7ccc9f8a5d1c6c41a1a13fce3a7af4226f1382920765284d5d64ba6f86db53d" %}           # [linux]
-{% set mkl_devel_hash = "d9c314768a67966c9cb6258653557daaa4bc42037a18f39ab7dd04cb3961f857" %}     # [linux]
-{% set mkl_include_hash = "ac06e55127ab6389d516fb07665862a315ae6dfc1331ee6e8248ce19a26cd7fd" %}   # [linux]
-{% set intel_openmp_hash = "0eae400bf40e9c5d6cddf1750ce223602fa773864fdb05a794f78b07b97c54e3" %}  # [linux]
-{% set dal_hash = "521fac0dbb00a24e1ec9ee60d152e000285f5f5fe642b895bdce9a960d9c4cc7" %}           # [linux]
-{% set dal_include_hash = "b223ded5f99d10fcbc5196e92cd70682320fc728cbe39385d1263f028598ddae" %}   # [linux]
-{% set dal_static_hash = "8c4b6f3fe9e5f934051342b9ff1b1ae6cf90d1288aa01d7eb038f8cf95f44fac" %}    # [linux]
-{% set dal_devel_hash = "5fb581c151fe3fc943a6e020dc37025b0b48b6b394b51d6c36d2d1651e27320d" %}     # [linux]
+{% set mkl_hash = "3820a9053b1c028b3d9f62448f7d0d53a57ca6d6d38c2279faec8663f27d0a5c" %}           # [linux]
+{% set mkl_devel_hash = "823830abb452aaf52672508b6327798f08db4b5876e7d5b35f53a7c1cf8202f0" %}     # [linux]
+{% set mkl_include_hash = "b24d12a8e18ba23de5c659a33fb184a7ac6019d4b159e78f628d7c8de225f77a" %}   # [linux]
+{% set intel_openmp_hash = "5b56c0d16860d678d082f38c7349e52d00969ea1ca788027880529c3c03a2b68" %}  # [linux]
+{% set dal_hash = "4d5012613a0388f1fe618f1f1690366c3477645401613502752be117836e2c4e" %}           # [linux]
+{% set dal_include_hash = "0c49db04bbc988afc7127fe5c5aeae0833be0c4911e8a9d1d46dd6c802658c0f" %}   # [linux]
+{% set dal_static_hash = "e71b58d08c405c8fc190f4f9a83eb8ce34087997f4fee39d3f5d3f56e5a5fd3d" %}    # [linux]
+{% set dal_devel_hash = "79d96b0fa706dfc532b371e04b71539ce4761e1c072778ce0a82557df8b02b6e" %}     # [linux]
 
 
 # OSX
-{% set mkl_version = "2023.0.0" %}          # [osx]
-{% set mkl_fetch_buildnum = "25376" %}      # [osx]
+{% set mkl_version = "2023.1.0" %}          # [osx]
+{% set mkl_fetch_buildnum = "43558" %}      # [osx]
 
 {% set openmp_version = mkl_version %}      # [osx]
-{% set openmp_fetch_buildnum = "25369" %}   # [osx]
+{% set openmp_fetch_buildnum = "43547" %}   # [osx]
 
-{% set dal_version = "2023.0.1" %}          # [osx]
-{% set dal_fetch_buildnum = "31029" %}      # [osx]
+{% set dal_version = "2023.1.1" %}          # [osx]
+{% set dal_fetch_buildnum = "48680" %}      # [osx]
 
-{% set mkl_hash = "d6b7bcce92e607173537164ca4929c53b0d3ef46e605c6244770376d49d3e158" %}           # [osx]
-{% set mkl_devel_hash = "25f4db156bba2c41ad4c25ef737d2e5add1bc9a457e20a856cb085ee984fbe79" %}     # [osx]
-{% set mkl_include_hash = "319c75ed4a1b28b56007f72f29ad833ce3e7df8ee574ac152d3093517ce32f7e" %}   # [osx]
-{% set intel_openmp_hash = "a16096d079eb5faa9a97f9cd95e810be297756ef0538e031113359fceba5bd38" %}  # [osx]
-{% set dal_hash = "6017926244099779d6573c187cffca74e62a35280eef682111ed113afaca09a3" %}           # [osx]
-{% set dal_include_hash = "8d8ded7b12a133fd0d6a5790d1a97e7fbae32bfae10c3b88b61e249d412ef1b2" %}   # [osx]
-{% set dal_static_hash = "cd9a3f5faa75d3f5698bea09e3f271f2bdd42cb4ceba6276c0cfd32bd339bf83" %}    # [osx]
-{% set dal_devel_hash = "a45eca4ae92995dbdd1c869b528b6d545e83a7600017cd72beb71dc643f66de7" %}     # [osx]
+{% set mkl_hash = "a4c7a5e322ebb988aa914c3dbdc88afd241c1f50d2fac3f919d3ebca4df4727d" %}           # [osx]
+{% set mkl_devel_hash = "93b11bf7e9b4e1642b3500d2b84d5c4c67788a3831b11c687524c42b97657fc8" %}     # [osx]
+{% set mkl_include_hash = "f7522e05e61d083e06a802d864c3cefcac8b7bcca35fd08b6cb95a2691808e43" %}   # [osx]
+{% set intel_openmp_hash = "b2e60feb9fe22c59cdde8996e83b3a5c60e72748903e23fa05f6f2e26233641a" %}  # [osx]
+{% set dal_hash = "f2633dcccaf5f4204d73fcc217b4c9c2ad5b3a2bc7d9be5892745e34b067c8e9" %}           # [osx]
+{% set dal_include_hash = "a22e8cc55b466646fc1397af4be96994f32f174295d92b4f36645e2df7a672ad" %}   # [osx]
+{% set dal_static_hash = "92edc65d9b73bcb71da51a0611553bc0e94a092fb090ba065a6a74b999198dde" %}    # [osx]
+{% set dal_devel_hash = "4f59335ea44f17f119488af084e023985ec98f367ccba44cdebd15a3a087007d" %}     # [osx]
 
 
 # Windows
-{% set mkl_version = "2023.0.0" %}          # [win]
-{% set mkl_fetch_buildnum = "25930" %}      # [win]
+{% set mkl_version = "2023.1.0" %}          # [win]
+{% set mkl_fetch_buildnum = "46356" %}      # [win]
 
 {% set openmp_version = mkl_version %}      # [win]
-{% set openmp_fetch_buildnum = "25922" %}   # [win]
+{% set openmp_fetch_buildnum = "46319" %}   # [win]
 
-{% set dal_version = "2023.0.1" %}          # [win]
-{% set dal_fetch_buildnum = "26645" %}      # [win]
+{% set dal_version = "2023.1.0" %}          # [win]
+{% set dal_fetch_buildnum = "48681" %}      # [win]
 
-{% set mkl_hash = "0c89f1809acf17643b1bd4a0c4e91f25ef3107d2526d4ec0827058c771f96034" %}           # [win]
-{% set mkl_devel_hash = "b9724f079836f08fe6a481a696f9258570f310052404cb73b673015d2e9d7d6b" %}     # [win]
-{% set mkl_include_hash = "0a227354489cc3b5003ae58d984ad10d37ff6dd3f6dbcdda0875251f874cf591" %}   # [win]
-{% set intel_openmp_hash = "c351b0f0472c99de1f989001baf07847036158579706cb97cba35be7160f85e4" %}  # [win]
-{% set dal_hash = "d85d6d3c27ceaba5a9193a4a5d9a16d98e335b4c1ad0fda718aeda3126e7507b" %}           # [win]
-{% set dal_include_hash = "c337cf078bbc86269e9a21cc3659a4d479d55331a2a522bed0357698bb14720e" %}   # [win]
-{% set dal_static_hash = "218e71e4321f0343525f1c438f1d5b42e6bb7e6258719dab11c69707aa1b5613" %}    # [win]
-{% set dal_devel_hash = "48bdc3f42b12ce16b31e66af2bbe141f2b19bff61e162decd5841d26ba4e04b0" %}     # [win]
+{% set mkl_hash = "767fbbe50157e9f365eca77d42a1495b66661b5845a1c13b8e33fe79d3b4a9f4" %}           # [win]
+{% set mkl_devel_hash = "078060b6d4aacd32f9cda2657fcd9b0f7575a084223d82388d169825eb90289f" %}     # [win]
+{% set mkl_include_hash = "19eb554a8c9c75325e26f4f4a8b9b80538d420016065d5ec918fd9c10354c96b" %}   # [win]
+{% set intel_openmp_hash = "e38a929816dbaa01ff338b4f0792ce9034f9c6497905dd479d9ee580065d9967" %}  # [win]
+{% set dal_hash = "ed825bfd4bbbce1600a5f2cda11b81f7927c7a54111133fd3c9b5e6a7401e474" %}           # [win]
+{% set dal_include_hash = "5cc36b5653dcce33c7f7fbee9590f46441f44043a570f684968b67ac9f388eb6" %}   # [win]
+{% set dal_static_hash = "a6c48ef1bfc9c7eccd098cecff64d72c12d5f6229b71ec043899ef1812d8b747" %}    # [win]
+{% set dal_devel_hash = "c92c58ef9b1aa66ac22b63d74174b7edf98851996ec7099d32a4653359da8d14" %}     # [win]
 
 
 # Set the actual build numbers here. These should not be changed nor should selectors be used.
@@ -119,7 +117,7 @@ build:
   number: {{ mkl_buildnum }}
   binary_relocation: false
   detect_binary_files_with_prefix: false
-  skip: True             # [not (x86 and (linux or win))]
+  skip: True             # [not (x86 and (linux or osx or win))]
   runpath_whitelist:     # <---------------------------------------------------------------------------------------------------------------------------------   Do a trial remove
     - $ORIGIN
 
@@ -152,6 +150,11 @@ outputs:
         # intel-openmp 2021.1.1 and newer is built with a newer GLIBC
         - __glibc >=2.17    # [linux]
         - __osx >=10.13     # [osx]
+    test:
+      commands:
+        - test -f $PREFIX/lib/libmkl_core.so                    # [linux]
+        - test -f $PREFIX/lib/libmkl_rt.so                      # [linux]
+        - IF NOT EXIST %PREFIX%\Library\bin\mkl*.dll EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/en-us/mkl
       license: LicenseRef-ProprietaryIntel
@@ -162,11 +165,6 @@ outputs:
         Intel Math Kernel Library is a BLAS implementation tuned for high performance on Intel CPUs.
         This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
       doc_url: https://software.intel.com/en-us/mkl/documentation
-    test:
-      commands:
-        - test -f $PREFIX/lib/libmkl_core.so                    # [linux]
-        - test -f $PREFIX/lib/libmkl_rt.so                      # [linux]
-        - IF NOT EXIST %PREFIX%\Library\bin\mkl*.dll EXIT /B 1  # [win]
 
   - name: mkl-include
     script: repack.sh   # [unix]
@@ -213,17 +211,17 @@ outputs:
         - {{ pin_subpackage('mkl', exact=True) }}
         - {{ pin_subpackage('mkl-include', exact=True) }}
         - blas * mkl
+    test:
+      commands:
+        - IF NOT EXIST %PREFIX%\Library\lib\mkl*dll.lib EXIT /B 1  # [win]
+        # Version 2023.0.0-intel_25398 for linux-64 does not have a lib folder,
+        # so nothing to test/check for. If next version does, we should add tests.
     about:
       home: https://software.intel.com/en-us/mkl
       summary: Metapackage of MKL headers and libraries for developing software that uses MKL
       license: LicenseRef-ProprietaryIntel
       license_family: Proprietary
       license_file: mkl/info/licenses/license.txt
-    test:
-      commands:
-        - IF NOT EXIST %PREFIX%\Library\lib\mkl*dll.lib EXIT /B 1  # [win]
-        # Version 2023.0.0-intel_25398 for linux-64 does not have a lib folder,
-        # so nothing to test/check for. If next version does, we should add tests.
 
   - name: intel-openmp
     version: {{ openmp_version }}
@@ -251,14 +249,14 @@ outputs:
     requirements:
       build:
         - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
-      run_constrained:                    # [linux]
-        - __glibc >=2.17                  # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
       host:
-        - libffi >=3.4,<3.5               # [linux]
-        - zlib                            # [linux]
+        - libffi 3.4                      # [linux]
+        - zlib 1.2.13                           # [linux]
       run:
         - libffi >=3.4,<3.5               # [linux]
-        - zlib                            # [linux]
+        - zlib >=1.2.13,<1.2.14           # [linux]
+      run_constrained:                    # [linux]
+        - __glibc >=2.17                  # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
     test:
       commands:
         - test -f $PREFIX/lib/libiomp5.so                           # [linux]
@@ -346,8 +344,8 @@ outputs:
       license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
-         - dal/info/licenses/license.txt
-         - dal/info/licenses/tpp.txt
+        - dal/info/licenses/license.txt
+        - dal/info/licenses/tpp.txt
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
@@ -374,8 +372,8 @@ outputs:
       license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
-         - dal-include/info/licenses/license.txt
-         - dal-include/info/licenses/tpp.txt
+        - dal-include/info/licenses/license.txt
+        - dal-include/info/licenses/tpp.txt
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
@@ -418,8 +416,8 @@ outputs:
       license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
-         - dal-static/info/licenses/license.txt
-         - dal-static/info/licenses/tpp.txt
+        - dal-static/info/licenses/license.txt
+        - dal-static/info/licenses/tpp.txt
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
@@ -453,12 +451,11 @@ outputs:
       license: Intel Simplified Software License
       license_family: Proprietary
       license_file:
-         - dal-devel/info/licenses/license.txt
-         - dal-devel/info/licenses/tpp.txt
+        - dal-devel/info/licenses/license.txt
+        - dal-devel/info/licenses/tpp.txt
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
-
 
 # Satisfy the linter
 about:
