@@ -280,7 +280,6 @@ outputs:
   # mutex package to keep only one blas implementation in a given env
   - name: blas
     version: 1.0
-    script: echo 'works!'
     build:
       string: mkl
     # An empty requirements/build to satisfy anaconda-linter.
