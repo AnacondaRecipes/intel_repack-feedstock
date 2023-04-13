@@ -169,6 +169,9 @@ outputs:
   - name: mkl-include
     script: repack.sh   # [unix]
     script: repack.bat  # [win]
+    # An empty requirements/build to satisfy anaconda-linter.
+    requirements:
+      build:
     test:
       commands:
         - test -f $PREFIX/include/mkl.h                           # [linux]
@@ -214,7 +217,7 @@ outputs:
     test:
       commands:
         - IF NOT EXIST %PREFIX%\Library\lib\mkl*dll.lib EXIT /B 1  # [win]
-        # Version 2023.0.0-intel_25398 for linux-64 does not have a lib folder,
+        # Version 2023.1.0-intel_46342 for linux-64 and 2023.1.0-intel_43558 for osx-64 do not have a lib folder,
         # so nothing to test/check for. If next version does, we should add tests.
     about:
       home: https://software.intel.com/en-us/mkl
@@ -279,6 +282,10 @@ outputs:
     version: 1.0
     build:
       string: mkl
+      script: echo 'works!'
+    # An empty requirements/build to satisfy anaconda-linter.
+    requirements:
+      build:
     test:
       commands:
         - echo 'works!'
@@ -356,6 +363,9 @@ outputs:
     script: repack.bat  # [win]
     build:
       number: {{ dal_buildnum }}
+    # An empty requirements/build to satisfy anaconda-linter.
+    requirements:
+      build:
     test:
       commands:
         - test -f $PREFIX/include/daal.h                   # [linux]
@@ -451,7 +461,7 @@ outputs:
       license: Intel Simplified Software License
       license_family: Proprietary
       # 2023/4/13: An error on osx-64:
-      # ValueError: License file given in about/license_file (recipe/dal-devel/info/licenses/license.txt) does not exist in source root dir or in recipe root dir (with meta.yaml)
+      # ValueError: License file given in about/license_file ([...]recipe/dal-devel/info/licenses/license.txt) does not exist in source root dir or in recipe root dir (with meta.yaml)
       #license_file:
       #  - dal-devel/info/licenses/license.txt
       #  - dal-devel/info/licenses/tpp.txt
@@ -461,11 +471,14 @@ outputs:
 
 # Satisfy the linter
 about:
-  home: https://github.com/conda-forge/intel-repack-feedstock
+  home: https://github.com/conda-forge/intel_repack-feedstock
   license: LicenseRef-ProprietaryIntel
+  license_family: Proprietary
   summary: 'repackaged intel libraries'
 
 extra:
   recipe-maintainers:
     - isuruf
     - beckermr
+  skip-lints:
+    - missing_tests
