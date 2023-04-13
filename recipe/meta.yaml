@@ -334,10 +334,13 @@ outputs:
         - tbb {{ tbb_version.split('.')[0] }}.*
     test:
       commands:
-        - test -f $PREFIX/lib/libonedal${SHLIB_EXT}.1                       # [unix]
-        - test -f $PREFIX/lib/libonedal_core${SHLIB_EXT}.1                  # [unix]
-        - test -f $PREFIX/lib/libonedal_dpc${SHLIB_EXT}.1                   # [unix]
-        - test -f $PREFIX/lib/libonedal_thread${SHLIB_EXT}.1                # [unix]
+        - test -f $PREFIX/lib/libonedal.so.1                       # [linux]
+        - test -f $PREFIX/lib/libonedal_core.so.1                  # [linux]
+        - test -f $PREFIX/lib/libonedal_dpc.so.1                   # [linux]
+        - test -f $PREFIX/lib/libonedal_thread.so.1                # [linux]
+        - test -f $PREFIX/lib/libonedal.1.dylib                    # [osx]
+        - test -f $PREFIX/lib/libonedal_core.1.dylib               # [osx]
+        - test -f $PREFIX/lib/libonedal_thread.1.dylib             # [osx]
         - IF NOT EXIST %PREFIX%\Library\bin\onedal*.dll EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
@@ -411,8 +414,10 @@ outputs:
       commands:
         - test -f $PREFIX/lib/libonedal.a                          # [unix]
         - test -f $PREFIX/lib/libonedal_core.a                     # [unix]
-        - test -f $PREFIX/lib/libonedal_dpc.a                      # [unix]
+        - test -f $PREFIX/lib/libonedal_dpc.a                      # [linux]
         - test -f $PREFIX/lib/libonedal_thread.a                   # [unix]
+        - test -f $PREFIX/lib/libdaal_thread.a                     # [unix]
+        - test -f $PREFIX/lib/libdaal_core.a                       # [unix]
         - IF NOT EXIST %PREFIX%\Library\lib\onedal*.lib EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
@@ -447,7 +452,8 @@ outputs:
         - {{ pin_subpackage('dal', exact=True) }}
     test:
       commands:
-        - test -f $PREFIX/lib/libonedal_sycl.a                     # [unix]
+        - test -f $PREFIX/lib/libonedal_sycl.a                     # [linux]
+        # 2023/4/13: 2023.1.0-intel_43558 for osx-64 dooes not have libonedal_sycl.a, see https://anaconda.org/intel/dal-devel/files?version=2023.1.1
         - IF NOT EXIST %PREFIX%\Library\lib\onedal*.lib EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
