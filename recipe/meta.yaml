@@ -262,8 +262,8 @@ outputs:
         - __glibc >=2.17                  # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
     test:
       commands:
-        - test -f $PREFIX/lib/libiomp5${SHLIB_EXT}                          # [unix]
-        - test -f $PREFIX/lib/libomptarget${SHLIB_EXT}                    # [unix]
+        - test -f $PREFIX/lib/libiomp5${SHLIB_EXT}                  # [unix]
+        - test -f $PREFIX/lib/libomptarget${SHLIB_EXT}              # [linux]
         - IF NOT EXIST %PREFIX%\Library\bin\libiomp*.dll EXIT /B 1  # [win]
         - IF NOT EXIST %PREFIX%\Library\bin\omp*.dll EXIT /B 1      # [win]
     about:
