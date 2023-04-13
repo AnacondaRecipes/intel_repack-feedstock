@@ -152,8 +152,8 @@ outputs:
         - __osx >=10.13     # [osx]
     test:
       commands:
-        - test -f $PREFIX/lib/libmkl_core.so                    # [linux]
-        - test -f $PREFIX/lib/libmkl_rt.so                      # [linux]
+        - test -f $PREFIX/lib/libmkl_core${SHLIB_EXT}           # [unix]
+        - test -f $PREFIX/lib/libmkl_rt${SHLIB_EXT}             # [unix]
         - IF NOT EXIST %PREFIX%\Library\bin\mkl*.dll EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/en-us/mkl
@@ -174,16 +174,16 @@ outputs:
       build:
     test:
       commands:
-        - test -f $PREFIX/include/mkl.h                           # [linux]
-        - test -f $PREFIX/include/mkl_blas.h                      # [linux]
-        - test -f $PREFIX/include/mkl_cblas.h                     # [linux]
-        - test -f $PREFIX/include/mkl_df.h                        # [linux]
-        - test -f $PREFIX/include/mkl_lapack.h                    # [linux]
-        - test -f $PREFIX/include/mkl_service.h                   # [linux]
-        - test -f $PREFIX/include/mkl_solvers_ee.h                # [linux]
-        - test -f $PREFIX/include/mkl_trans.h                     # [linux]
-        - test -f $PREFIX/include/mkl_types.h                     # [linux]
-        - test -f $PREFIX/include/mkl_version.h                   # [linux]
+        - test -f $PREFIX/include/mkl.h                           # [unix]
+        - test -f $PREFIX/include/mkl_blas.h                      # [unix]
+        - test -f $PREFIX/include/mkl_cblas.h                     # [unix]
+        - test -f $PREFIX/include/mkl_df.h                        # [unix]
+        - test -f $PREFIX/include/mkl_lapack.h                    # [unix]
+        - test -f $PREFIX/include/mkl_service.h                   # [unix]
+        - test -f $PREFIX/include/mkl_solvers_ee.h                # [unix]
+        - test -f $PREFIX/include/mkl_trans.h                     # [unix]
+        - test -f $PREFIX/include/mkl_types.h                     # [unix]
+        - test -f $PREFIX/include/mkl_version.h                   # [unix]
         - IF NOT EXIST %PREFIX%\Library\include\mkl*.h EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/en-us/mkl
@@ -262,8 +262,8 @@ outputs:
         - __glibc >=2.17                  # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
     test:
       commands:
-        - test -f $PREFIX/lib/libiomp5.so                           # [linux]
-        - test -f $PREFIX/lib/libomptarget.so                       # [linux]
+        - test -f $PREFIX/lib/libiomp5${SHLIB_EXT}                          # [unix]
+        - test -f $PREFIX/lib/libomptarget${SHLIB_EXT}                    # [unix]
         - IF NOT EXIST %PREFIX%\Library\bin\libiomp*.dll EXIT /B 1  # [win]
         - IF NOT EXIST %PREFIX%\Library\bin\omp*.dll EXIT /B 1      # [win]
     about:
@@ -280,9 +280,9 @@ outputs:
   # mutex package to keep only one blas implementation in a given env
   - name: blas
     version: 1.0
+    script: echo 'works!'
     build:
       string: mkl
-      script: echo 'works!'
     # An empty requirements/build to satisfy anaconda-linter.
     requirements:
       build:
@@ -335,10 +335,10 @@ outputs:
         - tbb {{ tbb_version.split('.')[0] }}.*
     test:
       commands:
-        - test -f $PREFIX/lib/libonedal.so.1                       # [linux]
-        - test -f $PREFIX/lib/libonedal_core.so.1                  # [linux]
-        - test -f $PREFIX/lib/libonedal_dpc.so.1                   # [linux]
-        - test -f $PREFIX/lib/libonedal_thread.so.1                # [linux]
+        - test -f $PREFIX/lib/libonedal${SHLIB_EXT}.1                       # [unix]
+        - test -f $PREFIX/lib/libonedal_core${SHLIB_EXT}.1                  # [unix]
+        - test -f $PREFIX/lib/libonedal_dpc${SHLIB_EXT}.1                   # [unix]
+        - test -f $PREFIX/lib/libonedal_thread${SHLIB_EXT}.1                # [unix]
         - IF NOT EXIST %PREFIX%\Library\bin\onedal*.dll EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
@@ -368,8 +368,8 @@ outputs:
       build:
     test:
       commands:
-        - test -f $PREFIX/include/daal.h                   # [linux]
-        - test -f $PREFIX/include/daal_sycl.h              # [linux]
+        - test -f $PREFIX/include/daal.h                   # [unix]
+        - test -f $PREFIX/include/daal_sycl.h              # [unix]
         - IF NOT EXIST %PREFIX%\include\daal*.h EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
@@ -410,10 +410,10 @@ outputs:
         - tbb {{ tbb_version.split('.')[0] }}.*
     test:
       commands:
-        - test -f $PREFIX/lib/libonedal.a                          # [linux]
-        - test -f $PREFIX/lib/libonedal_core.a                     # [linux]
-        - test -f $PREFIX/lib/libonedal_dpc.a                      # [linux]
-        - test -f $PREFIX/lib/libonedal_thread.a                   # [linux]
+        - test -f $PREFIX/lib/libonedal.a                          # [unix]
+        - test -f $PREFIX/lib/libonedal_core.a                     # [unix]
+        - test -f $PREFIX/lib/libonedal_dpc.a                      # [unix]
+        - test -f $PREFIX/lib/libonedal_thread.a                   # [unix]
         - IF NOT EXIST %PREFIX%\Library\lib\onedal*.lib EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
@@ -448,7 +448,7 @@ outputs:
         - {{ pin_subpackage('dal', exact=True) }}
     test:
       commands:
-        - test -f $PREFIX/lib/libonedal_sycl.a                     # [linux]
+        - test -f $PREFIX/lib/libonedal_sycl.a                     # [unix]
         - IF NOT EXIST %PREFIX%\Library\lib\onedal*.lib EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
