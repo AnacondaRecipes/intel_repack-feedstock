@@ -64,7 +64,7 @@
 {% set openmp_version = mkl_version %}      # [win]
 {% set openmp_fetch_buildnum = "46319" %}   # [win]
 
-{% set dal_version = "2023.1.0" %}          # [win]
+{% set dal_version = "2023.1.1" %}          # [win]
 {% set dal_fetch_buildnum = "48681" %}      # [win]
 
 {% set mkl_hash = "767fbbe50157e9f365eca77d42a1495b66661b5845a1c13b8e33fe79d3b4a9f4" %}           # [win]
@@ -450,9 +450,11 @@ outputs:
         This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
       license: Intel Simplified Software License
       license_family: Proprietary
-      license_file:
-        - dal-devel/info/licenses/license.txt
-        - dal-devel/info/licenses/tpp.txt
+      # 2023/4/13: An error on osx-64:
+      # ValueError: License file given in about/license_file (recipe/dal-devel/info/licenses/license.txt) does not exist in source root dir or in recipe root dir (with meta.yaml)
+      #license_file:
+      #  - dal-devel/info/licenses/license.txt
+      #  - dal-devel/info/licenses/tpp.txt
       license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
       doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
       dev_url: https://github.com/oneapi-src/oneDAL
