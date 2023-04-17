@@ -217,8 +217,8 @@ outputs:
     test:
       commands:
         - IF NOT EXIST %PREFIX%\Library\lib\mkl*dll.lib EXIT /B 1  # [win]
-        # Version 2023.1.0-intel_46342 for linux-64 and 2023.1.0-intel_43558 for osx-64 do not have a lib folder,
-        # so nothing to test/check for. If next version does, we should add tests.
+        # Version 2023.1.0-intel_46342 for linux-64 and 2023.1.0-intel_43558 for osx-64 no .dll or .lib files are included,
+        # since the lib folder does exist on all platforms (but it only has pkgconfig files for osx-64 and linux-64).
     about:
       home: https://software.intel.com/en-us/mkl
       summary: Metapackage of MKL headers and libraries for developing software that uses MKL
@@ -453,7 +453,7 @@ outputs:
     test:
       commands:
         - test -f $PREFIX/lib/libonedal_sycl.a                     # [linux]
-        # 2023/4/13: 2023.1.0-intel_43558 for osx-64 dooes not have libonedal_sycl.a, see https://anaconda.org/intel/dal-devel/files?version=2023.1.1
+        # 2023/4/13: 2023.1.0-intel_43558 dooes not provide SYCL support for osx-64, see https://anaconda.org/intel/dal-devel/files?version=2023.1.1
         - IF NOT EXIST %PREFIX%\Library\lib\onedal*.lib EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/content/www/us/en/develop/tools.html
