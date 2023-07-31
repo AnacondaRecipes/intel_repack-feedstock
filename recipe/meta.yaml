@@ -82,6 +82,8 @@
 {% set openmp_buildnum = openmp_fetch_buildnum|int + bump_all_buildnum|int + bump_openmp_buildnum|int %}
 {% set dal_buildnum = dal_fetch_buildnum|int + bump_all_buildnum|int + bump_dal_buildnum|int %}
 
+{% set mkldevel_buildnum = mkl_buildnum|int + 1 %}
+
 
 package:
   name: intel_repack
@@ -200,7 +202,7 @@ outputs:
     script: install-devel.sh   # [unix]
     script: install-devel.bat  # [win]
     build:
-      number: {{ mkl_buildnum }}
+      number: {{ mkldevel_buildnum }}
       # when stuff is built with MKL, ensure that constraint makes mkl runtime libs as new or
       #     newer than build version
       run_exports:
@@ -210,6 +212,8 @@ outputs:
         # various downstreams (mkl_fft, mkl_random) to include the mkl-service wrapper as a dependency.
         - mkl-service >=2.3.0,<3.0a0
     requirements:
+      build:
+        - m2-sed  # [win]
       run:
         - {{ pin_subpackage('mkl', exact=True) }}
         - {{ pin_subpackage('mkl-include', exact=True) }}

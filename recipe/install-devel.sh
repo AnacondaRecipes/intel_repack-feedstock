@@ -9,5 +9,11 @@ cp $RECIPE_DIR/site.cfg $PREFIX/site.cfg
 echo library_dirs = $PREFIX/lib  >> $PREFIX/site.cfg
 echo include_dirs = $PREFIX/include  >> $PREFIX/site.cfg
 
-cp -rv $SRC_DIR/$PKG_NAME/ $PREFIX
+if [[ "${target_platform}" == "linux-64" ]]; then
+    # mkl-devel 2023.1.0 b0 is not packaged correctly on linux-64
+    cp -rv $SRC_DIR/$PKG_NAME/$PKG_NAME/ $PREFIX
+else
+    cp -rv $SRC_DIR/$PKG_NAME/ $PREFIX
+fi
+
 rm -rf $PREFIX/info
