@@ -1,3 +1,6 @@
+@echo on
+setlocal enabledelayedexpansion
+
 set "src=%SRC_DIR%\%PKG_NAME%"
 COPY "%src%\info\licenses\LICENSE.txt" "%SRC_DIR%"
 
@@ -10,8 +13,12 @@ robocopy /E "%src%" "%PREFIX%"
 if %ERRORLEVEL% GEQ 8 exit 1
 
 :: correct .pc files that point to intel64 lib dir instead of just lib
-sed -i.bak -E "s|libdir=(.*)/intel64|libdir=\1|g" %PREFIX%\Library\lib\pkgconfig\*.pc
-del "%PREFIX%\Library\lib\pkgconfig\*.pc.bak"
+for /r "%PREFIX%\Library\lib\pkgconfig\" %%i in (*.pc) do (
+	sed -i.bak -E "s|libdir=(.*)/intel64|libdir=\1|g" "%%i"
+	if errorlevel 1 exit 1
+	del "%%i.bak"
+	type "%%i"
+)
 
 :: replace old info folder with our new regenerated one
 rd /s /q %PREFIX%\info
