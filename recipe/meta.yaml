@@ -11,7 +11,7 @@
 # Bump all build numbers here. (Note: it may be appropriate to use selectors here.)
 {% set bump_all_buildnum = "0" %}
 # Bump specific package build numbers here. (Note: it may be appropriate to use selectors here.)
-{% set bump_mkl_buildnum = "0" %}
+{% set bump_mkl_buildnum = "1" %}
 {% set bump_openmp_buildnum = "0" %}
 {% set bump_dal_buildnum = "0" %}
 
@@ -81,8 +81,6 @@
 {% set mkl_buildnum = mkl_fetch_buildnum|int + bump_all_buildnum|int + bump_mkl_buildnum|int %}
 {% set openmp_buildnum = openmp_fetch_buildnum|int + bump_all_buildnum|int + bump_openmp_buildnum|int %}
 {% set dal_buildnum = dal_fetch_buildnum|int + bump_all_buildnum|int + bump_dal_buildnum|int %}
-
-{% set mkldevel_buildnum = mkl_buildnum|int + 1 %}
 
 
 package:
@@ -202,7 +200,7 @@ outputs:
     script: install-devel.sh   # [unix]
     script: install-devel.bat  # [win]
     build:
-      number: {{ mkldevel_buildnum }}
+      number: {{ mkl_buildnum }}
       # when stuff is built with MKL, ensure that constraint makes mkl runtime libs as new or
       #     newer than build version
       run_exports:
