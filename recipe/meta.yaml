@@ -219,8 +219,9 @@ outputs:
     test:
       commands:
         - IF NOT EXIST %PREFIX%\Library\lib\mkl*dll.lib EXIT /B 1  # [win]
-        # Version 2023.1.0-intel_46342 for linux-64 and 2023.1.0-intel_43558 for osx-64 no .dll or .lib files are included,
-        # since the lib folder does exist on all platforms (but it only has pkgconfig files for osx-64 and linux-64).
+        # Verify that the mkl library can be located through pkg-config
+       - test -f `pkg-config --variable=libdir --dont-define-prefix mkl-sdl`/mkl_rt.so  # [unix]
+       - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=includedir --dont-define-prefix mkl-sdl`) do if not exist "%%a/mkl_rt.lib" exit 1  # [win]
     about:
       home: https://software.intel.com/en-us/mkl
       summary: Metapackage of MKL headers and libraries for developing software that uses MKL
