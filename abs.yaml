@@ -3,3 +3,8 @@ build_parameters:
   - "--suppress-variables"
   - "--error-overlinking"
   - "--error-overdepending"
+
+channels:
+  cbouss: temp
+
+upload_without_merge: True
