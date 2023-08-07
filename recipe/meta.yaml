@@ -220,8 +220,10 @@ outputs:
       commands:
         - IF NOT EXIST %PREFIX%\Library\lib\mkl*dll.lib EXIT /B 1  # [win]
         # Verify that the mkl library can be located through pkg-config
-        #- test -f `pkg-config --variable=libdir --dont-define-prefix mkl-sdl`/mkl_rt.so  # [unix]
-        #- for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix mkl-sdl`) do if not exist "%%a/mkl_rt.lib" exit 1  # [win]
+        - test -f `pkg-config --variable=libdir --dont-define-prefix mkl-sdl`/libmkl_rt.so  # [unix]
+        - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix mkl-sdl`) do if not exist "%%a/mkl_rt.lib" exit 1  # [win]
+      requires:
+        - pkg-config
     about:
       home: https://software.intel.com/en-us/mkl
       summary: Metapackage of MKL headers and libraries for developing software that uses MKL
