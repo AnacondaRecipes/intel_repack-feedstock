@@ -11,7 +11,7 @@
 # Bump all build numbers here. (Note: it may be appropriate to use selectors here.)
 {% set bump_all_buildnum = "0" %}
 # Bump specific package build numbers here. (Note: it may be appropriate to use selectors here.)
-{% set bump_mkl_buildnum = "0" %}
+{% set bump_mkl_buildnum = "1" %}
 {% set bump_openmp_buildnum = "0" %}
 {% set bump_dal_buildnum = "0" %}
 
@@ -210,6 +210,8 @@ outputs:
         # various downstreams (mkl_fft, mkl_random) to include the mkl-service wrapper as a dependency.
         - mkl-service >=2.3.0,<3.0a0
     requirements:
+      build:
+        - m2-sed  # [win]
       run:
         - {{ pin_subpackage('mkl', exact=True) }}
         - {{ pin_subpackage('mkl-include', exact=True) }}
@@ -217,8 +219,11 @@ outputs:
     test:
       commands:
         - IF NOT EXIST %PREFIX%\Library\lib\mkl*dll.lib EXIT /B 1  # [win]
-        # Version 2023.1.0-intel_46342 for linux-64 and 2023.1.0-intel_43558 for osx-64 no .dll or .lib files are included,
-        # since the lib folder does exist on all platforms (but it only has pkgconfig files for osx-64 and linux-64).
+        # Verify that the mkl library can be located through pkg-config
+        - test -f `pkg-config --variable=libdir --dont-define-prefix mkl-sdl`/libmkl_rt${SHLIB_EXT}  # [unix]
+        - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix mkl-sdl`) do if not exist "%%a/mkl_rt.lib" exit 1  # [win]
+      requires:
+        - pkg-config
     about:
       home: https://software.intel.com/en-us/mkl
       summary: Metapackage of MKL headers and libraries for developing software that uses MKL
