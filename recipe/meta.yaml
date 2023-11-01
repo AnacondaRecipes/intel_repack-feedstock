@@ -9,7 +9,7 @@
 
 
 # Bump all build numbers here. (Note: it may be appropriate to use selectors here.)
-{% set bump_all_buildnum = "0" %}
+{% set bump_all_buildnum = "1" %}
 # Bump specific package build numbers here. (Note: it may be appropriate to use selectors here.)
 {% set bump_mkl_buildnum = "1" %}
 {% set bump_openmp_buildnum = "0" %}
@@ -267,10 +267,11 @@ outputs:
         - __glibc >=2.17                  # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
     test:
       commands:
-        - test -f $PREFIX/lib/libiomp5${SHLIB_EXT}                  # [unix]
-        - test -f $PREFIX/lib/libomptarget${SHLIB_EXT}              # [linux]
-        - IF NOT EXIST %PREFIX%\Library\bin\libiomp*.dll EXIT /B 1  # [win]
-        - IF NOT EXIST %PREFIX%\Library\bin\omp*.dll EXIT /B 1      # [win]
+        - test -f $PREFIX/lib/libiomp5${SHLIB_EXT}                        # [unix]
+        - test -f $PREFIX/lib/libomptarget${SHLIB_EXT}                    # [linux]
+        - IF NOT EXIST %PREFIX%\Library\bin\libiomp*.dll EXIT /B 1        # [win]
+        - IF NOT EXIST %PREFIX%\Library\bin\omp*.dll EXIT /B 1            # [win]
+        - IF NOT EXIST %PREFIX%\Library\lib\libiomp5md_dll.lib echo "%PREFIX%\Library\lib\libiomp5md_dll.lib is missing" & EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/en-us/node/522690
       license: LicenseRef-ProprietaryIntel

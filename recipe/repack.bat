@@ -13,3 +13,19 @@ if %ERRORLEVEL% GEQ 8 exit 1
 
 :: replace old info folder with our new regenerated one
 rd /s /q %PREFIX%\info
+
+if "%PKG_NAME%"=="intel-openmp" (
+    echo "Generating libiomp5md_dll.lib"
+    :: If in the fiture Intel decies to ship the import library, error out.
+    :: If this happens, please remove this hack.
+    if exist %LIBRARY_PREFIX%\lib\libiomp5md_dll.lib exit 1
+
+    :: Create the import library for libiomp5md.dll. Intel unfortunately doesn't provide it.
+    cd %LIBRARY_PREFIX%\bin
+    %RECIPE_DIR%\dll2lib.bat 64 libiomp5md.dll
+    if %ERRORLEVEL% GEQ 1 exit 1
+
+    dir %LIBRARY_PREFIX%
+    dir %LIBRARY_PREFIX%\lib
+    if not exist %LIBRARY_PREFIX%\lib\libiomp5md_dll.lib exit 1
+)
