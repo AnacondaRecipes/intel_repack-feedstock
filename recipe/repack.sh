@@ -15,5 +15,5 @@ src="$SRC_DIR/$PKG_NAME"
 
 cp -rv "$src"/* "$PREFIX/"
 
-# replace old info folder with our new regenerated one
-rm -rf "$PREFIX/info"
+# Remove info coming from conda package. conda-build will provide its own metadata.
+rm -rvf "$PREFIX/info"

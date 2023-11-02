@@ -217,13 +217,21 @@ outputs:
         - {{ pin_subpackage('mkl-include', exact=True) }}
         - blas * mkl
     test:
+      requires:
+        - {{ compiler('c') }}
+        - cmake
+        - ninja
+        - pkg-config
+      files:
+        - tests
       commands:
         - IF NOT EXIST %PREFIX%\Library\lib\mkl*dll.lib EXIT /B 1  # [win]
         # Verify that the mkl library can be located through pkg-config
         - test -f `pkg-config --variable=libdir --dont-define-prefix mkl-sdl`/libmkl_rt${SHLIB_EXT}  # [unix]
         - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix mkl-sdl`) do if not exist "%%a/mkl_rt.lib" exit 1  # [win]
-      requires:
-        - pkg-config
+        - cmake -S tests/mkl-devel -B build -G Ninja -DCMAKE_VERBOSE_MAKEFILE=ON
+        - cmake --build build
+        - cd build && ctest
     about:
       home: https://software.intel.com/en-us/mkl
       summary: Metapackage of MKL headers and libraries for developing software that uses MKL
