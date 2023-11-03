@@ -94,6 +94,8 @@ source:
   - url: https://anaconda.org/intel/mkl-devel/{{ mkl_version }}/download/{{ target_platform }}/mkl-devel-{{ mkl_version }}-intel_{{ mkl_fetch_buildnum }}.tar.bz2
     folder: mkl-devel
     sha256: {{ mkl_devel_hash }}
+    patches:                                  # [win]
+      - patches/0001-MKLConfig-windows.patch  # [win]
   - url: https://anaconda.org/intel/mkl-include/{{ mkl_version }}/download/{{ target_platform }}/mkl-include-{{ mkl_version }}-intel_{{ mkl_fetch_buildnum }}.tar.bz2
     folder: mkl-include
     sha256: {{ mkl_include_hash }}

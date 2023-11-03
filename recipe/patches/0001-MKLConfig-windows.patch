@@ -1,0 +1,31 @@
+From 9ecc2d7a195690956d358fda4d9e22f29c1a0f01 Mon Sep 17 00:00:00 2001
+From: Jean-Christophe Morin <jcmorin@anaconda.com>
+Date: Fri, 3 Nov 2023 13:48:23 -0400
+Subject: [PATCH] Fix MKLConfig to allow it to find libraries from conda packages.
+
+---
+ Library/lib/cmake/mkl/MKLConfig.cmake | 4 ++++++------
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Library/lib/cmake/mkl/MKLConfig.cmake b/Library/lib/cmake/mkl/MKLConfig.cmake
+index 9195b73b..cfd01c2d 100644
+--- a/Library/lib/cmake/mkl/MKLConfig.cmake
++++ b/Library/lib/cmake/mkl/MKLConfig.cmake
+@@ -632,7 +632,7 @@ foreach(lib ${MKL_LIBRARIES})
+     set_target_properties(MKL::${lib} PROPERTIES IMPORTED_IMPLIB "${${lib}_file}")
+     # Find corresponding DLL
+     set(MKL_DLL_GLOB ${lib}.*.dll)
+-    file(GLOB MKL_DLL_FILE "${MKL_ROOT}/redist/${MKL_ARCH}/${MKL_DLL_GLOB}"
++    file(GLOB MKL_DLL_FILE "${MKL_ROOT}/bin/${MKL_DLL_GLOB}"
+         "${MKL_ROOT}/../redist/${MKL_ARCH}/${MKL_DLL_GLOB}"
+         "${MKL_ROOT}/../redist/${MKL_ARCH}/mkl/${MKL_DLL_GLOB}")
+     if(NOT ${lib} STREQUAL ${MKL_IFACE_LIB} AND NOT ${lib} STREQUAL ${MKL_BLAS95} AND NOT ${lib} STREQUAL ${MKL_LAPACK95})  # Windows IFACE libs are static only
+@@ -719,7 +719,7 @@ if(MKL_THREADING)
+         set(OMP_DLLNAME ${LIB_PREFIX}${MKL_OMP_LIB}.dll)
+         find_path(OMP_DLL_DIR ${OMP_DLLNAME}
+           HINTS $ENV{LIB} $ENV{LIBRARY_PATH} $ENV{MKLROOT} ${MKL_ROOT} $ENV{CMPLR_ROOT}
+-          PATH_SUFFIXES "redist/${MKL_ARCH}"
++          PATH_SUFFIXES "bin"
+                "redist/${MKL_ARCH}_win" "redist/${MKL_ARCH}_win/compiler"
+                "../redist/${MKL_ARCH}/compiler" "../compiler/lib"
+                "../../compiler/latest/windows/redist/${MKL_ARCH}_win"

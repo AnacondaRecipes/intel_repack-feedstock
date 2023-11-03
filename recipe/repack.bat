@@ -22,6 +22,9 @@ if "%PKG_NAME%"=="intel-openmp" (
 
     :: Create the import library for libiomp5md.dll. Intel unfortunately doesn't provide it.
     cd %LIBRARY_PREFIX%\bin
+    :: Note that both CMake's FindMKL and Pytorch's own FindMKL modules want and expect
+    :: "libiomp5md.dll", not "libiomp5md_dll.dll"!
+    :: The same can be said about the MKLConfig cmake file provided by mkl-devel.
     %RECIPE_DIR%\dll2lib.bat 64 libiomp5md.dll
     if %ERRORLEVEL% GEQ 1 exit 1
 
