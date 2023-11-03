@@ -4,6 +4,8 @@ enable_testing()
 
 project(mkl_example LANGUAGES C)
 
+set(MKL_THREADING "intel_thread")
+
 find_package(MKL CONFIG REQUIRED)
 message(STATUS "${MKL_IMPORTED_TARGETS}") #Provides available list of targets based on input
 

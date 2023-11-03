@@ -230,8 +230,9 @@ outputs:
         - test -f `pkg-config --variable=libdir --dont-define-prefix mkl-sdl`/libmkl_rt${SHLIB_EXT}  # [unix]
         - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix mkl-sdl`) do if not exist "%%a/mkl_rt.lib" exit 1  # [win]
         - cmake -S tests/mkl-devel -B build -G Ninja -DCMAKE_VERBOSE_MAKEFILE=ON
-        - cmake --build build
-        - cd build && ctest
+        - cmake --build build -v
+        - cd build && ctest  # [not win]
+        - cd build\Debug && ctest  # [win]
     about:
       home: https://software.intel.com/en-us/mkl
       summary: Metapackage of MKL headers and libraries for developing software that uses MKL
@@ -279,7 +280,7 @@ outputs:
         - test -f $PREFIX/lib/libomptarget${SHLIB_EXT}                    # [linux]
         - IF NOT EXIST %PREFIX%\Library\bin\libiomp*.dll EXIT /B 1        # [win]
         - IF NOT EXIST %PREFIX%\Library\bin\omp*.dll EXIT /B 1            # [win]
-        - IF NOT EXIST %PREFIX%\Library\lib\libiomp5md_dll.lib echo "%PREFIX%\Library\lib\libiomp5md_dll.lib is missing" & EXIT /B 1  # [win]
+        - IF NOT EXIST %PREFIX%\Library\lib\libiomp5md.lib echo "%PREFIX%\Library\lib\libiomp5md.lib is missing" & EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/en-us/node/522690
       license: LicenseRef-ProprietaryIntel

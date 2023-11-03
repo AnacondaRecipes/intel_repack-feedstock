@@ -1,5 +1,7 @@
+#include <stdio.h>
 #include <mkl.h>
-int main(void) {
+
+void main(void) {
     int my_cbwr_branch;
     /* Align all input/output data on 64-byte boundaries */
     /* "for best performance of Intel® oneAPI Math Kernel Library */

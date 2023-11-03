@@ -15,7 +15,7 @@ set dll_file=%2
 set dll_file_no_ext=%dll_file:~0,-4%
 set exports_file=%dll_file_no_ext%-exports.txt
 set def_file=%dll_file_no_ext%.def
-set lib_file=%dll_file_no_ext%_dll.lib
+set lib_file=%dll_file_no_ext%.lib
 set lib_name=%dll_file_no_ext%
 
 dumpbin /exports %dll_file% > %exports_file%

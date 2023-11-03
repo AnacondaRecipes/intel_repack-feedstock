@@ -15,10 +15,10 @@ if %ERRORLEVEL% GEQ 8 exit 1
 rd /s /q %PREFIX%\info
 
 if "%PKG_NAME%"=="intel-openmp" (
-    echo "Generating libiomp5md_dll.lib"
+    echo "Generating libiomp5md.lib"
     :: If in the fiture Intel decies to ship the import library, error out.
     :: If this happens, please remove this hack.
-    if exist %LIBRARY_PREFIX%\lib\libiomp5md_dll.lib exit 1
+    if exist %LIBRARY_PREFIX%\lib\libiomp5md.lib exit 1
 
     :: Create the import library for libiomp5md.dll. Intel unfortunately doesn't provide it.
     cd %LIBRARY_PREFIX%\bin
@@ -27,5 +27,5 @@ if "%PKG_NAME%"=="intel-openmp" (
 
     dir %LIBRARY_PREFIX%
     dir %LIBRARY_PREFIX%\lib
-    if not exist %LIBRARY_PREFIX%\lib\libiomp5md_dll.lib exit 1
+    if not exist %LIBRARY_PREFIX%\lib\libiomp5md.lib exit 1
 )
