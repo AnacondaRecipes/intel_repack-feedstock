@@ -102,18 +102,18 @@ source:
   - url: https://anaconda.org/intel/intel-openmp/{{ openmp_version }}/download/{{ target_platform }}/intel-openmp-{{ openmp_version }}-intel_{{ openmp_fetch_buildnum }}.tar.bz2
     folder: intel-openmp
     sha256: {{ intel_openmp_hash }}
-  - url: https://anaconda.org/intel/dal/{{ dal_version }}/download/{{ target_platform }}/dal-{{ dal_version }}-intel_{{ dal_fetch_buildnum }}.tar.bz2
-    folder: dal
-    sha256: {{ dal_hash }}
-  - url: https://anaconda.org/intel/dal-include/{{ dal_version }}/download/{{ target_platform }}/dal-include-{{ dal_version }}-intel_{{ dal_fetch_buildnum }}.tar.bz2
-    folder: dal-include
-    sha256: {{ dal_include_hash }}
-  - url: https://anaconda.org/intel/dal-static/{{ dal_version }}/download/{{ target_platform }}/dal-static-{{ dal_version }}-intel_{{ dal_fetch_buildnum }}.tar.bz2
-    folder: dal-static
-    sha256: {{ dal_static_hash }}
-  - url: https://anaconda.org/intel/dal-devel/{{ dal_version }}/download/{{ target_platform }}/dal-devel-{{ dal_version }}-intel_{{ dal_fetch_buildnum }}.tar.bz2
-    folder: dal-devel
-    sha256: {{ dal_devel_hash }}
+  # - url: https://anaconda.org/intel/dal/{{ dal_version }}/download/{{ target_platform }}/dal-{{ dal_version }}-intel_{{ dal_fetch_buildnum }}.tar.bz2
+  #   folder: dal
+  #   sha256: {{ dal_hash }}
+  # - url: https://anaconda.org/intel/dal-include/{{ dal_version }}/download/{{ target_platform }}/dal-include-{{ dal_version }}-intel_{{ dal_fetch_buildnum }}.tar.bz2
+  #   folder: dal-include
+  #   sha256: {{ dal_include_hash }}
+  # - url: https://anaconda.org/intel/dal-static/{{ dal_version }}/download/{{ target_platform }}/dal-static-{{ dal_version }}-intel_{{ dal_fetch_buildnum }}.tar.bz2
+  #   folder: dal-static
+  #   sha256: {{ dal_static_hash }}
+  # - url: https://anaconda.org/intel/dal-devel/{{ dal_version }}/download/{{ target_platform }}/dal-devel-{{ dal_version }}-intel_{{ dal_fetch_buildnum }}.tar.bz2
+  #   folder: dal-devel
+  #   sha256: {{ dal_devel_hash }}
 
 build:
   number: {{ mkl_buildnum }}
@@ -311,185 +311,185 @@ outputs:
       license_file: ANACONDA_LICENSE
       summary: 'BLAS mutex for MKL'
 
-  - name: dal
-    version: {{ dal_version }}
-    script: repack.sh   # [unix]
-    script: repack.bat  # [win]
-    build:
-      number: {{ dal_buildnum }}
-      binary_relocation: false
-      detect_binary_files_with_prefix: false
-      missing_dso_whitelist:
-        # tbb: Since tbb version is wildcarded in run, so we need to call it out here:
-        - "$RPATH/libtbb.so.12"           # [linux]
-        - "$RPATH/libtbbmalloc.so.2"      # [linux]
-        # Optional intel-cmplr-lib-rt.
-        - "$RPATH/libimf.so"              # [linux]
-        - "$RPATH/libintlc.so.5"          # [linux]
-        - "$RPATH/libirng.so"             # [linux]
-        - "$RPATH/libsvml.so"             # [linux]
-        - "$RPATH/libmmd.dll"             # [win]
-        # Optional `intel-opencl-rt`:
-        - "$RPATH/libOpenCL.so.1"         # [linux]
-        - "$RPATH/OpenCL.dll"             # [win]
-        # # this comes from Intel's optional dpcpp_cpp_rt
-        - "$RPATH/libsycl.so.6"           # [linux]
-        # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
-        - libiomp5.so
-        - libcoi_device.so.0
-        # hooray, windows
-        - "C:\\Windows\\System32\\WINTRUST.dll" # [win]
-        # optional dpcpp runtime that we do not yet provide.
-        - "$RPATH/sycl6.dll"              # [win]
-        - "$RPATH/svml_dispmd.dll"        # [win]
-    requirements:
-      build:
-        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
-      host:
-        - tbb {{ tbb_version.split('.')[0] }}.*
-      run:
-        - tbb {{ tbb_version.split('.')[0] }}.*
-    test:
-      commands:
-        - test -f $PREFIX/lib/libonedal.so.1                       # [linux]
-        - test -f $PREFIX/lib/libonedal_core.so.1                  # [linux]
-        - test -f $PREFIX/lib/libonedal_dpc.so.1                   # [linux]
-        - test -f $PREFIX/lib/libonedal_thread.so.1                # [linux]
-        - test -f $PREFIX/lib/libonedal.1.dylib                    # [osx]
-        - test -f $PREFIX/lib/libonedal_core.1.dylib               # [osx]
-        - test -f $PREFIX/lib/libonedal_thread.1.dylib             # [osx]
-        - IF NOT EXIST %PREFIX%\Library\bin\onedal*.dll EXIT /B 1  # [win]
-    about:
-      home: https://software.intel.com/content/www/us/en/develop/tools.html
-      summary: Intel® oneDAL runtime libraries
-      description: |
-        Intel® Data Analytics Acceleration Library (Intel® oneDAL) is the library of Intel® architecture
-        optimized building blocks covering all stages of data analytics: data acquisition from a data
-        source, preprocessing, transformation, data mining, modeling, validation, and decision making.
-        This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
-      license: Intel Simplified Software License
-      license_family: Proprietary
-      license_file:
-        - dal/info/licenses/license.txt
-        - dal/info/licenses/tpp.txt
-      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
-      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
-      dev_url: https://github.com/oneapi-src/oneDAL
+  # - name: dal
+  #   version: {{ dal_version }}
+  #   script: repack.sh   # [unix]
+  #   script: repack.bat  # [win]
+  #   build:
+  #     number: {{ dal_buildnum }}
+  #     binary_relocation: false
+  #     detect_binary_files_with_prefix: false
+  #     missing_dso_whitelist:
+  #       # tbb: Since tbb version is wildcarded in run, so we need to call it out here:
+  #       - "$RPATH/libtbb.so.12"           # [linux]
+  #       - "$RPATH/libtbbmalloc.so.2"      # [linux]
+  #       # Optional intel-cmplr-lib-rt.
+  #       - "$RPATH/libimf.so"              # [linux]
+  #       - "$RPATH/libintlc.so.5"          # [linux]
+  #       - "$RPATH/libirng.so"             # [linux]
+  #       - "$RPATH/libsvml.so"             # [linux]
+  #       - "$RPATH/libmmd.dll"             # [win]
+  #       # Optional `intel-opencl-rt`:
+  #       - "$RPATH/libOpenCL.so.1"         # [linux]
+  #       - "$RPATH/OpenCL.dll"             # [win]
+  #       # # this comes from Intel's optional dpcpp_cpp_rt
+  #       - "$RPATH/libsycl.so.6"           # [linux]
+  #       # these two really shouldn't be here.  See mkl_repack_and_patchelf.sh
+  #       - libiomp5.so
+  #       - libcoi_device.so.0
+  #       # hooray, windows
+  #       - "C:\\Windows\\System32\\WINTRUST.dll" # [win]
+  #       # optional dpcpp runtime that we do not yet provide.
+  #       - "$RPATH/sycl6.dll"              # [win]
+  #       - "$RPATH/svml_dispmd.dll"        # [win]
+  #   requirements:
+  #     build:
+  #       - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
+  #     host:
+  #       - tbb {{ tbb_version.split('.')[0] }}.*
+  #     run:
+  #       - tbb {{ tbb_version.split('.')[0] }}.*
+  #   test:
+  #     commands:
+  #       - test -f $PREFIX/lib/libonedal.so.1                       # [linux]
+  #       - test -f $PREFIX/lib/libonedal_core.so.1                  # [linux]
+  #       - test -f $PREFIX/lib/libonedal_dpc.so.1                   # [linux]
+  #       - test -f $PREFIX/lib/libonedal_thread.so.1                # [linux]
+  #       - test -f $PREFIX/lib/libonedal.1.dylib                    # [osx]
+  #       - test -f $PREFIX/lib/libonedal_core.1.dylib               # [osx]
+  #       - test -f $PREFIX/lib/libonedal_thread.1.dylib             # [osx]
+  #       - IF NOT EXIST %PREFIX%\Library\bin\onedal*.dll EXIT /B 1  # [win]
+  #   about:
+  #     home: https://software.intel.com/content/www/us/en/develop/tools.html
+  #     summary: Intel® oneDAL runtime libraries
+  #     description: |
+  #       Intel® Data Analytics Acceleration Library (Intel® oneDAL) is the library of Intel® architecture
+  #       optimized building blocks covering all stages of data analytics: data acquisition from a data
+  #       source, preprocessing, transformation, data mining, modeling, validation, and decision making.
+  #       This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
+  #     license: Intel Simplified Software License
+  #     license_family: Proprietary
+  #     license_file:
+  #       - dal/info/licenses/license.txt
+  #       - dal/info/licenses/tpp.txt
+  #     license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
+  #     doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
+  #     dev_url: https://github.com/oneapi-src/oneDAL
 
-  - name: dal-include
-    version: {{ dal_version }}
-    script: repack.sh   # [unix]
-    script: repack.bat  # [win]
-    build:
-      number: {{ dal_buildnum }}
-    # An empty requirements/build to satisfy anaconda-linter.
-    requirements:
-      build:
-    test:
-      commands:
-        - test -f $PREFIX/include/daal.h                   # [unix]
-        - test -f $PREFIX/include/daal_sycl.h              # [unix]
-        - IF NOT EXIST %PREFIX%\include\daal*.h EXIT /B 1  # [win]
-    about:
-      home: https://software.intel.com/content/www/us/en/develop/tools.html
-      summary: Headers for building against Intel® oneDAL libraries
-      description: |
-        Intel® Data Analytics Acceleration Library (Intel® oneDAL) is the library of Intel® architecture
-        optimized building blocks covering all stages of data analytics: data acquisition from a data
-        source, preprocessing, transformation, data mining, modeling, validation, and decision making.
-        This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
-      license: Intel Simplified Software License
-      license_family: Proprietary
-      license_file:
-        - dal-include/info/licenses/license.txt
-        - dal-include/info/licenses/tpp.txt
-      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
-      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
-      dev_url: https://github.com/oneapi-src/oneDAL
+  # - name: dal-include
+  #   version: {{ dal_version }}
+  #   script: repack.sh   # [unix]
+  #   script: repack.bat  # [win]
+  #   build:
+  #     number: {{ dal_buildnum }}
+  #   # An empty requirements/build to satisfy anaconda-linter.
+  #   requirements:
+  #     build:
+  #   test:
+  #     commands:
+  #       - test -f $PREFIX/include/daal.h                   # [unix]
+  #       - test -f $PREFIX/include/daal_sycl.h              # [unix]
+  #       - IF NOT EXIST %PREFIX%\include\daal*.h EXIT /B 1  # [win]
+  #   about:
+  #     home: https://software.intel.com/content/www/us/en/develop/tools.html
+  #     summary: Headers for building against Intel® oneDAL libraries
+  #     description: |
+  #       Intel® Data Analytics Acceleration Library (Intel® oneDAL) is the library of Intel® architecture
+  #       optimized building blocks covering all stages of data analytics: data acquisition from a data
+  #       source, preprocessing, transformation, data mining, modeling, validation, and decision making.
+  #       This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
+  #     license: Intel Simplified Software License
+  #     license_family: Proprietary
+  #     license_file:
+  #       - dal-include/info/licenses/license.txt
+  #       - dal-include/info/licenses/tpp.txt
+  #     license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
+  #     doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
+  #     dev_url: https://github.com/oneapi-src/oneDAL
 
-  - name: dal-static
-    version: {{ dal_version }}
-    script: repack.sh   # [unix]
-    script: repack.bat  # [win]
-    build:
-      number: {{ dal_buildnum }}
-      missing_dso_whitelist:
-        - $RPATH/sycld.dll            # [win]
-        - $RPATH/libmmdd.dll          # [win]
-        - "*\\tbb12.dll"              # [win]
-        - "*\\tbbmalloc.dll"          # [win]
-        - $RPATH/tbb12_debug.dll      # [win]
-        - $RPATH/tbbmalloc_debug.dll  # [win]
-        - $RPATH/svml_dispmd.dll      # [win]
-    requirements:
-      build:
-        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
-      run:
-        - {{ pin_subpackage('dal-include', exact=True) }}
-        - tbb {{ tbb_version.split('.')[0] }}.*
-    test:
-      commands:
-        - test -f $PREFIX/lib/libonedal.a                          # [unix]
-        - test -f $PREFIX/lib/libonedal_core.a                     # [unix]
-        - test -f $PREFIX/lib/libonedal_dpc.a                      # [linux]
-        - test -f $PREFIX/lib/libonedal_thread.a                   # [unix]
-        - test -f $PREFIX/lib/libdaal_thread.a                     # [unix]
-        - test -f $PREFIX/lib/libdaal_core.a                       # [unix]
-        - IF NOT EXIST %PREFIX%\Library\lib\onedal*.lib EXIT /B 1  # [win]
-    about:
-      home: https://software.intel.com/content/www/us/en/develop/tools.html
-      summary: Static libraries for Intel® oneDAL
-      description: |
-        Intel® Data Analytics Acceleration Library (Intel® oneDAL) is the library of Intel® architecture
-        optimized building blocks covering all stages of data analytics: data acquisition from a data
-        source, preprocessing, transformation, data mining, modeling, validation, and decision making.
-        This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
-      license: Intel Simplified Software License
-      license_family: Proprietary
-      license_file:
-        - dal-static/info/licenses/license.txt
-        - dal-static/info/licenses/tpp.txt
-      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
-      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
-      dev_url: https://github.com/oneapi-src/oneDAL
+  # - name: dal-static
+  #   version: {{ dal_version }}
+  #   script: repack.sh   # [unix]
+  #   script: repack.bat  # [win]
+  #   build:
+  #     number: {{ dal_buildnum }}
+  #     missing_dso_whitelist:
+  #       - $RPATH/sycld.dll            # [win]
+  #       - $RPATH/libmmdd.dll          # [win]
+  #       - "*\\tbb12.dll"              # [win]
+  #       - "*\\tbbmalloc.dll"          # [win]
+  #       - $RPATH/tbb12_debug.dll      # [win]
+  #       - $RPATH/tbbmalloc_debug.dll  # [win]
+  #       - $RPATH/svml_dispmd.dll      # [win]
+  #   requirements:
+  #     build:
+  #       - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
+  #     run:
+  #       - {{ pin_subpackage('dal-include', exact=True) }}
+  #       - tbb {{ tbb_version.split('.')[0] }}.*
+  #   test:
+  #     commands:
+  #       - test -f $PREFIX/lib/libonedal.a                          # [unix]
+  #       - test -f $PREFIX/lib/libonedal_core.a                     # [unix]
+  #       - test -f $PREFIX/lib/libonedal_dpc.a                      # [linux]
+  #       - test -f $PREFIX/lib/libonedal_thread.a                   # [unix]
+  #       - test -f $PREFIX/lib/libdaal_thread.a                     # [unix]
+  #       - test -f $PREFIX/lib/libdaal_core.a                       # [unix]
+  #       - IF NOT EXIST %PREFIX%\Library\lib\onedal*.lib EXIT /B 1  # [win]
+  #   about:
+  #     home: https://software.intel.com/content/www/us/en/develop/tools.html
+  #     summary: Static libraries for Intel® oneDAL
+  #     description: |
+  #       Intel® Data Analytics Acceleration Library (Intel® oneDAL) is the library of Intel® architecture
+  #       optimized building blocks covering all stages of data analytics: data acquisition from a data
+  #       source, preprocessing, transformation, data mining, modeling, validation, and decision making.
+  #       This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
+  #     license: Intel Simplified Software License
+  #     license_family: Proprietary
+  #     license_file:
+  #       - dal-static/info/licenses/license.txt
+  #       - dal-static/info/licenses/tpp.txt
+  #     license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
+  #     doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
+  #     dev_url: https://github.com/oneapi-src/oneDAL
 
-  - name: dal-devel
-    version: {{ dal_version }}
-    script: repack.sh   # [unix]
-    script: repack.bat  # [win]
-    build:
-      number: {{ dal_buildnum }}
-      run_exports:
-        - {{ pin_subpackage('dal') }}
-    requirements:
-      build:
-        - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
-      run:
-        - {{ pin_subpackage('dal-include', exact=True) }}
-        - {{ pin_subpackage('dal', exact=True) }}
-    test:
-      commands:
-        - test -f $PREFIX/lib/libonedal_sycl.a                     # [linux]
-        # 2023/4/13: 2023.1.0-intel_43558 dooes not provide SYCL support for osx-64, see https://anaconda.org/intel/dal-devel/files?version=2023.1.1
-        - IF NOT EXIST %PREFIX%\Library\lib\onedal*.lib EXIT /B 1  # [win]
-    about:
-      home: https://software.intel.com/content/www/us/en/develop/tools.html
-      summary: Devel package for building things linked against Intel® oneDAL shared libraries
-      description: |
-        Intel® Data Analytics Acceleration Library (Intel® oneDAL) is the library of Intel® architecture
-        optimized building blocks covering all stages of data analytics: data acquisition from a data
-        source, preprocessing, transformation, data mining, modeling, validation, and decision making.
-        This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
-      license: Intel Simplified Software License
-      license_family: Proprietary
-      # 2023/4/13: An error on osx-64:
-      # ValueError: License file given in about/license_file ([...]recipe/dal-devel/info/licenses/license.txt) does not exist in source root dir or in recipe root dir (with meta.yaml)
-      #license_file:
-      #  - dal-devel/info/licenses/license.txt
-      #  - dal-devel/info/licenses/tpp.txt
-      license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
-      doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
-      dev_url: https://github.com/oneapi-src/oneDAL
+  # - name: dal-devel
+  #   version: {{ dal_version }}
+  #   script: repack.sh   # [unix]
+  #   script: repack.bat  # [win]
+  #   build:
+  #     number: {{ dal_buildnum }}
+  #     run_exports:
+  #       - {{ pin_subpackage('dal') }}
+  #   requirements:
+  #     build:
+  #       - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
+  #     run:
+  #       - {{ pin_subpackage('dal-include', exact=True) }}
+  #       - {{ pin_subpackage('dal', exact=True) }}
+  #   test:
+  #     commands:
+  #       - test -f $PREFIX/lib/libonedal_sycl.a                     # [linux]
+  #       # 2023/4/13: 2023.1.0-intel_43558 dooes not provide SYCL support for osx-64, see https://anaconda.org/intel/dal-devel/files?version=2023.1.1
+  #       - IF NOT EXIST %PREFIX%\Library\lib\onedal*.lib EXIT /B 1  # [win]
+  #   about:
+  #     home: https://software.intel.com/content/www/us/en/develop/tools.html
+  #     summary: Devel package for building things linked against Intel® oneDAL shared libraries
+  #     description: |
+  #       Intel® Data Analytics Acceleration Library (Intel® oneDAL) is the library of Intel® architecture
+  #       optimized building blocks covering all stages of data analytics: data acquisition from a data
+  #       source, preprocessing, transformation, data mining, modeling, validation, and decision making.
+  #       This package is a repackaged set of binaries obtained directly from Intel\'s anaconda.org channel.
+  #     license: Intel Simplified Software License
+  #     license_family: Proprietary
+  #     # 2023/4/13: An error on osx-64:
+  #     # ValueError: License file given in about/license_file ([...]recipe/dal-devel/info/licenses/license.txt) does not exist in source root dir or in recipe root dir (with meta.yaml)
+  #     #license_file:
+  #     #  - dal-devel/info/licenses/license.txt
+  #     #  - dal-devel/info/licenses/tpp.txt
+  #     license_url: https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html
+  #     doc_url: https://software.intel.com/content/www/us/en/develop/tools.html
+  #     dev_url: https://github.com/oneapi-src/oneDAL
 
 # Satisfy the linter
 about:
