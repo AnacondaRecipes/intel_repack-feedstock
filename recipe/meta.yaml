@@ -233,8 +233,8 @@ outputs:
         - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix mkl-sdl`) do if not exist "%%a/mkl_rt.lib" exit 1  # [win]
         - cmake -S tests/mkl-devel -B build -G Ninja -DCMAKE_VERBOSE_MAKEFILE=ON
         - cmake --build build -v
-        - cd build && ctest  # [not win]
-        - cd build\Debug && ctest  # [win]
+        - ./build/myapp  # [not win]
+        - .\build\Debug\myapp  # [win]
     about:
       home: https://software.intel.com/en-us/mkl
       summary: Metapackage of MKL headers and libraries for developing software that uses MKL
