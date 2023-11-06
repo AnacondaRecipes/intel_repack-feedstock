@@ -1,14 +1,5 @@
-From 9ecc2d7a195690956d358fda4d9e22f29c1a0f01 Mon Sep 17 00:00:00 2001
-From: Jean-Christophe Morin <jcmorin@anaconda.com>
-Date: Fri, 3 Nov 2023 13:48:23 -0400
-Subject: [PATCH] Fix MKLConfig to allow it to find libraries from conda packages.
-
----
- Library/lib/cmake/mkl/MKLConfig.cmake | 4 ++++++------
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/Library/lib/cmake/mkl/MKLConfig.cmake b/Library/lib/cmake/mkl/MKLConfig.cmake
-index 9195b73b..cfd01c2d 100644
+﻿diff --git a/Library/lib/cmake/mkl/MKLConfig.cmake b/Library/lib/cmake/mkl/MKLConfig.cmake
+index ff1ffce..f80b551 100644
 --- a/Library/lib/cmake/mkl/MKLConfig.cmake
 +++ b/Library/lib/cmake/mkl/MKLConfig.cmake
 @@ -632,7 +632,7 @@ foreach(lib ${MKL_LIBRARIES})
@@ -29,3 +20,6 @@ index 9195b73b..cfd01c2d 100644
                 "redist/${MKL_ARCH}_win" "redist/${MKL_ARCH}_win/compiler"
                 "../redist/${MKL_ARCH}/compiler" "../compiler/lib"
                 "../../compiler/latest/windows/redist/${MKL_ARCH}_win"
+-- 
+2.42.0
+
