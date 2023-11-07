@@ -16,8 +16,8 @@ if (WIN32)
     # https://www.intel.com/content/www/us/en/docs/cpp-compiler/developer-guide-reference/2021-8/use-the-openmp-libraries.html#id-d42745e610
     target_compile_options(myapp PUBLIC "/openmp")
     target_link_options(myapp PUBLIC "/nodefaultlib:vcomp")
-else
+else()
     target_compile_options(myapp PUBLIC "-fopenmp")
-endif
+endif()
 target_include_directories(myapp PUBLIC $<TARGET_PROPERTY:MKL::MKL,INTERFACE_INCLUDE_DIRECTORIES>)
 target_link_libraries(myapp PUBLIC $<LINK_ONLY:MKL::MKL>)
