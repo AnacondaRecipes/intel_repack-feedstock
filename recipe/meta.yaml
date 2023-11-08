@@ -228,6 +228,8 @@ outputs:
         - cmake
         - ninja
         - pkg-config
+        # This is to get the omp.h header.
+        - llvm-openmp  # [osx]
       files:
         - tests
       commands:
@@ -235,10 +237,10 @@ outputs:
         # Verify that the mkl library can be located through pkg-config
         - test -f `pkg-config --variable=libdir --dont-define-prefix mkl-sdl`/libmkl_rt${SHLIB_EXT}  # [unix]
         - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix mkl-sdl`) do if not exist "%%a/mkl_rt.lib" exit 1  # [win]
-        - cmake -S tests/mkl-devel -B build -G Ninja -DCMAKE_VERBOSE_MAKEFILE=ON  # [linux or win]
-        - cmake --build build -v                                                  # [linux or win]
-        - ./build/myapp                                                           # [linux]
-        - build\myapp                                                             # [win]
+        - cmake -S tests/mkl-devel -B build -G Ninja -DCMAKE_VERBOSE_MAKEFILE=ON
+        - cmake --build build -v
+        - ./build/myapp  # [not win]
+        - build\myapp    # [win]
     about:
       home: https://software.intel.com/en-us/mkl
       summary: Metapackage of MKL headers and libraries for developing software that uses MKL

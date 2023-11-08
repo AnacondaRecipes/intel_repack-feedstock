@@ -19,5 +19,14 @@ if (WIN32)
 else()
     target_compile_options(myapp PUBLIC "-fopenmp")
 endif()
+
+if (APPLE)
+    # Fixes this error:
+    # dyld: Symbol not found: _mkl_blas_caxpy
+    #   Referenced from: /Users/builder/...d_pla/lib/libmkl_intel_ilp64.2.dylib
+    #   Expected in: flat namespace in /Users/builder/jcmorin/miniconda/conda-bld/intel_r...d_pla/lib/libmkl_intel_ilp64.2.dylib
+    target_link_options(myapp PUBLIC "-Wl,-flat_namespace")
+endif()
+
 target_include_directories(myapp PUBLIC $<TARGET_PROPERTY:MKL::MKL,INTERFACE_INCLUDE_DIRECTORIES>)
 target_link_libraries(myapp PUBLIC $<LINK_ONLY:MKL::MKL>)
