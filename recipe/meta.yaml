@@ -9,7 +9,7 @@
 
 
 # Bump all build numbers here. (Note: it may be appropriate to use selectors here.)
-{% set bump_all_buildnum = "0" %}
+{% set bump_all_buildnum = "1" %}
 # Bump specific package build numbers here. (Note: it may be appropriate to use selectors here.)
 {% set bump_mkl_buildnum = "1" %}
 {% set bump_openmp_buildnum = "0" %}
@@ -94,6 +94,8 @@ source:
   - url: https://anaconda.org/intel/mkl-devel/{{ mkl_version }}/download/{{ target_platform }}/mkl-devel-{{ mkl_version }}-intel_{{ mkl_fetch_buildnum }}.tar.bz2
     folder: mkl-devel
     sha256: {{ mkl_devel_hash }}
+    patches:                                  # [win]
+      - patches/0001-MKLConfig-windows.patch  # [win]
   - url: https://anaconda.org/intel/mkl-include/{{ mkl_version }}/download/{{ target_platform }}/mkl-include-{{ mkl_version }}-intel_{{ mkl_fetch_buildnum }}.tar.bz2
     folder: mkl-include
     sha256: {{ mkl_include_hash }}
@@ -120,6 +122,10 @@ build:
   skip: True             # [not (x86 and (linux or osx or win))]
   runpath_whitelist:     # <---------------------------------------------------------------------------------------------------------------------------------   Do a trial remove
     - $ORIGIN
+
+requirements:
+  build:
+    - m2-patch  # [win]
 
 outputs:
   - name: mkl
@@ -217,13 +223,24 @@ outputs:
         - {{ pin_subpackage('mkl-include', exact=True) }}
         - blas * mkl
     test:
+      requires:
+        - {{ compiler('c') }}
+        - cmake
+        - ninja
+        - pkg-config
+        # This is to get the omp.h header.
+        - llvm-openmp  # [osx]
+      files:
+        - tests
       commands:
         - IF NOT EXIST %PREFIX%\Library\lib\mkl*dll.lib EXIT /B 1  # [win]
         # Verify that the mkl library can be located through pkg-config
         - test -f `pkg-config --variable=libdir --dont-define-prefix mkl-sdl`/libmkl_rt${SHLIB_EXT}  # [unix]
         - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix mkl-sdl`) do if not exist "%%a/mkl_rt.lib" exit 1  # [win]
-      requires:
-        - pkg-config
+        - cmake -S tests/mkl-devel -B build -G Ninja -DCMAKE_VERBOSE_MAKEFILE=ON
+        - cmake --build build -v
+        - ./build/myapp  # [not win]
+        - build\myapp    # [win]
     about:
       home: https://software.intel.com/en-us/mkl
       summary: Metapackage of MKL headers and libraries for developing software that uses MKL
@@ -254,6 +271,7 @@ outputs:
         - "$RPATH/ze_loader.dll"          # [win]   - optional oneAPI Level Zero loader.
         # Optional dpcpp_cpp_rt
         - "$RPATH/libsycl.so.6"           # [linux]
+        - "$RPATH/sycl6.dll"              # [win]
     requirements:
       build:
         - {{ compiler('cxx') }}           # Compiler added for automatic inclusion of `missing_dso_whitelist` values.
@@ -267,10 +285,11 @@ outputs:
         - __glibc >=2.17                  # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
     test:
       commands:
-        - test -f $PREFIX/lib/libiomp5${SHLIB_EXT}                  # [unix]
-        - test -f $PREFIX/lib/libomptarget${SHLIB_EXT}              # [linux]
-        - IF NOT EXIST %PREFIX%\Library\bin\libiomp*.dll EXIT /B 1  # [win]
-        - IF NOT EXIST %PREFIX%\Library\bin\omp*.dll EXIT /B 1      # [win]
+        - test -f $PREFIX/lib/libiomp5${SHLIB_EXT}                        # [unix]
+        - test -f $PREFIX/lib/libomptarget${SHLIB_EXT}                    # [linux]
+        - IF NOT EXIST %PREFIX%\Library\bin\libiomp*.dll EXIT /B 1        # [win]
+        - IF NOT EXIST %PREFIX%\Library\bin\omp*.dll EXIT /B 1            # [win]
+        - IF NOT EXIST %PREFIX%\Library\lib\libiomp5md.lib echo "%PREFIX%\Library\lib\libiomp5md.lib is missing" & EXIT /B 1  # [win]
     about:
       home: https://software.intel.com/en-us/node/522690
       license: LicenseRef-ProprietaryIntel

@@ -1,0 +1,25 @@
+﻿diff --git a/Library/lib/cmake/mkl/MKLConfig.cmake b/Library/lib/cmake/mkl/MKLConfig.cmake
+index ff1ffce..f80b551 100644
+--- a/Library/lib/cmake/mkl/MKLConfig.cmake
++++ b/Library/lib/cmake/mkl/MKLConfig.cmake
+@@ -632,7 +632,7 @@ foreach(lib ${MKL_LIBRARIES})
+     set_target_properties(MKL::${lib} PROPERTIES IMPORTED_IMPLIB "${${lib}_file}")
+     # Find corresponding DLL
+     set(MKL_DLL_GLOB ${lib}.*.dll)
+-    file(GLOB MKL_DLL_FILE "${MKL_ROOT}/redist/${MKL_ARCH}/${MKL_DLL_GLOB}"
++    file(GLOB MKL_DLL_FILE "${MKL_ROOT}/bin/${MKL_DLL_GLOB}"
+         "${MKL_ROOT}/../redist/${MKL_ARCH}/${MKL_DLL_GLOB}"
+         "${MKL_ROOT}/../redist/${MKL_ARCH}/mkl/${MKL_DLL_GLOB}")
+     if(NOT ${lib} STREQUAL ${MKL_IFACE_LIB} AND NOT ${lib} STREQUAL ${MKL_BLAS95} AND NOT ${lib} STREQUAL ${MKL_LAPACK95})  # Windows IFACE libs are static only
+@@ -719,7 +719,7 @@ if(MKL_THREADING)
+         set(OMP_DLLNAME ${LIB_PREFIX}${MKL_OMP_LIB}.dll)
+         find_path(OMP_DLL_DIR ${OMP_DLLNAME}
+           HINTS $ENV{LIB} $ENV{LIBRARY_PATH} $ENV{MKLROOT} ${MKL_ROOT} $ENV{CMPLR_ROOT}
+-          PATH_SUFFIXES "redist/${MKL_ARCH}"
++          PATH_SUFFIXES "bin"
+                "redist/${MKL_ARCH}_win" "redist/${MKL_ARCH}_win/compiler"
+                "../redist/${MKL_ARCH}/compiler" "../compiler/lib"
+                "../../compiler/latest/windows/redist/${MKL_ARCH}_win"
+-- 
+2.42.0
+
