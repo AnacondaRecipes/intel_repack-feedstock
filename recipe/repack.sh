@@ -7,13 +7,10 @@ set -ex
 
 src="$SRC_DIR/$PKG_NAME"
 
-# # The license files are no longer manually packed but are included via the meta.yaml
-# # not all packages have the license file.  Copy it from mkl, where we know it exists
-# cp -f "$SRC_DIR/mkl/info/licenses/license.txt" "$SRC_DIR"
-# # ro by default.  Makes installations not cleanly removable.
-# chmod 664 "$SRC_DIR/license.txt"
+# conda-build doesn't like .dbg files since patchelf doesn't return any runtime paths.
+# https://github.com/conda/conda-build/blob/25.1.1/conda_build/post.py#L597
+find "$src" -iname "*.dbg" -delete
+cp -av "$src"/* "$PREFIX/"
 
-cp -rv "$src"/* "$PREFIX/"
-
-# Remove info coming from conda package. conda-build will provide its own metadata.
+# replace old info folder with our new regenerated one
 rm -rvf "$PREFIX/info"
