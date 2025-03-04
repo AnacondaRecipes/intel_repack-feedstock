@@ -26,6 +26,7 @@
 {% set mkl_include_hash = "49c9e263a3a3cb2a6929900bfa66a19449cdaeee2da8a821aa8aa7e2fbaf9240" %}   # [win]
 {% set intel_openmp_hash = "06700819892363d36e7b44856f14aa78c718b500c9df8e8bb0d230ced2cd67a0" %}  # [win]
 
+
 {% set intel_ch = "https://software.repos.intel.com/python/conda" %}
 
 package:
