@@ -250,21 +250,24 @@ outputs:
         - IF NOT EXIST %LIBRARY_LIB%\\libiomp5md.lib echo "%LIBRARY_LIB%\\libiomp5md.lib is missing" & EXIT /B 1  # [win]
 
   # mutex package to keep only one blas implementation in a given env
-  - name: blas
-    version: 1.0
-    build:
-      string: mkl
-    # An empty requirements/build to satisfy anaconda-linter.
-    requirements:
-      build:
-    test:
-      commands:
-        - echo 'works!'
-    about:
-      home: https://github.com/conda-forge/intel_repack-feedstock
-      license: BSD-3-Clause
-      license_file: ANACONDA_LICENSE
-      summary: 'BLAS mutex for MKL'
+  # Since this package has a non-unique name, blas-1.0-mkl.conda, it is omitted from future updates as they cause issues
+  # with overwrites on the PBP. If an update to this package is needed in the future, the name should have a hash added
+  # so that it becomes unique per publish.
+#  - name: blas
+#    version: 1.0
+#    build:
+#      string: mkl
+#    # An empty requirements/build to satisfy anaconda-linter.
+#    requirements:
+#      build:
+#    test:
+#      commands:
+#        - echo 'works!'
+#    about:
+#      home: https://github.com/conda-forge/intel_repack-feedstock
+#      license: BSD-3-Clause
+#      license_file: ANACONDA_LICENSE
+#      summary: 'BLAS mutex for MKL'
 
 # please the linter
 about:
