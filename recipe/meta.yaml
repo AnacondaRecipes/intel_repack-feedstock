@@ -143,7 +143,7 @@ outputs:
     build:
       run_exports:
         - {{ pin_subpackage('mkl') }}
-        - {{ pin_subpackage('blas', exact=True) }}
+        - blas=*=mkl
         # this was added to prior mkl-devel releases but not in the feedstock. This is used by
         # various downstreams (mkl_fft, mkl_random) to include the mkl-service wrapper as a dependency.
         - mkl-service >=2.3.0,<3.0a0
@@ -224,7 +224,7 @@ outputs:
         # TODO: use intel mutex or build windows torch in conda-froge
         # https://github.com/conda-forge/intel-graphics-compiler-feedstock/pull/59
         - llvm-openmp <0a0
-        - __glibc >=2.17   # [linux] - intel-openmp 2021.1.1 and newer is built with a newer GLIBC
+        - __glibc >=2.26   # [linux] - intel-openmp 2025.0.0 and newer is built with a newer GLIBC
     # An empty requirements/build to satisfy anaconda-linter.
     requirements:
       build:
@@ -250,21 +250,24 @@ outputs:
         - IF NOT EXIST %LIBRARY_LIB%\\libiomp5md.lib echo "%LIBRARY_LIB%\\libiomp5md.lib is missing" & EXIT /B 1  # [win]
 
   # mutex package to keep only one blas implementation in a given env
-  - name: blas
-    version: 1.0
-    build:
-      string: mkl
-    # An empty requirements/build to satisfy anaconda-linter.
-    requirements:
-      build:
-    test:
-      commands:
-        - echo 'works!'
-    about:
-      home: https://github.com/conda-forge/intel_repack-feedstock
-      license: BSD-3-Clause
-      license_file: ANACONDA_LICENSE
-      summary: 'BLAS mutex for MKL'
+  # Since this package has a non-unique name, blas-1.0-mkl.conda, it is omitted from future updates as they cause issues
+  # with overwrites on the PBP. If an update to this package is needed in the future, the name should have a hash added
+  # so that it becomes unique per publish.
+#  - name: blas
+#    version: 1.0
+#    build:
+#      string: mkl
+#    # An empty requirements/build to satisfy anaconda-linter.
+#    requirements:
+#      build:
+#    test:
+#      commands:
+#        - echo 'works!'
+#    about:
+#      home: https://github.com/conda-forge/intel_repack-feedstock
+#      license: BSD-3-Clause
+#      license_file: ANACONDA_LICENSE
+#      summary: 'BLAS mutex for MKL'
 
 # please the linter
 about:
