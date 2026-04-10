@@ -201,11 +201,7 @@ outputs:
         - "/lib64/libz.so.1"              # [linux]
         - "/lib64/libpthread.so.0"        # [linux]
         - "$RPATH/libffi.so"              # [linux]
-        # Optional intel-cmplr-lib-rt
-        - "$RPATH/libimf.so"              # [linux] - intel-cmplr-lib-rt.
-        - "$RPATH/libintlc.so.5"          # [linux] - intel-cmplr-lib-rt.
-        - "$RPATH/libirng.so"             # [linux] - intel-cmplr-lib-rt.
-        - "$RPATH/libsvml.so"             # [linux] - intel-cmplr-lib-rt.
+        # intel-cmplr-lib-rt is now a run dependency (see requirements below)
         # Optional `intel-opencl-rt`:
         - "$RPATH/libOpenCL.so.1"         # [linux] - optional `intel-opencl-rt`.
         - "$RPATH/OpenCL.dll"             # [win]   - optional `intel-opencl-rt`.
@@ -218,6 +214,7 @@ outputs:
         - "$RPATH/libsycl.so.8"           # [linux]
         - "$RPATH/sycl8.dll"              # [win]
       host:
+        - intel-cmplr-lib-rt {{ openmp_version.split('.')[0] }}.*
         - intel-cmplr-lib-ur {{ openmp_version.split('.')[0] }}.*
       run_constrained:
         # prevent clobbering if user tries to install llvm's implementation
@@ -225,9 +222,17 @@ outputs:
         # https://github.com/conda-forge/intel-graphics-compiler-feedstock/pull/59
         - llvm-openmp <0a0
         - __glibc >=2.26   # [linux] - intel-openmp 2025.0.0 and newer is built with a newer GLIBC
-    # An empty requirements/build to satisfy anaconda-linter.
     requirements:
       build:
+      run:
+        # libomptarget.so has DT_NEEDED entries for libimf.so, libsvml.so,
+        # libirng.so, libintlc.so.5 which are provided by intel-cmplr-lib-rt.
+        # Without this dependency, DSO resolution checks (e.g. ldd) report
+        # "not found" for these libraries, causing downstream filters (such as
+        # Snowflake's package validation) to reject intel-openmp and any
+        # package that depends on it (mkl, pytorch cpu_mkl variants).
+        # See: PKG-13545
+        - intel-cmplr-lib-rt {{ openmp_version.split('.')[0] }}.*
     about:
       home: https://www.intel.com/content/www/us/en/developer/tools/overview.html
       license: LicenseRef-IntelSimplifiedSoftwareOct2022
@@ -245,6 +250,14 @@ outputs:
         - ls -A $PREFIX/lib/*                                  # [unix]
         - test -f $PREFIX/lib/libiomp5${SHLIB_EXT}             # [unix]
         - test -f $PREFIX/lib/libomptarget${SHLIB_EXT}         # [unix]
+        # Verify all shared library dependencies can be resolved (PKG-13545).
+        # libomptarget.so needs libimf.so, libsvml.so, libirng.so, libintlc.so.5
+        # from intel-cmplr-lib-rt. Without that dependency, ldd reports "not found"
+        # and downstream consumers (Snowflake) filter out the package.
+        - ldd $PREFIX/lib/libiomp5.so                          # [linux]
+        - ldd $PREFIX/lib/libomptarget.so                      # [linux]
+        - "! ldd $PREFIX/lib/libiomp5.so 2>&1 | grep 'not found'"          # [linux]
+        - "! ldd $PREFIX/lib/libomptarget.so 2>&1 | grep 'not found'"      # [linux]
         - IF NOT EXIST %LIBRARY_BIN%\\libiomp*.dll EXIT /B 1   # [win]
         - IF NOT EXIST %LIBRARY_BIN%\\omptarget.dll EXIT /B 1  # [win]
         - IF NOT EXIST %LIBRARY_LIB%\\libiomp5md.lib echo "%LIBRARY_LIB%\\libiomp5md.lib is missing" & EXIT /B 1  # [win]
