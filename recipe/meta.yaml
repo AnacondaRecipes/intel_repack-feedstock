@@ -220,6 +220,8 @@ outputs:
         # Optional dpcpp_cpp_rt
         - "$RPATH/libsycl.so.8"           # [linux]
         - "$RPATH/sycl8.dll"              # [win]
+      host:
+        - intel-cmplr-lib-ur {{ openmp_version.split('.')[0] }}.*
       run_constrained:
         # prevent clobbering if user tries to install llvm's implementation
         # TODO: use intel mutex or build windows torch in conda-froge
@@ -228,8 +230,6 @@ outputs:
         - __glibc >=2.26   # [linux] - intel-openmp 2025.0.0 and newer is built with a newer GLIBC
     requirements:
       build:
-      host:
-        - intel-cmplr-lib-ur {{ openmp_version.split('.')[0] }}.*
       run:
         # libomptarget.so and other offloading plugins have DT_NEEDED entries
         # for libimf.so, libsvml.so, libirng.so, libintlc.so.5 which are
