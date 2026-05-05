@@ -1,5 +1,5 @@
 # use this if our build script changes and we need to increment beyond intel's version
-{% set dstbuildnum = '2' %}
+{% set dstbuildnum = '3' %}
 
 # this variable defines oneMKL specific version
 {% set mkl_version = "2025.0.0" %}
@@ -188,6 +188,9 @@ outputs:
     version: {{ openmp_version }}
     build:
       number: {{ openmp_buildnum|int + dstbuildnum|int }}
+      run_exports:
+        strong:
+          - _openmp_mutex >=6.0 *_intel
       missing_dso_whitelist:
         # OS specific:
         - "/lib64/libelf.so.1"            # [linux] - OS file.
