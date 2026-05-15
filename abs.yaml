@@ -1,5 +1,5 @@
-staging_channel_upload_target: openmp-mutex-rework-2
+staging_channel_upload_target: openmp-mutex-rework-3
 
 channels:
   - https://staging.continuum.io/pbp/fs/_openmp_mutex-feedstock/pr2/6bb2abb
-  - https://staging.continuum.io/pbp/openmp-mutex-rework-2
+  - https://staging.continuum.io/pbp/openmp-mutex-rework-3

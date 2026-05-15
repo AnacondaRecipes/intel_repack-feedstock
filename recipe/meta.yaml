@@ -192,7 +192,7 @@ outputs:
       number: {{ openmp_buildnum|int + dstbuildnum|int }}
       run_exports:
         strong:
-          - _openmp_mutex *_intel
+          - _openmp_mutex * *_intel
       missing_dso_whitelist:
         # OS specific:
         - "/lib64/libelf.so.1"            # [linux] - OS file.
