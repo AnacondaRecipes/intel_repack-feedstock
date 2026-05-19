@@ -1,5 +1,5 @@
 # use this if our build script changes and we need to increment beyond intel's version
-{% set dstbuildnum = '2' %}
+{% set dstbuildnum = '3' %}
 
 # this variable defines oneMKL specific version
 {% set mkl_version = "2025.0.0" %}
@@ -148,6 +148,8 @@ outputs:
         # various downstreams (mkl_fft, mkl_random) to include the mkl-service wrapper as a dependency.
         - mkl-service >=2.3.0,<3.0a0
     requirements:
+      build:
+        - msys2-sed  # [win]
       run:
         - {{ pin_subpackage('mkl', exact=True) }}
         - {{ pin_subpackage('mkl-include', exact=True) }}
@@ -188,6 +190,9 @@ outputs:
     version: {{ openmp_version }}
     build:
       number: {{ openmp_buildnum|int + dstbuildnum|int }}
+      run_exports:
+        strong:
+          - _openmp_mutex * *_intel
       missing_dso_whitelist:
         # OS specific:
         - "/lib64/libelf.so.1"            # [linux] - OS file.
@@ -220,10 +225,6 @@ outputs:
       host:
         - intel-cmplr-lib-ur {{ openmp_version.split('.')[0] }}.*
       run_constrained:
-        # prevent clobbering if user tries to install llvm's implementation
-        # TODO: use intel mutex or build windows torch in conda-froge
-        # https://github.com/conda-forge/intel-graphics-compiler-feedstock/pull/59
-        - llvm-openmp <0a0
         - __glibc >=2.26   # [linux] - intel-openmp 2025.0.0 and newer is built with a newer GLIBC
     # An empty requirements/build to satisfy anaconda-linter.
     requirements:
