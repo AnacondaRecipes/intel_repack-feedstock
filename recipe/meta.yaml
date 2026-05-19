@@ -225,10 +225,6 @@ outputs:
       host:
         - intel-cmplr-lib-ur {{ openmp_version.split('.')[0] }}.*
       run_constrained:
-        # prevent clobbering if user tries to install llvm's implementation
-        # TODO: use intel mutex or build windows torch in conda-froge
-        # https://github.com/conda-forge/intel-graphics-compiler-feedstock/pull/59
-        - llvm-openmp <0a0
         - __glibc >=2.26   # [linux] - intel-openmp 2025.0.0 and newer is built with a newer GLIBC
     # An empty requirements/build to satisfy anaconda-linter.
     requirements:
